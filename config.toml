@@ -2,3 +2,10 @@ baseURL = "http://blog.vv13.cn/"
 languageCode = "en-us"
 title = "vv13's blog"
 theme = "ananke"
+
+summaryLength = 150
+hasCJKLanguage = true
+
+[params]
+  featured_image = "/imgs/banner/rock.jpg"
+  Motto = "I'm no one."
