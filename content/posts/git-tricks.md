@@ -72,23 +72,8 @@ $ git push upstream
 ## 更改提交人
 在有一次和小伙伴协作代码时，由于需要伪造成同一个身份，让代码管理者看commit历史以为是同一个人做的，因此就用到了--author参数，提交的格式为：`name<mail>`，比如：`git commit -m 'feat: something' --author="TJ<mail@gmail.com>"`，这是通过git log即可看到作者信息发生了变化。
 
-## Tag
-通常发布版本时，会为当前的时间线打上标签，这样可以快速对不同的版本进行查看。
-#### 创建标签
-1. git tag TAG_NAME，列出标签
-2. git tag -a  TAG_NAME -m 'DESC'，添加附注标签，若不需要信息则去掉-a -m参数
-3. git tag TAG_NAME COMMIT_VERSIONT，给某条提交记录打Tag
+## 其他
 
-#### 查看标签
-1. git tag，列出所有标签名称
-2. git show TAG_NAME，显示tag信息
+- 删除远程分支：$ git push origin --delete <branchName>
 
-#### 推送标签
-默认情况，标签信息是存在本地的，若要推送到服务器，则需使用`git push origin --tags`。
-
-#### 检出标签
-Git的Tag只是一个标记，若要切换到标签对应commit，可以通过`git show TAG_NAME`找到对用的提交信息，再执行相关操作。也可checkout出一个分支与tag对应分支同步：
-```
-$ git checkout -b [branchname] [tagname]
-Switched to a new branch 'branchname'
-```
+- 推送本地分支：$ git push <远程主机名> <本地分支名>:<远程分支名>

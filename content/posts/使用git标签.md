@@ -1,0 +1,27 @@
+---
+title: "在项目中使用git标签"
+date: 2018-04-02T23:36:55+08:00
+---
+
+通常发布版本时，会为当前的版本打上标签，作为一个里程碑，方便对代码进行回退与管理。假若线上有紧急bug需要修复，可直接基于tag版本切出一个分支来，修复后合并到主线上，再接着开发，tag功能是管理git仓库的利器之一。
+
+### 创建标签
+1. `git tag TAG_NAME`，创建简单标签
+2. `git tag -a TAG_NAME -m 'DESC'`，添加附注标签，若不需要信息则去掉-a -m参数
+3. `git tag TAG_NAME COMMIT_VERSIONT`，给某条提交记录打Tag
+
+对本地仓库进行tag操作后，可将tag信息推送到远程库：`git push --tags`。
+
+### 删除标签
+删除本地标签较为简单，使用`git tag -d TAG_NAME`即可，若要删除远程库origin中包含的标签，则使用`git push origin --delete tag TAG_NAME`。
+
+### 查看标签
+1. `git tag`，列出所有标签名称
+2. `git show TAG_NAME`，显示tag信息
+
+### 检出标签
+Git的Tag只是一个标记，若要切换到标签对应commit，可以通过`git show TAG_NAME`找到对用的提交信息，再执行相关操作。也可checkout出一个分支与tag对应分支同步：
+```
+$ git checkout -b [branchname] [tagname]
+Switched to a new branch 'branchname'
+```
