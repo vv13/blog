@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  一览TypeScript基本类型 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/%E4%B8%80%E8%A7%88typescript%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">一览TypeScript基本类型</h1>
+      <h2 class="date">May 19, 2018</h2>
+
+      
+    </header>
+
+    
+
+<h4 id="基本类型">基本类型</h4>
+
+<p>TypeScript的基本类型有：<strong>boolean</strong>、<strong>number</strong>、<strong>string</strong>、<strong>null</strong>、<strong>undefined</strong>、<strong>any</strong>等，any代表不确定的类型，不会触发类型检测，它们可以用于指定JavaScript变量的类型：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">const test: string = &#39;vv13&#39;</pre></div>
+<h4 id="函数类型">函数类型</h4>
+
+<p>类型系统可以用来定义函数参数与返回值的类型：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function test(arg1: number): string { return number &gt; 60 ? &#39;good&#39; : &#39;bad&#39; }</pre></div>
+<p>函数还有其他两种类型：</p>
+
+<ul>
+<li><strong>void</strong>：不属于任何类型。函数若没有返回值，可以用void指代：<code>function test(): void {}</code></li>
+<li><strong>never</strong>：代表函数不会执行完成，如抛出错误、死循环等 (event lop)：<code>function test(): never { while(true) {} }</code></li>
+</ul>
+
+<h4 id="数组类型">数组类型</h4>
+
+<p>数组类型有两种定义的方式（recommend 1）:</p>
+
+<ol>
+<li><code>let test: number[] = [1, 2, 3]</code></li>
+<li><code>let test: Array&lt;number&gt; = [1, ,2 ,3]</code></li>
+</ol>
+
+<h4 id="元组tuple">元组Tuple</h4>
+
+<p>元组用于定义固定个数不同类型的集合：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">let tuple: [string, number] = [&#39;11&#39;, 2] // true
+let tuple: [string, number] = [&#39;11&#39;, &#39;2&#39;] // false
+let tuple: [string, number] = [&#39;11&#39;, 2, &#39;11&#39;] // true</pre></div>
+<p>当元素索引超出定义范围的时候，将使用联合类型 ，即只要符合元组定义的类型之一即可。</p>
+
+<h4 id="枚举enum">枚举Enum</h4>
+
+<p>枚举类型用于限定数值类型的定义，提供给集合列表一个友好的访问名称，我们可以用如下形式定义一个枚举：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">enum Season { Spring, Summer, Autumn, Winter = 5 }</pre></div>
+<p>枚举类型默认从0开始排列，我们也可以给枚举项名称特定的值，枚举不仅可以获取枚举的值，也可以通过枚举值直接获取枚举项名称：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Season.Spring // 0
+Season[5] // Winter</pre></div>
+<h4 id="断言assertions">断言assertions</h4>
+
+<p>断言像是在告诉编译器，我比你更能明白这个值的类型，编译器就会按照指定的类型来处理变量，断言依然有两种形式(recommend &lsquo;as&rsquo;)：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">let someValue: any = &#34;this is a string&#34;;
+
+let strLength: number = (&lt;string&gt;someValue).length;
+let strLength: number = (someValue as string).length;</pre></div>
+<p>断言不会执行特殊检查与重构数据，也没有任何运行时的影响，它只是假设使用者已经完成了类型检测。</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

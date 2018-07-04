@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on 🤪</title>
+    <link>https://vv13.cn/tags/web/</link>
+    <description>Recent content in Web on 🤪</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vv13.cn/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>去他妈的适配</title>
+      <link>https://vv13.cn/posts/%E5%8E%BB%E4%BB%96%E5%A6%88%E7%9A%84%E9%80%82%E9%85%8D/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E5%8E%BB%E4%BB%96%E5%A6%88%E7%9A%84%E9%80%82%E9%85%8D/</guid>
+      <description>移动开发中涉及的单位 熟记名词就能装逼如风，却不能成为一名好的开发者，在这里与大家一起先复习一遍开发中涉及到的单位，不论是为了技术梦想还是为了人生目标，都应该好好了解一下。
+屏幕尺寸 即屏幕对角线之间的距离，单位为英寸(inch)。单位换算如下： - 1 inch = 2.54 cm - 1 cm = 0.3937inch
+分辨率 分辨率大致分为两种： 1. 屏幕分辨率，例如屏幕分辨率为1920 x 1080，代表着设备屏幕水平方向有1024个像素点，垂直方向有1080个像素点，显示屏固定的情况下，分辨率越高画面越精细。 2. 图像分辨率，通常情况下，图像的分辨率越高，所包含的像素就越多，图像就越清晰，印刷的质量也就越好。同时，它也会增加文件占用的存储空间。
+像素 像素(pixel)是组成图像的最小显示单位，它是一个抽象的单位，而不是具体的长度，在Web开发中通常将像素分为两类：
+ 设备像素，指设备的物理像素，任何设备屏幕的物理像素的数量都是不变的。 CSS像素，指设备的逻辑像素，也称为独立像素，是一个相对的单位大小。1个CSS像素在不同设备上对应不同的物理像素数，这个比值称为DPR(Device Pixel Ration，设备像素比)。  以Phone 5为例，它的设备像素为640/1136px，设备像素比为2，因此CSS像素为320/568px。设计师通常根据固定的设备像素进行设计，前端工程师再根据不同设备的特性，将物理像素转换为相应的逻辑像素。
+设备像素比 设备像素比缩写为DPR(Device Pixel Ratio)或者DPPX(Dots Per Pixel)，一般用于表示一个CSS像素等于几个物理像素：DPR=物理像素/逻辑像素。当dpr为2时，1个CSS像素由4个物理像素组成，可通过window.devicePixelRatio获取当前设备的dpr。
+像素密度 像素密度也叫做屏幕密度，缩写为DPI(dots Per Inch)或PPI(Pixels Per Inch)。以iphone X举例，设备的参数如下：
+ 水平分辨率：2436px 垂直分辨率：1125px 屏幕对角线尺寸：5.8英寸  为了计算像素密度，我们通常需要求出屏幕对角线的分辨率，再除以屏幕对角线尺寸。根据勾股定理(直角三角形的两条直角边的长度的平方和等于斜边长的平方)，得以下表达式： tricks：
+ DPI与PPI其实指代的东西是不同的，需要注意语境，人们多为混用。 根据实验，普通人眼在一般阅读距离的极限就是300~400DPI，所以说目前的高清屏的DPI也在300左右。 普通的非彩色喷墨式打印机通常设定在300dpi，根据公式：像素=英寸 x dpi，可以通过调整图像像素大小，获取所需要的实际尺寸大小。  以寸照为例，通过搜索，1寸=2.5cm x 3.5cm=413 x 295，聪明的你肯定不需要过多的说明，看以下换算公式： viewport(视口) viewport概念通常存在于移动端，因为pc端的视口大小与窗口相等，而在移动设备的浏览器中，一般视口的默认大小会比设备逻辑的独立像素要大，并可拖过手动缩放来浏览网页，这个窗口就称之为viewport，普通设备浏览器的默认viewport通常为980px或1024px，随之的副作用就是设备的横向滚动条。
+布局视口 手机浏览器默认会去适应那些不是为移动端设计的网站，因此会为viewport设置一个默认值，一般为980px，这样大部分电脑端页面都能正常显示了，只是比例看起来很小，因此布局视口通常是大于浏览器可视区域，不进行缩放的情况也会有额外的额外滚动条，这个宽度可以通过document.documentElement.clientWidth来进行获取，它跟设备的大小没有关系。</description>
+    </item>
+    
+    <item>
+      <title>d3-intro</title>
+      <link>https://vv13.cn/posts/d3-intro/</link>
+      <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/d3-intro/</guid>
+      <description>D3.js是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。D3严格遵循Web标准，因而可以让你的程序轻松兼容现代主流浏览器并避免对特定框架的依赖。同时，它提供了强大的可视化组件，可以让使用者以数据驱动的方式去操作DOM。
+D3允许将数据绑定到DOM中，然后基于数据驱动去变化DOM。例如可以用数字数组来生成html的表格，或者使用相同数据创建一个平滑响应的SVG条形图。
+选择器 使用W3C DOM API十分繁琐，因此D3使用selections，一种声明式的方式来随意的操纵节点。
+例如原dom有操作方式如下：
+var paragraphs = document.getElementsByTagName(&amp;#34;p&amp;#34;); for (var i = 0; i &amp;lt; paragraphs.length; i++) { var paragraph = paragraphs.item(i); paragraph.style.setProperty(&amp;#34;color&amp;#34;, &amp;#34;white&amp;#34;, null); } 使用d3的方式来重写：
+d3.selectAll(&amp;#34;p&amp;#34;).style(&amp;#34;color&amp;#34;, &amp;#34;white&amp;#34;); d3.select(&amp;#34;body&amp;#34;).style(&amp;#34;background-color&amp;#34;, &amp;#34;black&amp;#34;) 打开调试的页面，即可看到效果。d3的选择器也是由标准W3C Selectors API构建的，因此在各种现代浏览器中原生支持。d3提供了丰富的方法来改变节点：设置属性、样式、注册事件、删除添加节点等，这些可以满足大多的需要。
+动态特性 d3就像dom的框架jquery一样，包含有许多属性、样式的函数方法，它不仅仅简化了方法，组合起来会惊人的强大。d3还提供了许多内建可复用的函数，如区域图形、线和饼图。
+例如，使偶数段落颜色值随机：
+d3.selectAll(&amp;#39;p&amp;#39;).style(&amp;#39;color&amp;#39;, function (d, i) { return i % 2 ? &amp;#39;#fff&amp;#39; : &amp;#39;hsl(&amp;#39; + Math.random() * 360 + &amp;#39;,100%,50%)&amp;#39; }) 计算属性通常用于绑定数据，数据规定为一个数组，每个元素都会通过第一个参数由默认顺序传递进入选择器函数，例如我们可以使用一个数组去动态设置字体大小：
+d3.selectAll(&amp;#34;p&amp;#34;) .data([4, 8, 15, 16, 23, 42]) .style(&amp;#34;font-size&amp;#34;, function(d) { return d + &amp;#34;px&amp;#34;; }); 一旦数据被绑定到dom，那么在之后的操作中可以不用再一次绑定数据，d3将会检测先前绑定的数据，因此允许重新计算属性而不用重新绑定。</description>
+    </item>
+    
+    <item>
+      <title>css的BFC特性</title>
+      <link>https://vv13.cn/posts/bfc-intro/</link>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/bfc-intro/</guid>
+      <description>预备知识 毗邻元素
+只要两个容器之间没有被非空内容、padding、border或clear隔开，那么就可以称作毗邻元素，父组件相对于其第一个子元素或最后一个子元素，只要没有相隔任何上述条件，也可称之为毗邻元素
+普通流(normal flow)
+在普通流中，元素按照其在HTML中的先后顺序至上而下布局，这个过程中，行内元素水平排列，直到当行被占满后换行，块级元素则会被渲染为一个新行，除非另外指定，否则所有元素默认都是普通流定位。
+以下情况会脱离文档流而存在，分别是：float: left、position: absolute、position: fixed
+什么是BFC Block Formatting Context，块格式化上下文，拥有一套渲染规则来决定子元素将如何布局，以及和其他子元素的相互关系。
+BFC可通过如下条件形成：
+ 浮动元素、绝对定位元素 非块级盒子的块级容器(inline-blocks、table-cells、table-captions) overflow不为默认值visible  BFC的特性如下：
+ 内部的Box会在垂直方向，从顶部开始一个接一个地放置 Box垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box会发生叠加 在BFC中，每一个Box的左外边缘，会触碰到容器的左边缘，右边也依然，即使存在浮动也如此 形成了BFC的区域不会与float box重叠 它是一个隔离的容器，容器内的子元素不会影响到外面的元素 计算BFC的高度时，浮动元素也参与计算  利用BFC的特性，我们可以用来解决诸如以下等问题。
+消除外边距塌陷(margin collapsing) 在同一个BFC中，两个或多个毗邻的普通流中的块元素垂直方向上的margin会发生叠加，相邻块的外边距有时会被合并为单个外边距，取其中更大的值，这种行为称为外边距塌陷，发生此情况有一下几种情况：
+1. 相邻的兄弟姐妹元素
+&amp;lt;p style=&amp;#34;margin-bottom: 30px;&amp;#34;&amp;gt;这个段落的下外边距被合并...&amp;lt;/p&amp;gt; &amp;lt;p style=&amp;#34;margin-top: 20px;&amp;#34;&amp;gt;...这个段落的上外边距被合并。&amp;lt;/p&amp;gt; 此时p的距离为30px，而不是预想的50px，在布局时需要注意。
+2. 父子元素
+&amp;lt;div class=&amp;#34;parent&amp;#34; style=&amp;#34;margin-top: 20px;&amp;#34;&amp;gt; &amp;lt;p class=&amp;#34;child&amp;#34; style=&amp;#34;margin-top: 10px;&amp;#34;&amp;gt;p的margin会被父元素的margin合并&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; 产生这种影响必须满足两个条件：
+ 第一个子元素的上边距和父元素的上边距会进行合并 最后一个子元素的下边距会和父元素的下边距进行合并  当父元素的margin-top为0时，而子元素不为0，则整个区域都会具有子元素的外边距，这种情况称之为子元素劫持。给父元素设置overflow: hidden或是其他，触发了BFC特性即可解决。
+3. 空元素
+它的上下边距会自动合并为一个外边距，这作为外边距塌陷的一种特殊情况。
+解决父元素塌陷 父元素塌陷指的是当子元素全为float，父元素高度为0这种情况，因为float元素不占据文档流(normal flow)空间，所以产生了塌陷，只需触发父元素的BFC特性即可解决，BFC会根据子元素的情况自动适应高度，包含浮动的子元素。
+解决元素被浮动元素覆盖 浮动元素的毗邻节点会无视浮动的元素，尽量占满一行，这样就会被浮动元素所覆盖到，因此只需要把非浮动元素触发BFC，则会形成两列布局，从而不会被浮动元素覆盖。</description>
+    </item>
+    
+    <item>
+      <title>flex布局</title>
+      <link>https://vv13.cn/posts/flex%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/flex%E5%B8%83%E5%B1%80/</guid>
+      <description>简介 flex即弹性盒子布局，它比传统的布局提供更大的灵活性，w3c组织在09年提出这个概念，目前已经广泛应用于支持各个浏览器。
+它最大的特性是可以使子元素充分的利用容器的空间，当空间不足时也可进行收缩，以此来适应各种各样的屏幕大小，也能根据权重排列子元素的顺序。
+设置容器为flex布局，只需要设置display: flex即可。它将具有以下特性： 1. 子元素float、clear、vertical-align将失效。 2. 存在主轴(默认为水平)与交叉轴，通过flex-direction可设置主轴的方向。
+概念 轴线  主轴: 它是flex子元素的排列方向，默认为水平向右，可根据flex-direction确定方向。 交叉轴：垂直于主轴,确定子元素的垂直方向上的位置。  flex 属性：  flex-direction，设置主轴的方向 flex-wrap，项目是否多行显示 flex-flow，flex-direction与flex-wrap的缩写，默认为row nowrap justify-content，项目在主轴上的对齐方式 align-items，项目在交叉轴上的对齐方式 align-content，多根轴线的对其方式，对只有一根轴线的无效  flex item属性：  order，项目的权重，数值越小排列越靠前 flex-grow，项目的放大比例，默认为0不放大 flex-shrink，项目的缩小比例，默认为1等比缩小，设置为0后不缩小 flex-basis，项目本身的大小，和width、height类似 flex，flex-grow、flex-shrink和flex-basis属性的简写 align-self，设置项目自身的对其方式，覆盖align-items属性  各项详细配置，请参照阮老师的语法文章。
+Usage  vv13.cn/flex-demo
+ 文字不便描述，直接访问在线app示例吧，这里是github地址～</description>
+    </item>
+    
+  </channel>
+</rss>

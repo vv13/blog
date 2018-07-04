@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  使用markdown编写极简PPT · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/%E4%BD%BF%E7%94%A8markdown%E7%BC%96%E5%86%99%E6%9E%81%E7%AE%80ppt/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">使用markdown编写极简PPT</h1>
+      <h2 class="date">April 7, 2018</h2>
+
+      
+    </header>
+
+    
+
+<p>总有人喜欢用markdown编写一切文档类型的东西，当然PPT也不能例外，于是就有了以下的这篇用来安利并节约你使用时间的文章。</p>
+
+<h2 id="reveal-js">reveal.js</h2>
+
+<p><a href="https://github.com/hakimel/reveal.js">reveal.js</a>是一个用于生成简单的演示文稿的js框架，它支持嵌套幻灯片、markdown格式、pdf导出、演讲笔记等操作，界面也是响应式的，不止于此，它也有在线的全功能可视化编辑器<a href="https://slides.com/">平台</a>，介绍这么多，不如简单来看一看reveal.js的操作方法吧。</p>
+
+<h2 id="基本使用">基本使用</h2>
+
+<p>本文不会介绍文稿的配置信息，详细配置与说明请参照项目README。</p>
+
+<p>首先，通过以下脚本运行模板项目：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ git clone https://github.com/hakimel/reveal.js.git my-reveal-ppt
+$ cd my-reveal-ppt
+$ npm install
+$ npm start</pre></div>
+<p>在这一步之前，你应该可以通过<code>http://localhost:8000</code>访问演示文稿了。接下来开始引入markdown文件：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">		&lt;div class=&#34;reveal&#34;&gt;
+			&lt;div class=&#34;slides&#34;&gt;
+                &lt;section
+                    data-markdown=&#34;./md/test.md&#34;  
+                    data-separator=&#34;^\n----\n&#34;  
+                    data-separator-vertical=&#34;^\n--\n&#34;  
+                    data-separator-notes=&#34;^Note:&#34;  
+                    data-charset=&#34;utf8&#34;&gt;
+                &lt;/section&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;</pre></div>
+<p>其中各属性代表的意思是：</p>
+
+<ul>
+<li>data-markdown：外部markdown文件的链接地址</li>
+<li>data-separator：水平幻灯片分页符</li>
+<li>data-separator-vertical：垂直幻灯片切换分隔符</li>
+<li>data-separator-notes：演讲者笔记</li>
+<li>data-charset：文件编码</li>
+</ul>
+
+<h2 id="more">More</h2>
+
+<h4 id="演讲笔记">演讲笔记</h4>
+
+<p>注意到我们在上一章节配置了<code>data-separator-notes</code>，可在markdown文件中通过<code>Notes:</code>标签写的内容却不会在ppt中展示出来，只有通过配置<code>showNotes: true</code>才会始终出现在PPT的边栏上，真的是这样么？按s即可打开演讲者文稿，不仅可以展示下一篇，还能看到Notes。</p>
+
+<h4 id="修改主题">修改主题</h4>
+
+<p>在<code>css/theme/source</code>任意复制一个当前使用的主题为test.scss，目录里的文件会自动编译为css，因此直接在html中移入<code>css/theme/test.css</code>就行了。另需改变theme中引入的外部文件，同理复制一份，换一个引用名称即可。</p>
+
+<h4 id="转换为pdf">转换为PDF</h4>
+
+<p>通过浏览器内置的打印不靠谱，推荐使用<a href="https://github.com/astefanutti/decktape">decktape</a>。简单用法请参照以下命令：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ npm install -g decktape
+$ decktape reveal http://localhost:8000/index.html index.pdf</pre></div>
+<h4 id="codepen">Codepen</h4>
+
+<p>之前通过将异步脚本放进index.html进行加载，后来发现markdown可直接引入iframe形式的codepen代码。</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

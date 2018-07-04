@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  js继承小结 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">js继承小结</h1>
+      <h2 class="date">April 16, 2018</h2>
+
+      
+    </header>
+
+    
+
+<h2 id="重写原型链">重写原型链</h2>
+
+<p>初始化父类实例，将实例赋予给子类的原型链，这样一来，新原型不仅具有父类的所有属性和方法，而且内部还有一个<code>__proto__</code>指针指向父类的原型，这种方法称之为<strong>类式继承</strong>，代码如下：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function SuperClass() {}
+function SubClass() {}
+SubClass.prototype = new SuperClass()</pre></div>
+<p>使用这类继承需要注意以下特性：</p>
+
+<ol>
+<li>使用子类创建的实例，constructor会指向父类，这是因为子类prototype被替换为父类的prototype了</li>
+<li>引用类型的值会被所有实例共享</li>
+</ol>
+
+<h2 id="借用构造函数">借用构造函数</h2>
+
+<p>将初始化属性与方法定义在父类中，在子类构造函数中使用call()调用父类的构造函数，这样父类的所有实例方法就会赋予给子类实例，这样可以解决引用类型共享问题：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function SuperClass() {}
+function SubClass() {
+    SuperClass.call(this)
+}</pre></div>
+<p>如果仅靠借用构造函数，方法在构造函数中定义而非原型链，那么函数复用就无从谈起了，所以说借用构造函数很是很少单独使用的。</p>
+
+<h2 id="组合继承">组合继承</h2>
+
+<p>这种方法结合了以上两种的，核心思想为使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function SuperClass() {}
+function SubClass() {
+    SuperClass.call(this)
+}
+SubClass.prototype = new SuperClass()
+SubClass.prototype.constructor = SubClass</pre></div>
+<p>组合继承避免了以上两种的缺点，因此成为JavaScript最常用的继承模式之一。他的缺点是会调用两次父级的构造函数，一次在初始化父类实例赋予给子类原型时，第二次在执行子类的构造函数时。</p>
+
+<h2 id="原型式继承">原型式继承</h2>
+
+<p>它通过创造一个临时的构造函数，基于已有对象的原型链创建新的对象：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function createOjbect(obj) {
+    function F() {}
+    F.prototype = obj
+    return new F()
+}</pre></div>
+<p>本质上是对已有对象进行了一次浅拷贝，这类方法我们现可通过Object.create()来实现。</p>
+
+<h2 id="寄生式继承">寄生式继承</h2>
+
+<p>寄生式继承指的是在继承函数中，在内部通过某种方式来修改对象，最后再返回此对象，由于过程和工厂函数类似，并不暴露给外部，所以称之为寄生：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function createAnother(obj) {
+    const newObj = Object.create(obj)
+    newObj.b = &#39;2&#39;
+    return newObj
+}</pre></div>
+<p>使用寄生式继承来为对象添加函数，会因为做不到函数复用而降低效率，这一点与借用构造函数类似。</p>
+
+<h2 id="寄生组合式继承">寄生组合式继承</h2>
+
+<p>通过借用构造函数来继承属性，原型链的混成形式（创建父类原型的一个副本直接赋值给子类原型）来实现继承：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function inheritPrototype(subClass, superClass) {
+    const prototype = Object(superClass.prototype)
+    prototype.constructor = subClass
+    subClass.prototype = prototype
+}
+function SuperClass() {}
+function SubClass() {
+    SuperClass.call(this, name)
+}
+inheritPrototype(SubClass, SuperClass)</pre></div>
+<h2 id="多继承">多继承</h2>
+
+<p>extend方法大家都听说过，核心实现就是对对象中的属性的一个个进行复制，以下方法只实现了浅复制，若需要深复制也简单，就是对引用类型再执行一遍extend的过程：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function extend(target = {}, source) {
+    for (const property in source) {
+        target[property] = source[property]
+    }
+    return target
+}</pre></div>
+<p>实现了单个extend复制，其实多继承也就非常简单了：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function mixExtend(target = {}, ...args) {
+    args.forEach(e =&gt; extend(target, e))
+    return target
+}</pre></div>
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

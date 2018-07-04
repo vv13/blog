@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 🤪</title>
+    <link>https://vv13.cn/posts/</link>
+    <description>Recent content in Posts on 🤪</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vv13.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一览TypeScript基本类型</title>
+      <link>https://vv13.cn/posts/%E4%B8%80%E8%A7%88typescript%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E4%B8%80%E8%A7%88typescript%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</guid>
+      <description>基本类型 TypeScript的基本类型有：boolean、number、string、null、undefined、any等，any代表不确定的类型，不会触发类型检测，它们可以用于指定JavaScript变量的类型：
+const test: string = &amp;#39;vv13&amp;#39; 函数类型 类型系统可以用来定义函数参数与返回值的类型：
+function test(arg1: number): string { return number &amp;gt; 60 ? &amp;#39;good&amp;#39; : &amp;#39;bad&amp;#39; } 函数还有其他两种类型：
+ void：不属于任何类型。函数若没有返回值，可以用void指代：function test(): void {} never：代表函数不会执行完成，如抛出错误、死循环等 (event lop)：function test(): never { while(true) {} }  数组类型 数组类型有两种定义的方式（recommend 1）:
+ let test: number[] = [1, 2, 3] let test: Array&amp;lt;number&amp;gt; = [1, ,2 ,3]  元组Tuple 元组用于定义固定个数不同类型的集合：
+let tuple: [string, number] = [&amp;#39;11&amp;#39;, 2] // true let tuple: [string, number] = [&amp;#39;11&amp;#39;, &amp;#39;2&amp;#39;] // false let tuple: [string, number] = [&amp;#39;11&amp;#39;, 2, &amp;#39;11&amp;#39;] // true 当元素索引超出定义范围的时候，将使用联合类型 ，即只要符合元组定义的类型之一即可。</description>
+    </item>
+    
+    <item>
+      <title>CSS子类选择器</title>
+      <link>https://vv13.cn/posts/css%E5%AD%90%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/</link>
+      <pubDate>Tue, 17 Apr 2018 14:36:37 +0800</pubDate>
+      
+      <guid>https://vv13.cn/posts/css%E5%AD%90%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/</guid>
+      <description>nth-child和nth-of-type之间的差异  p:nth-child(n)：选取元素为父级的第n个子元素，并且类型为p标签 p:nth-of-type(n)：选取元素为父级的第n个p标签  举个例子：
+&amp;lt;div class=&amp;#34;wrap&amp;#34;&amp;gt; &amp;lt;h1&amp;gt;标题&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;段落1&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;段落2&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;段落3&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;段落4&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; 当我们想给段落1设置为红色，如果使用p:nth-child(1) { color: red}，其实是选不了段落1的，因为段落1属于父级的第2个子元素，改为nth-of-type即可选中。
+在实际编码中，往往nth-of-type使用较多，因为不容易造成误解。
+范围选取 还是以上述html代码为例子，我们可以使用nth-of-type时进行一些范围选取(用法同nth-child)。
+特定元素(n) 第一个元素的索引为1，n代指选取第几个元素。
+p:nth-of-type(2) {display: none} effect：段落2 show：段落1、段落3、段落4 除了指定特定的数字，我们也可直接使用n，n代表的是元素的全部索引，2n表示索引为2的倍数，3n同理。
+基偶选择(odd、even) odd为基数、even为偶数。
+p:nth-of-type(even) {display: none} effect：段落2、段落4 show：段落1、段落3 正向选择(n + ?) 选取从第？个元素开始到最后的集合。
+p:nth-of-type(n + 3) {display: none} effect：段落3、段落4 show：段落1、段落2 负向选择(-n + ?) 选取第1个到第？个元素的集合。
+p:nth-of-type(-n + 3) {display: none} effect：段落1 ~ 段落3 show：段落4 范围选择(正负选择组合) 同时使用正向与负向，即可选取合理的范围。
+p:nth-of-type(n + 2):nth-of-type(-n + 4) {display: none} effect：段落2 ~ 段落4 show：段落1 上述所有选择器都可以以这样的形式组合。</description>
+    </item>
+    
+    <item>
+      <title>js继承小结</title>
+      <link>https://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Mon, 16 Apr 2018 00:52:54 +0800</pubDate>
+      
+      <guid>https://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</guid>
+      <description>重写原型链 初始化父类实例，将实例赋予给子类的原型链，这样一来，新原型不仅具有父类的所有属性和方法，而且内部还有一个__proto__指针指向父类的原型，这种方法称之为类式继承，代码如下：
+function SuperClass() {} function SubClass() {} SubClass.prototype = new SuperClass() 使用这类继承需要注意以下特性：
+ 使用子类创建的实例，constructor会指向父类，这是因为子类prototype被替换为父类的prototype了 引用类型的值会被所有实例共享  借用构造函数 将初始化属性与方法定义在父类中，在子类构造函数中使用call()调用父类的构造函数，这样父类的所有实例方法就会赋予给子类实例，这样可以解决引用类型共享问题：
+function SuperClass() {} function SubClass() { SuperClass.call(this) } 如果仅靠借用构造函数，方法在构造函数中定义而非原型链，那么函数复用就无从谈起了，所以说借用构造函数很是很少单独使用的。
+组合继承 这种方法结合了以上两种的，核心思想为使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承：
+function SuperClass() {} function SubClass() { SuperClass.call(this) } SubClass.prototype = new SuperClass() SubClass.prototype.constructor = SubClass 组合继承避免了以上两种的缺点，因此成为JavaScript最常用的继承模式之一。他的缺点是会调用两次父级的构造函数，一次在初始化父类实例赋予给子类原型时，第二次在执行子类的构造函数时。
+原型式继承 它通过创造一个临时的构造函数，基于已有对象的原型链创建新的对象：
+function createOjbect(obj) { function F() {} F.prototype = obj return new F() } 本质上是对已有对象进行了一次浅拷贝，这类方法我们现可通过Object.create()来实现。
+寄生式继承 寄生式继承指的是在继承函数中，在内部通过某种方式来修改对象，最后再返回此对象，由于过程和工厂函数类似，并不暴露给外部，所以称之为寄生：
+function createAnother(obj) { const newObj = Object.</description>
+    </item>
+    
+    <item>
+      <title>使用markdown编写极简PPT</title>
+      <link>https://vv13.cn/posts/%E4%BD%BF%E7%94%A8markdown%E7%BC%96%E5%86%99%E6%9E%81%E7%AE%80ppt/</link>
+      <pubDate>Sat, 07 Apr 2018 19:54:45 +0800</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E4%BD%BF%E7%94%A8markdown%E7%BC%96%E5%86%99%E6%9E%81%E7%AE%80ppt/</guid>
+      <description>总有人喜欢用markdown编写一切文档类型的东西，当然PPT也不能例外，于是就有了以下的这篇用来安利并节约你使用时间的文章。
+reveal.js reveal.js是一个用于生成简单的演示文稿的js框架，它支持嵌套幻灯片、markdown格式、pdf导出、演讲笔记等操作，界面也是响应式的，不止于此，它也有在线的全功能可视化编辑器平台，介绍这么多，不如简单来看一看reveal.js的操作方法吧。
+基本使用 本文不会介绍文稿的配置信息，详细配置与说明请参照项目README。
+首先，通过以下脚本运行模板项目：
+$ git clone https://github.com/hakimel/reveal.js.git my-reveal-ppt $ cd my-reveal-ppt $ npm install $ npm start 在这一步之前，你应该可以通过http://localhost:8000访问演示文稿了。接下来开始引入markdown文件：
+&amp;lt;div class=&amp;#34;reveal&amp;#34;&amp;gt; &amp;lt;div class=&amp;#34;slides&amp;#34;&amp;gt; &amp;lt;section data-markdown=&amp;#34;./md/test.md&amp;#34; data-separator=&amp;#34;^\n----\n&amp;#34; data-separator-vertical=&amp;#34;^\n--\n&amp;#34; data-separator-notes=&amp;#34;^Note:&amp;#34; data-charset=&amp;#34;utf8&amp;#34;&amp;gt; &amp;lt;/section&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; 其中各属性代表的意思是：
+ data-markdown：外部markdown文件的链接地址 data-separator：水平幻灯片分页符 data-separator-vertical：垂直幻灯片切换分隔符 data-separator-notes：演讲者笔记 data-charset：文件编码  More 演讲笔记 注意到我们在上一章节配置了data-separator-notes，可在markdown文件中通过Notes:标签写的内容却不会在ppt中展示出来，只有通过配置showNotes: true才会始终出现在PPT的边栏上，真的是这样么？按s即可打开演讲者文稿，不仅可以展示下一篇，还能看到Notes。
+修改主题 在css/theme/source任意复制一个当前使用的主题为test.scss，目录里的文件会自动编译为css，因此直接在html中移入css/theme/test.css就行了。另需改变theme中引入的外部文件，同理复制一份，换一个引用名称即可。
+转换为PDF 通过浏览器内置的打印不靠谱，推荐使用decktape。简单用法请参照以下命令：
+$ npm install -g decktape $ decktape reveal http://localhost:8000/index.html index.pdf Codepen 之前通过将异步脚本放进index.html进行加载，后来发现markdown可直接引入iframe形式的codepen代码。</description>
+    </item>
+    
+    <item>
+      <title>在项目中使用git标签</title>
+      <link>https://vv13.cn/posts/%E4%BD%BF%E7%94%A8git%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Mon, 02 Apr 2018 23:36:55 +0800</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E4%BD%BF%E7%94%A8git%E6%A0%87%E7%AD%BE/</guid>
+      <description> 通常发布版本时，会为当前的版本打上标签，作为一个里程碑，方便对代码进行回退与管理。假若线上有紧急bug需要修复，可直接基于tag版本切出一个分支来，修复后合并到主线上，再接着开发，tag功能是管理git仓库的利器之一。
+创建标签  git tag TAG_NAME，创建简单标签 git tag -a TAG_NAME -m &#39;DESC&#39;，添加附注标签，若不需要信息则去掉-a -m参数 git tag TAG_NAME COMMIT_VERSIONT，给某条提交记录打Tag  对本地仓库进行tag操作后，可将tag信息推送到远程库：git push --tags。
+删除标签 删除本地标签较为简单，使用git tag -d TAG_NAME即可，若要删除远程库origin中包含的标签，则使用git push origin --delete tag TAG_NAME。
+查看标签  git tag，列出所有标签名称 git show TAG_NAME，显示tag信息  检出标签 Git的Tag只是一个标记，若要切换到标签对应commit，可以通过git show TAG_NAME找到对用的提交信息，再执行相关操作。也可checkout出一个分支与tag对应分支同步：
+$ git checkout -b [branchname] [tagname] Switched to a new branch &amp;#39;branchname&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>去他妈的适配</title>
+      <link>https://vv13.cn/posts/%E5%8E%BB%E4%BB%96%E5%A6%88%E7%9A%84%E9%80%82%E9%85%8D/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E5%8E%BB%E4%BB%96%E5%A6%88%E7%9A%84%E9%80%82%E9%85%8D/</guid>
+      <description>移动开发中涉及的单位 熟记名词就能装逼如风，却不能成为一名好的开发者，在这里与大家一起先复习一遍开发中涉及到的单位，不论是为了技术梦想还是为了人生目标，都应该好好了解一下。
+屏幕尺寸 即屏幕对角线之间的距离，单位为英寸(inch)。单位换算如下： - 1 inch = 2.54 cm - 1 cm = 0.3937inch
+分辨率 分辨率大致分为两种： 1. 屏幕分辨率，例如屏幕分辨率为1920 x 1080，代表着设备屏幕水平方向有1024个像素点，垂直方向有1080个像素点，显示屏固定的情况下，分辨率越高画面越精细。 2. 图像分辨率，通常情况下，图像的分辨率越高，所包含的像素就越多，图像就越清晰，印刷的质量也就越好。同时，它也会增加文件占用的存储空间。
+像素 像素(pixel)是组成图像的最小显示单位，它是一个抽象的单位，而不是具体的长度，在Web开发中通常将像素分为两类：
+ 设备像素，指设备的物理像素，任何设备屏幕的物理像素的数量都是不变的。 CSS像素，指设备的逻辑像素，也称为独立像素，是一个相对的单位大小。1个CSS像素在不同设备上对应不同的物理像素数，这个比值称为DPR(Device Pixel Ration，设备像素比)。  以Phone 5为例，它的设备像素为640/1136px，设备像素比为2，因此CSS像素为320/568px。设计师通常根据固定的设备像素进行设计，前端工程师再根据不同设备的特性，将物理像素转换为相应的逻辑像素。
+设备像素比 设备像素比缩写为DPR(Device Pixel Ratio)或者DPPX(Dots Per Pixel)，一般用于表示一个CSS像素等于几个物理像素：DPR=物理像素/逻辑像素。当dpr为2时，1个CSS像素由4个物理像素组成，可通过window.devicePixelRatio获取当前设备的dpr。
+像素密度 像素密度也叫做屏幕密度，缩写为DPI(dots Per Inch)或PPI(Pixels Per Inch)。以iphone X举例，设备的参数如下：
+ 水平分辨率：2436px 垂直分辨率：1125px 屏幕对角线尺寸：5.8英寸  为了计算像素密度，我们通常需要求出屏幕对角线的分辨率，再除以屏幕对角线尺寸。根据勾股定理(直角三角形的两条直角边的长度的平方和等于斜边长的平方)，得以下表达式： tricks：
+ DPI与PPI其实指代的东西是不同的，需要注意语境，人们多为混用。 根据实验，普通人眼在一般阅读距离的极限就是300~400DPI，所以说目前的高清屏的DPI也在300左右。 普通的非彩色喷墨式打印机通常设定在300dpi，根据公式：像素=英寸 x dpi，可以通过调整图像像素大小，获取所需要的实际尺寸大小。  以寸照为例，通过搜索，1寸=2.5cm x 3.5cm=413 x 295，聪明的你肯定不需要过多的说明，看以下换算公式： viewport(视口) viewport概念通常存在于移动端，因为pc端的视口大小与窗口相等，而在移动设备的浏览器中，一般视口的默认大小会比设备逻辑的独立像素要大，并可拖过手动缩放来浏览网页，这个窗口就称之为viewport，普通设备浏览器的默认viewport通常为980px或1024px，随之的副作用就是设备的横向滚动条。
+布局视口 手机浏览器默认会去适应那些不是为移动端设计的网站，因此会为viewport设置一个默认值，一般为980px，这样大部分电脑端页面都能正常显示了，只是比例看起来很小，因此布局视口通常是大于浏览器可视区域，不进行缩放的情况也会有额外的额外滚动条，这个宽度可以通过document.documentElement.clientWidth来进行获取，它跟设备的大小没有关系。</description>
+    </item>
+    
+    <item>
+      <title>d3-intro</title>
+      <link>https://vv13.cn/posts/d3-intro/</link>
+      <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/d3-intro/</guid>
+      <description>D3.js是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。D3严格遵循Web标准，因而可以让你的程序轻松兼容现代主流浏览器并避免对特定框架的依赖。同时，它提供了强大的可视化组件，可以让使用者以数据驱动的方式去操作DOM。
+D3允许将数据绑定到DOM中，然后基于数据驱动去变化DOM。例如可以用数字数组来生成html的表格，或者使用相同数据创建一个平滑响应的SVG条形图。
+选择器 使用W3C DOM API十分繁琐，因此D3使用selections，一种声明式的方式来随意的操纵节点。
+例如原dom有操作方式如下：
+var paragraphs = document.getElementsByTagName(&amp;#34;p&amp;#34;); for (var i = 0; i &amp;lt; paragraphs.length; i++) { var paragraph = paragraphs.item(i); paragraph.style.setProperty(&amp;#34;color&amp;#34;, &amp;#34;white&amp;#34;, null); } 使用d3的方式来重写：
+d3.selectAll(&amp;#34;p&amp;#34;).style(&amp;#34;color&amp;#34;, &amp;#34;white&amp;#34;); d3.select(&amp;#34;body&amp;#34;).style(&amp;#34;background-color&amp;#34;, &amp;#34;black&amp;#34;) 打开调试的页面，即可看到效果。d3的选择器也是由标准W3C Selectors API构建的，因此在各种现代浏览器中原生支持。d3提供了丰富的方法来改变节点：设置属性、样式、注册事件、删除添加节点等，这些可以满足大多的需要。
+动态特性 d3就像dom的框架jquery一样，包含有许多属性、样式的函数方法，它不仅仅简化了方法，组合起来会惊人的强大。d3还提供了许多内建可复用的函数，如区域图形、线和饼图。
+例如，使偶数段落颜色值随机：
+d3.selectAll(&amp;#39;p&amp;#39;).style(&amp;#39;color&amp;#39;, function (d, i) { return i % 2 ? &amp;#39;#fff&amp;#39; : &amp;#39;hsl(&amp;#39; + Math.random() * 360 + &amp;#39;,100%,50%)&amp;#39; }) 计算属性通常用于绑定数据，数据规定为一个数组，每个元素都会通过第一个参数由默认顺序传递进入选择器函数，例如我们可以使用一个数组去动态设置字体大小：
+d3.selectAll(&amp;#34;p&amp;#34;) .data([4, 8, 15, 16, 23, 42]) .style(&amp;#34;font-size&amp;#34;, function(d) { return d + &amp;#34;px&amp;#34;; }); 一旦数据被绑定到dom，那么在之后的操作中可以不用再一次绑定数据，d3将会检测先前绑定的数据，因此允许重新计算属性而不用重新绑定。</description>
+    </item>
+    
+    <item>
+      <title>css的BFC特性</title>
+      <link>https://vv13.cn/posts/bfc-intro/</link>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/bfc-intro/</guid>
+      <description>预备知识 毗邻元素
+只要两个容器之间没有被非空内容、padding、border或clear隔开，那么就可以称作毗邻元素，父组件相对于其第一个子元素或最后一个子元素，只要没有相隔任何上述条件，也可称之为毗邻元素
+普通流(normal flow)
+在普通流中，元素按照其在HTML中的先后顺序至上而下布局，这个过程中，行内元素水平排列，直到当行被占满后换行，块级元素则会被渲染为一个新行，除非另外指定，否则所有元素默认都是普通流定位。
+以下情况会脱离文档流而存在，分别是：float: left、position: absolute、position: fixed
+什么是BFC Block Formatting Context，块格式化上下文，拥有一套渲染规则来决定子元素将如何布局，以及和其他子元素的相互关系。
+BFC可通过如下条件形成：
+ 浮动元素、绝对定位元素 非块级盒子的块级容器(inline-blocks、table-cells、table-captions) overflow不为默认值visible  BFC的特性如下：
+ 内部的Box会在垂直方向，从顶部开始一个接一个地放置 Box垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box会发生叠加 在BFC中，每一个Box的左外边缘，会触碰到容器的左边缘，右边也依然，即使存在浮动也如此 形成了BFC的区域不会与float box重叠 它是一个隔离的容器，容器内的子元素不会影响到外面的元素 计算BFC的高度时，浮动元素也参与计算  利用BFC的特性，我们可以用来解决诸如以下等问题。
+消除外边距塌陷(margin collapsing) 在同一个BFC中，两个或多个毗邻的普通流中的块元素垂直方向上的margin会发生叠加，相邻块的外边距有时会被合并为单个外边距，取其中更大的值，这种行为称为外边距塌陷，发生此情况有一下几种情况：
+1. 相邻的兄弟姐妹元素
+&amp;lt;p style=&amp;#34;margin-bottom: 30px;&amp;#34;&amp;gt;这个段落的下外边距被合并...&amp;lt;/p&amp;gt; &amp;lt;p style=&amp;#34;margin-top: 20px;&amp;#34;&amp;gt;...这个段落的上外边距被合并。&amp;lt;/p&amp;gt; 此时p的距离为30px，而不是预想的50px，在布局时需要注意。
+2. 父子元素
+&amp;lt;div class=&amp;#34;parent&amp;#34; style=&amp;#34;margin-top: 20px;&amp;#34;&amp;gt; &amp;lt;p class=&amp;#34;child&amp;#34; style=&amp;#34;margin-top: 10px;&amp;#34;&amp;gt;p的margin会被父元素的margin合并&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; 产生这种影响必须满足两个条件：
+ 第一个子元素的上边距和父元素的上边距会进行合并 最后一个子元素的下边距会和父元素的下边距进行合并  当父元素的margin-top为0时，而子元素不为0，则整个区域都会具有子元素的外边距，这种情况称之为子元素劫持。给父元素设置overflow: hidden或是其他，触发了BFC特性即可解决。
+3. 空元素
+它的上下边距会自动合并为一个外边距，这作为外边距塌陷的一种特殊情况。
+解决父元素塌陷 父元素塌陷指的是当子元素全为float，父元素高度为0这种情况，因为float元素不占据文档流(normal flow)空间，所以产生了塌陷，只需触发父元素的BFC特性即可解决，BFC会根据子元素的情况自动适应高度，包含浮动的子元素。
+解决元素被浮动元素覆盖 浮动元素的毗邻节点会无视浮动的元素，尽量占满一行，这样就会被浮动元素所覆盖到，因此只需要把非浮动元素触发BFC，则会形成两列布局，从而不会被浮动元素覆盖。</description>
+    </item>
+    
+    <item>
+      <title>jenkins部署</title>
+      <link>https://vv13.cn/posts/jenkins-deploy/</link>
+      <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/jenkins-deploy/</guid>
+      <description> Jenkins是一种由Java开发的持续集成工具，称为CI(Continuous integration)，主要功能是将代码频繁地集成到主干，可以让代码快的迭代，并提高代码质量。
+典型的工作流为：开发→提交→编译→测试→发布，Jenkins可以帮你完成除了开发之后的工作，实现自动化。
+Jenkins部署步骤 准备工作如下：
+ 服务器安装docker 拉取镜像：docker pull jenkins/jenkins 创建一个文件夹jenkins_home用于存放jenkins所有配置文件，挂载出来方便迁移，遇到权限问题可设置：chown 1000 ./jenkins_home  做完以上流程，即可执行：
+docker run -d --name jenkins_node -p 8899:8080 -v /var/jenkins_home:/var/jenkins_home jenkins/jenkins 其中，参数如下定义：
+ -d，docker进程在后台运行 -name，docker容器名称 -p，映射docker端口8080为本地端口8899，通过localhost:8899即可访问 -v，将服务器的/var/jenkins_home挂载到docker容器的/var/jenkins_home  以上步骤都执行成功后，访问server_ip/8899可以看到如下页面：
+此时查询到container ID， 然后通过docker logs id可以查询到密钥就在log中：
+INFO: ************************************************************* ************************************************************* ************************************************************* Jenkins initial setup is required. An admin user has been created and a password generated. Please use the following password to proceed to installation: 密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥密钥 This may also be found at: /var/jenkins_home/secrets/initialAdminPassword ************************************************************* ************************************************************* *************************************************************</description>
+    </item>
+    
+    <item>
+      <title>js事件触发机制</title>
+      <link>https://vv13.cn/posts/js-event-trigger/</link>
+      <pubDate>Tue, 17 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/js-event-trigger/</guid>
+      <description>原理 事件捕获
+由网景最先提出，事件会从最外层开始发生，直到最具体的元素，也就是说假如父元素与子元素都绑定有点击事件，又互相重叠，那么先出发的会是父元素的事件，然后再传递到子元素。
+事件冒泡
+由微软提出，事件会从最内从的元素开始发生，再向外传播，正好与事件捕获相反。
+这两个概念都是为了解决页面中事件流的发生顺序，w3c采取了折中的办法，制定了统一的标准：先捕获再冒泡。
+addEventListen(event, function, useCapture)添加事件的第三个参数默认值为false，即默认使用事件冒泡，若为true则使用事件捕获的机制，以下为测试代码：
+container.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; console.log(&amp;#39;container&amp;#39;), true) child.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; console.log(&amp;#39;child&amp;#39;), true) // 点击child, 输出: container，child container.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; console.log(&amp;#39;container&amp;#39;)) child.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; console.log(&amp;#39;child&amp;#39;)) // 点击child, 输出: child，container 假若还是在两个div中，希望点击子元素时不触发父元素的点击事件，我们就需要用到阻止冒泡的方式：stopPropagation，改写child的方法：
+child.addEventListener(&amp;#39;click&amp;#39;, e =&amp;gt; { console.log(&amp;#39;child&amp;#39;) e.stopPropagation() }); 说起了stopPropagation，还有一种方式为preventDefault，它的作用不是用于阻止冒泡，而是阻止浏览器默认行为，如a标签跳转，submit提交等。
+还有一种方式称为事件委托，利用冒泡的机制，子元素的点击事件可由父元素委托执行，举个例子，还是如上视图，子元素点击事件删除以后，对父元素做以下定义：
+container.addEventListener(&amp;#34;click&amp;#34;, e =&amp;gt; { if (e.target.id === &amp;#39;child&amp;#39;) { console.log(&amp;#39;child&amp;#39;) } }); 可见，当点击子元素依然会输出child，在某些特定场景利用事件委托可节省大量的性能。
+明白了上述事件关系，target与currentTarget也就易于理解了，简言之，target指引发出发事件的元素，currentTarget则指事件绑定的元素，如通过点击子元素出发父元素，那么父元素中event对象的target为子元素，而currentTarget为它本身。
+示例 在这里有必要谈谈鼠标事件，大家可能知道但不记得的常用鼠标事件有以下四种：
+ mouseenter：鼠标进入时触发，不响应子元素冒泡事件 mouseover：鼠标进入时触发，响应子元素冒泡事件 mouseleave：鼠标离开时触发，不响应子元素冒泡事件 mouseout：鼠标离开时触发，响应子元素冒泡事件  让我们举一个实际场景来说明关于冒泡的应该(偷懒不附上详细代码了)：
+场景如下：</description>
+    </item>
+    
+    <item>
+      <title>什么是函数节流</title>
+      <link>https://vv13.cn/posts/throttle/</link>
+      <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/throttle/</guid>
+      <description>什么是函数节流 避免同一时间函数调用多次，消耗大量的性能，比如resize事件、input事件等，通过设定函数执行时间间隔与延时，来达到优化的效果，应用最多的如lodash的debounce防抖函数了吧。
+代码实现 首先通过setTimeout实现一个简单的版本，原理为使用clearTimeout刷新定时器即可：
+function throttle(fn, delay, ...args) { let timer = null return function() { clearTimeout(timer) timer = setTimeout(() =&amp;gt; fn.apply(this, args), delay) } } 测试函数：
+const log = throttle(console.log, 300, 1) for (let i = 0; i &amp;lt; 100; i++) { log() // 只会打印一次 } 这样的函数有时还无法完成要求，比如在拖拽一个元素时，直接使用此节流函数会造成拖拽的时候无法移动，等拖完了就直接闪到终点去了，因为函数一直在定时器内不断刷新，只有到最后才执行了，因此需要对此函数改进一下，多设定一个参数，即触发的时间间隔，这样即可保证函数的执行频率了。
+function throttle(fn, delay, duration, ...args) { let timer = null let tStart return function() { clearTimeout(timer) const cStart = +Date() if (!</description>
+    </item>
+    
+    <item>
+      <title>简历中的STAR原则</title>
+      <link>https://vv13.cn/posts/%E7%AE%80%E5%8E%86%E4%B8%AD%E7%9A%84star%E5%8E%9F%E5%88%99/</link>
+      <pubDate>Sun, 08 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E7%AE%80%E5%8E%86%E4%B8%AD%E7%9A%84star%E5%8E%9F%E5%88%99/</guid>
+      <description>STAR概念  Situation：事情是在什么情况下发生的 Task：主要的任务目标是什么 Action：朝向目标的具体行动方式 Result：结果如何，有哪些成长  Star法则主要用于叙述一件事情，不仅可以用于描述简历中的项目经理，当给别人讲述一件事情时，遵从STAR法则也能让故事线更加清晰，因为他是一种表现力强的逻辑方式，能让阐述一件事情更具有：清晰性、条理性和逻辑性。
+Example 1 举一个示例：获得省比赛跨栏季军。
+S：省比赛一共有三十个四川省本科院校，其中B组参赛有12个院校，我处于B组。
+T：获取前三名，为学院争光。
+A：在学校每周都会进行两次跨栏训练。
+R：获得四川省110跨栏比赛季军，并受到学院表彰。
+总结 明确目标，保持专注，大步向前。</description>
+    </item>
+    
+    <item>
+      <title>异步编程中的thunk函数</title>
+      <link>https://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</guid>
+      <description>什么是Thunk Thunk英译即转化程序，第一次遇见这个名词是在使用redux-thunk的时候，只知道是做为异步和同步中间件来使用，并未深入的了解，接下来发现koa的框架中是因在koa1的概念中设计到了它，故学习了一番，因此做一个简单的总结。
+写一个简单的函数，用于读取package.json的信息：
+fs.readFile(&amp;#39;package.json&amp;#39;, (err, data) =&amp;gt; { if (err) throw err; console.log(data.toString()) }) 在某些情况下，我们需要将参数进行包装一下，比如在koa1的生成器中间件中，我们必须将函数包装成有且只有一个callback函数，这样koa中间件才能识别函数：
+const app = new Koa() app.use(function*(next) { const data = yield readFileThunk(&amp;#39;package.json&amp;#39;) console.log(data) yield next }) function readFileThunk(path, cb) { return function(cb) { fs.readFile(path, (err, data) =&amp;gt; { if (err) throw err cb(null, data.toString()) }) } } app.listen(3000) 通过访问端口，我们看到了正确的打印信息，将正常函数包装为上述函数，即称之为thunk函数。Thunk函数将多参数函数替换成了单参数版本，与高阶函数、柯里化思想类似。播个小插曲，在koa2中，中间件写法更迭成了async/await，其原理也是基于generator进行又一次封装，代码为：
+app.use(async(ctx, next) =&amp;gt; { const data = await readFileWrap(&amp;#39;package.json&amp;#39;) console.log(data) await next() }) function readFileWrap(path, cb) { return new Promise((resolve, reject) =&amp;gt; { fs.</description>
+    </item>
+    
+    <item>
+      <title>vue中如何自定义v-model</title>
+      <link>https://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</guid>
+      <description> 简介 在vue的表单中，大家都享受着v-model带来的便利性，有时候也会遇到自定义v-model的场景，其实它是一颗语法糖而已，那我们接下来就来吃糖吧。
+基本的v-model用法为：
+&amp;lt;input v-model=&amp;#34;something&amp;#34;&amp;gt; 其实它是以下用法的简写：
+&amp;lt;input :value=&amp;#34;something&amp;#34; @input=&amp;#34;something = $event.target.value&amp;#34; /&amp;gt; 因此，自己封装组件的话，可以这样来定义：
+// demo.vue &amp;lt;template lang=&amp;#34;html&amp;#34;&amp;gt; &amp;lt;input :value=&amp;#34;value&amp;#34; @input=&amp;#34;valueChange&amp;#34;&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: [&amp;#39;value&amp;#39;], methods: { valueChange (v) { this.$emit(&amp;#39;input&amp;#39;, v.target.value) } } } &amp;lt;/script&amp;gt; // 引用 &amp;lt;demo v-model=&amp;#34;something&amp;#34;&amp;gt;&amp;lt;/demo&amp;gt; 用法示例 在使用element组件库中，有些组件需要借助拆分v-model自定义命令才能实现需要的功能，如下:
+我们想要展示的数据格式为：
+仔细查阅接口文档，并没有我们需要的格式化数据方法，只有一个format =&amp;gt; YYMMDD的类似方法，但是看示例代码它实现了v-model的双向绑定：
+&amp;lt;el-time-select v-model=&amp;#34;value1&amp;#34; &amp;lt;/el-time-select&amp;gt; 因此，我们可以通过@input事件获取到它的改变值，然后再通过:value展示时添加一个过滤器，将字符串转换以下即可：
+&amp;lt;el-time-select :value=&amp;#34;time | convertToRangeTime&amp;#34; @input=&amp;#34;e =&amp;gt; time = e&amp;#34; &amp;lt;/el-time-select&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>理解javascript线程</title>
+      <link>https://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</link>
+      <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</guid>
+      <description>进程和线程  进程：系统资源分配与组织的最小单位，具备独立功能的程序即可成为一个进程，它有自己的内存空间 线程：cpu调度和分派(运行)的最小单位，线程是一个进程的实体，可以共享进程独占的资源，自己只拥有一点在运行中必不可少的资源(程序计数器、寄存器、栈)  线程的作用：
+ 大多数程序需要多个线程同步或互斥的并行完成工作，将工作分化到线程中简化了编程模型 线程很轻量，创建与销毁消耗的资源小 线程提高了cpu利用率，避免了如等待用户输入、异步资源请求等一系列阻塞操作  根据以上概念，多核cpu可以同时运行多个线程，那可以运行多个进程吗？普遍的答案是cpu只能同时运行一个线程，它是靠时间片轮转来实现的伪多进程，以下有一个关于利用多核心cpu的一个解释：
+最早 UNIX 的调度是以 “进程” 为最小调度单位，那个时候还没有线程的概念。线程有两种，一种是 “用户态线程” ，对内核不可见，内核不可以调度，现在一般叫做纤程或协程。另一种是 “内核态线程”，由内核调度，也称作轻量进程 LWP 。现在说的线程，一般不特殊指定，都是内核线程。 能不能利用多核的关键是能不能被内核调度，既然内核态线程可以被调度，自然可以利用多核。 另外只要资源足够（内存） CPU 可以 hold 住任意多的进程或线程，这与 CPU 的核数无关。你在这里指的应该是 “运行” 。 javascript单线程机制 javascipt语言最大的特点就是单线程，同一时间只有一段代码在执行，这种语言有一个共同的特点：基于事件驱动。它虽然是单线程的，但是所在的平台肯定是异构的：
+ 在浏览器中，界面渲染线程负责渲染、浏览器事件处理器、异步请求线程等，他们会配合javascript实现各种异步操作。 再node种，libuv库负责node api的执行，它将不同的任务分配给不同的线程，形成一个event loop，以异步的方式将任务的执行结果返回给V8引擎。  所以说，javascript执行是单线程的，方法是异步的，应用是多线程的。
+任务队列 javascript核心为单线程机制，所有任务执行都需要按照顺序进行排队，如果前一个任务耗时长，后一个任务就需要等待，因此那些耗时较长的任务就被javascript的作者设计成了异步任务，任务队列正是存放异步任务的地方。
+同步任务指在主线程中执行的任务栈，它会形成一个执行栈，像堆积木一样存放，实现层层调用，若有一个任务失败，则整个程序就会失败。异步任务就放到了任务队列里，等到异步任务成功响应(io输入读取完成、异步请求等待到服务器的响应)，任务队列会通知主线程执行预先设定好的回调函数。
+任务队列还有时间的概念，通过定时器setTimeout()和setInterval()这两个函数就可以在任务队列中规定多少事件后执行，它们调用后会返回定时器id,通过clearTimeout与clearInterval可以取消。
+关于定时器的用法，常见的如setTimeout(fn, 0);，需要注意的是它不会立即执行，而是需要等到主进行这一次所有同步任务执行结束后，才会去读取任务队列的通知，执行相应的定时器方法。
+事件循环(Event Loop) Event Loop是一个程序结构，用于等待和发送消息事件，它是javascript单线程的重要处理机制，简单说就是将其他线程的资源取回主线程，执行事先设定的回调函数。
+主线程会不断的从消息队列中读取事件，这个过程是不断循环的，因此称之为事件循环，事件循环经常用以下方式实现:
+while (queue.waitForMessage()) { queue.processNextMessage() } 而消息队列是一个先进先出的队列，当有异步操作完成或事件点击产生时，回调函数会作为消息进入到消息队列，等待主线程的读取与执行。
+Web Worker 随着页面越来越复杂，html5制定了新的标准，而web worker的到来就是为浏览器端提供了多线程的编程能力，允许主线程将一些高计算或高延迟的工作分配给子线程。
+Web Worker所执行的代码是在另一个作用域中，与当前代码不共享作用域，也无法访问dom，而且在父子线程中通讯时，传值是被序列化后复制到Worker中的，而不是直接引用传递，这样足以避免子线程影响父线程。</description>
+    </item>
+    
+    <item>
+      <title>flex布局</title>
+      <link>https://vv13.cn/posts/flex%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/flex%E5%B8%83%E5%B1%80/</guid>
+      <description>简介 flex即弹性盒子布局，它比传统的布局提供更大的灵活性，w3c组织在09年提出这个概念，目前已经广泛应用于支持各个浏览器。
+它最大的特性是可以使子元素充分的利用容器的空间，当空间不足时也可进行收缩，以此来适应各种各样的屏幕大小，也能根据权重排列子元素的顺序。
+设置容器为flex布局，只需要设置display: flex即可。它将具有以下特性： 1. 子元素float、clear、vertical-align将失效。 2. 存在主轴(默认为水平)与交叉轴，通过flex-direction可设置主轴的方向。
+概念 轴线  主轴: 它是flex子元素的排列方向，默认为水平向右，可根据flex-direction确定方向。 交叉轴：垂直于主轴,确定子元素的垂直方向上的位置。  flex 属性：  flex-direction，设置主轴的方向 flex-wrap，项目是否多行显示 flex-flow，flex-direction与flex-wrap的缩写，默认为row nowrap justify-content，项目在主轴上的对齐方式 align-items，项目在交叉轴上的对齐方式 align-content，多根轴线的对其方式，对只有一根轴线的无效  flex item属性：  order，项目的权重，数值越小排列越靠前 flex-grow，项目的放大比例，默认为0不放大 flex-shrink，项目的缩小比例，默认为1等比缩小，设置为0后不缩小 flex-basis，项目本身的大小，和width、height类似 flex，flex-grow、flex-shrink和flex-basis属性的简写 align-self，设置项目自身的对其方式，覆盖align-items属性  各项详细配置，请参照阮老师的语法文章。
+Usage  vv13.cn/flex-demo
+ 文字不便描述，直接访问在线app示例吧，这里是github地址～</description>
+    </item>
+    
+    <item>
+      <title>BEM规范</title>
+      <link>https://vv13.cn/posts/bem%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Mon, 09 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/bem%E8%A7%84%E8%8C%83/</guid>
+      <description>什么是BEM？ block(块)、element(元素)、modifier(修饰符)，是一种css命名方式，它让css类对开发者更加透明与易于维护。
+语法 .block {} // 块 .block__element {} // 块所属元素 .block__element--modifier {} // 块所属元素的状态 与sass结合 &amp;amp; 通过&amp;amp;会直接引用父元素，嵌套使用&amp;amp;可以增强可读性：
+.block { &amp;amp;__element1 {} &amp;amp;__element2 {} } extend 如下html：
+&amp;lt;ul&amp;gt; &amp;lt;li class=&amp;#34;nav__item&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li class=&amp;#34;nav__item&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li class=&amp;#34;nav__item--active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;!-- 梦想 --&amp;gt; &amp;lt;li class=&amp;#34;nav__item nav__item--active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;!-- 现实 --&amp;gt; &amp;lt;/ul&amp;gt; extend可以继承类的所有定义，于是可以这样消除冗余：
+.nav { ... &amp;amp;__item { ... &amp;amp;--active { @extend .nav__item; ... } } } css module&amp;hellip; css module确实能给react带来很好的css独立性，再也不用担心产生命名冲突，但通过实际编程，发现以下问题：
+书写麻烦 使用css module引入的标签：
+&amp;lt;div className={classnames(style[&amp;#39;class1__child&amp;#39;], style[&amp;#39;class2&amp;#39;]}&amp;gt;&amp;lt;/div&amp;gt; 而使用import导入bem类会是这样的：</description>
+    </item>
+    
+    <item>
+      <title>python求质数的几种方法</title>
+      <link>https://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>今天偶然在博客上上看到有人提求质素的几种境界,在此用python进行实现代码,并进行简单的说明.
+我们将要实现函数的功能是输入一个数N,能把小于N的质数个数打印出来,并计算出所耗时间.
+境界1 我们采用试除法,意思就是将比N小的符合要求的每一个数都除以它,若都无法整除则N为质数,这也是我们能想到的最简单的方法,我们可以从j的范围进行优化一下,很容易想到j的范围可以取2~N/2. 代码如下:
+def f1(num): # 2也是质数,之后程序从3开始判断 count = 1 for i in range(3, num): b = True for j in range(2, i/2 + 1): if i % j == 0: b = False break if b: count += 1 return count f1(100000) # 耗时35.1589805796秒, 个数9592 境界2 我们可以从j的范围再进行优化一下,最优的范围是2~sqrt(N),这是因为因数都是成对出现,一个因子不可能超过sqrt(N).再思考一下,除了2以外所有偶数都不会是质数,因此可将偶数全部排除掉,让我们来修改并测试一下程序:
+def f1(num): count = 1 # 优化点1:偶数不做判断 for i in range(3, num, 2): b = True sq = int(math.sqrt(i)) + 1 # 优化点2:缩小试除范围 for j in range(2, sq): if i % j == 0: b = False break if b: count += 1 return count f1(100000) # 耗时0.</description>
+    </item>
+    
+    <item>
+      <title>几个简单的排序-js描述</title>
+      <link>https://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</guid>
+      <description>排序算法的精髓就在于：不用会忘，看一遍就能懂。 所以记录一下还是很有必要的。
+冒泡 冒泡排序（Bubble Sort），是一种较简单的排序算法，较稳定，用途广，时间复杂度为O(n^2)。
+原理 此示例一共进行了4次循环，每次确认一个最大的索引值。每进行一次循环时，从索引0开始往下进行比较，若索引0大于索引1则互相交换位置，否则不进行交换，然后接着往下进行比较，保证索引位置始终大于之前找到的数。
+代码 function sort(arrs) { const len = arrs.length; for (let i = 0; i &amp;lt; len - 1; i++) { for (let j = 0; j &amp;lt; len - 1 - i; j++) { if ( arrs[j] &amp;gt; arrs[j + 1]) { [arrs[j], arrs[j + 1]] = [arrs[j + 1], arrs[j]]; } } } } 输入：3,6,9,4,2 输出：2,3,4,6,9 耗时：18ms 选择排序 选择排序也很简单，大家懂冒泡就理解，它是冒泡排序的一种改进方法，他们都是每次循环找出一个最大或最小的数，区别在于冒泡排序会进行很多次交换数据，而选择排序用一个变量来暂存值，每趟循环只进行一次交换。
+原理 如图所示，每次循环找出最大值，与最小索引进行交换，这样就实现了从大到小的排序。</description>
+    </item>
+    
+    <item>
+      <title>nodejs中exports与module.exports的区别</title>
+      <link>https://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>在nodejs中常常会使用require()加载模块，为了使得文件模块化，将其的变量与方法提供给别的模块使用，就会使用到exports与module.exports，可是如何区分它们呢？ 在此简单的记录一下。
+require()的返回值 require()返回的是module.exports指向的内容而不是exports的，我们将两个变量分别赋予新的内存地址，以此来进行观察：
+test.js:
+module.exports = function(){ console.log(&amp;#39;I\&amp;#39;m module.exports&amp;#39;) } exports = function(){ console.log(&amp;#39;I\&amp;#39;m exports&amp;#39;) } 通过var a = require(&#39;./test&#39;)()即可看到打印的函数为module.exports，因此可以确定exports是module.exports的一个指针，不清楚指针的具体内容的接着往下看。
+exports是module.exports的一个指针 假设有两个变量，var a={name:&#39;name1}, var b = a;，b指向a的内存区域，如果执行b.name=&#39;name2&#39;，我们通过打印a.name可以看到其值也为name2，这就说明两个变量共同拥有一块内存区域，并且可以共同对区域进行修改。
+可如果我们执行a = {}或者b = {}之后，两个变量就各自管理自己的内存空间了，不再有关联，所以在nodejs中两者一共有几种用法： 1. module.exports存在的话，exports或是exports.xxx就会失效，因此此刻两者已经不是管理共同的内存区域。 2. exports只能通过exports.xxx这种形式进行使用，否则exports={}会指向新的内存区域，不能被require()加载。 3. exports.xxx与module.exports.xxx等价且可以共同存在。</description>
+    </item>
+    
+    <item>
+      <title>python变量作用域</title>
+      <link>https://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</guid>
+      <description>class比作整个屋子，def为卧室，class外面的部分就是小区环境。
+首先测试房子(class)与公共设施变量(globals)之间的关系 # encoding: utf-8 PUBLIC_FACILITIES = u&amp;#34;公共厕所&amp;#34; class House(): print PUBLIC_FACILITIES PUBLIC_FACILITIES = &amp;#39;改造&amp;#39; if __name__ == &amp;#39;__main__&amp;#39;: test = House() print PUBLIC_FACILITIES 测试结果：
+公共厕所 公共厕所 ***Repl Closed*** 房屋的拥有者可以使用小区内的公共设施。由此可知class内部可以访问外部的变量，但不能进行修改，在class中执行改造命令的效果就是新建了一个类局部变量变量，在访问域中覆盖了全局变量的访问域。
+测试房子(class)与房间(def)的关系 # encoding: utf-8 class House(): SOFA = u&amp;#39;真皮沙发&amp;#39; def room(self): # print SOFA # 无法直接访问外部变量，取消注释会报错 print self.SOFA self.SOFA = &amp;#39;布质沙发&amp;#39; if __name__ == &amp;#39;__main__&amp;#39;: test = House() test.room() print test.SOFA, House.SOFA 测试结果：
+真皮沙发 布质沙发 真皮沙发 ***Repl Closed*** 大家可以理解这样一个现象：无法将客厅的沙发放到卧室(卧室太小)，只能重新订制一个沙发，或是在客厅里去使用。当def方法中不存在与class类相同名称的变量时，def方法体中可以通过self访问到class的类变量， 但是当执行self.</description>
+    </item>
+    
+    <item>
+      <title>BOM对象的应用</title>
+      <link>https://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 18 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <description> BOM即浏览器对象模型，在js代码里，存在一个代表窗体的全局window对象，通过它可以与浏览器进行一定的交互功能，如： + 跳转到新的网址：window.location.href = &#39;http://www.google.com&#39;; + 打开新的窗体：window.open(&#39;http://www.google.com&#39;); + 刷新页面：window.location.reload(); + 后退：window.history.back(); + 前进：window.history.forward();
+子窗体与父窗体对象的引用 考虑以下场景：在一个页面中弹出一个子页面，在操作完成后即关闭子页面并刷新父页面。这个场景会在登录页面中十分常见，我们希望当用户登陆完成后刷新父页面，因此需要引用父对象，若在同源页面（浏览器的同源保护策略）即可对子页面进行以下方法的调用：
+function dealOk() { window.opener.location.reload(); window.close(); } 若是引入第三方的页面，如qq互联接口，则无法直接通过opener获取到父对象进行操作，我们可以通过轮询子窗体状态进行控制：
+// showPopup会返回window对象，原理是window.open()方法的调用 const childrenWindow = QC.Login.showPopup({ appId: APPID, redirectURI: REDIRECT_URI, }); const timer = setInterval(() =&amp;gt; { // 查看窗体是否被关闭 if (childrenWindow.closed) { clearInterval(timer); // 清除轮询 window.location.reload(); // 刷新页面 } },500); a标签阻止其跳转 将a标签的href值设为undefined，就可以阻止其跳转，void函数会执行一个表达式，并只返回undefined，我们也可以通过执行;直接返回undefined：
+ &amp;lt;a href=&amp;quot;javascript:void(0);&amp;quot;&amp;gt;点击不会进行跳转&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot;&amp;gt;点击不会进行跳转&amp;lt;/a&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>git实用命令技巧</title>
+      <link>https://vv13.cn/posts/git-tricks/</link>
+      <pubDate>Sun, 11 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/git-tricks/</guid>
+      <description>git pull &amp;ndash;rebase 从分支上拉取最新的代码时，往往会多出一条merge记录，这样有时不是我们所期望的，因为它会让整个提交线图变得难以理解：
+我们期望的分支图也许时这样的：
+只需要将git pull -&amp;gt; git pull &amp;ndash;rebase。rebase的好处就在于，它会将当前新的提交记录，全部追加到远程提交信息记录之后:
+合并前： D---E master / A---B---C---F origin/master merge合并： D--------E / \ A---B---C---F---G master, origin/master rebase合并： A---B---C---F---D---E master, origin/master 如果遇到冲突，请将冲突解决后执行: git rebase --continue。它也有两面性，至于谁好谁坏，慎用就行了。
+git commit &amp;ndash;amend 有时候我们生成commit信息后有点小的改动，并不希望新添加一个commit，而是将其追加到上一次提交内容中，这条命令就是为了做这件事情，它还可以更改之前的提交信息。
+获取远程库的更新 普通的工作流程一般是先folk整个工程到本地，再添加上游分支：
+git remote add upstream https://xxx.git 这样一来，我们就可以获取远程的更新到当前分支：
+git pull upstream master 若拉取本地不存在的分支，则可以使用这条命令：
+git checkout -b new_branch upstream/new_branch 推送多个远程库 用法：
+$ vim ~/.git/config [remote &amp;#34;upstream&amp;#34;] url = git@gitlab.main.com:project.git url = git@github.main.com:project.git $ git push upstream 解释：通过编辑config文件，给远程库多添加一个url，那么再执行push操作时，就可以同时push两个库，如上github与gitlab仓库的项目都会更新。</description>
+    </item>
+    
+    <item>
+      <title>js代理函数技巧</title>
+      <link>https://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</link>
+      <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</guid>
+      <description>简述 有时候我们总想改造某些函数，保留它原有的功能与参数，追加新的操作在里面，若是自己写的函数，则直接改写函数即可，但假若是系统给定的函数与未知的参数，那么该怎么办呢？
+示例 假设下面有一个自定义函数splice, 它主要的功能是删除原数组指定索引元素，再将其返回：
+function splice(arrs, start, length) { arrs.splice(start, length); return arrs; } const arrs = [1,2,3]; splice(arrs, 1, 1); // 返回为：[1,3] 如果我们需要扩展splice，比如打印被删除的元素信息，则只需要进行如下更改：
+function splice(arrs, start, length) { console.log(`索引位置：${start}, 长度${length}，元素为：${arrs.splice(start, length)}`); return arrs; } const arrs = [1,2,3]; splice(arrs, 1, 2); // 返回为: [1] // 索引位置：1, 长度2，元素为：2,3 上述方法并不太理想，因为这样一来每次扩展方法都会修改原方法，我们不希望原方法进行修改。splice是es5内置的数组方法，就算想要修改原方法也不行，那么应该怎么做呢？这时候就应该使用代理了:
+const arrs = [1,2,3]; const proxy = (...args) =&amp;gt; { const cutArrs = arrs.splice.apply(arrs, args); console.log(`索引位置：${args[0]}, 长度${args[1]}，元素为：${cutArrs}`); } proxy(1, 2); // 索引位置：1, 长度2，元素为：2,3 console.</description>
+    </item>
+    
+    <item>
+      <title>js变量申明解析</title>
+      <link>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</guid>
+      <description>var属性有多种需要注意的特性： 1. 无块级作用域 2. 不带申明类型默认为全局变量 3. 变量提升 4. 运行重新申明变量
+一、块级作用域 首先，js中申明的var变量或是方法，都没有块级作用域，只有函数作用域，最典型的示例为：
+for (var i = 0; i &amp;lt; 100; i++){ // ... } console.log(i); // 输入100 若我们使用es6的let与const，就不会出现这种问题。
+二、影响全局 若申明变量不使用变量类型，即使写在另一个函数作用域中申明的变量，也会直接将变量挂载在全局对象上，最容易引发此错误的地方在于使用with的时候，with可以延展一个对象的作用域链，将一个作用域的链拼接到执行上下文的作用域链中，相当于延长了当前作用域链：
+const obj = { a: &amp;#39;a&amp;#39;, b: &amp;#39;b&amp;#39;, }; with (obj) { console.log(a, b); // a b b = 3; c = 1; } console.log(obj.b, c); // 3 1 在with作用域中可以直接访问到b的值， 但是我们假如书写错误或是记漏变量名，如对c进行操作，则会创建一个全局变量c，这样不但会污染全局空间，也会对系统造成额外的开销，让我们来测试一段使用with语句进行访问的测试代码:
+const testobj = { foo: &amp;#39;bar&amp;#39; }; let value; let starttime; let endtime; const times = 1000000; starttime = new Date().</description>
+    </item>
+    
+    <item>
+      <title>js变量作用域与垃圾回收</title>
+      <link>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 21 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
+      <description>栈内存与堆内存 js变量分为基本类型与引用类型, 所有变量都储存在函数方法体内,但根据类型的不同实际存储位置不一样.基本类型存储于栈内中,而引用类型存于堆内存中, 我们先来看看什么是堆内存与栈内存.初始化以下代码:
+const name = &amp;#39;某某某&amp;#39;; const age = 22; const hasGf = false; const obj = { test: 123, } const anotherObj = obj; 它们在内存中的结构如图：
+ 栈内存(stack): 如int,string,number等基本变量,他们的大小是固定的,由系统分配栈存储空间 堆内存(heap):对象的属性是动态扩展的,系统并不知道它栈多少空间,因此创建一个对象, 会在堆内存中开辟一个不固定的空间, 然后返回首地址指针给函数内的变量进行引用  由上图即可看出, 对基本类型与引用类型进行值传递也会不一样:
+ 基本类型直接在栈内存中进行复制值 引用类型只是将堆内存中的索引传递给变量,它们实际指向的是同一个对象  既然涉及到变量的使用与改变, 难免会遇到栈溢出,堆溢出等问题,以下是一个递归的求和函数, 当调用多次,就会发生栈溢出:
+function test(n) { if (n === 1) { return 1; } return n + test(n - 1); } test(10000); // 50005000 test(100000); // Uncaught RangeError: Maximum call stack size exceeded(…) 正是因为每个函数栈中限制了大小, 而每次递归调用都会保存着当前函数栈的信息,等待下一函数执行完返回结果, 执行test函数5次,栈空间变化为:</description>
+    </item>
+    
+  </channel>
+</rss>

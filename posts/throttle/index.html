@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  什么是函数节流 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/throttle/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">什么是函数节流</h1>
+      <h2 class="date">October 14, 2017</h2>
+
+      
+    </header>
+
+    
+
+<h2 id="什么是函数节流">什么是函数节流</h2>
+
+<p>避免同一时间函数调用多次，消耗大量的性能，比如resize事件、input事件等，通过设定函数执行时间间隔与延时，来达到优化的效果，应用最多的如lodash的debounce防抖函数了吧。</p>
+
+<h2 id="代码实现">代码实现</h2>
+
+<p>首先通过setTimeout实现一个简单的版本，原理为使用clearTimeout刷新定时器即可：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function throttle(fn, delay, ...args) {
+  let timer = null
+  return function() {
+  	clearTimeout(timer)
+  	timer = setTimeout(() =&gt; fn.apply(this, args), delay)
+  }
+}</pre></div>
+<p>测试函数：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">const log = throttle(console.log, 300, 1)
+for (let i = 0; i &lt; 100; i++) {
+  log() // 只会打印一次
+}</pre></div>
+<p>这样的函数有时还无法完成要求，比如在拖拽一个元素时，直接使用此节流函数会造成拖拽的时候无法移动，等拖完了就直接闪到终点去了，因为函数一直在定时器内不断刷新，只有到最后才执行了，因此需要对此函数改进一下，多设定一个参数，即触发的时间间隔，这样即可保证函数的执行频率了。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function throttle(fn, delay, duration, ...args) {
+  let timer = null
+  let tStart
+  return function() {
+  	clearTimeout(timer)
+  	const cStart = +Date()
+  	if (!tStart) {
+      tStart = cStart
+  	}
+  	if (cStart - tStart &gt;= duration) {
+      fn.apply(this, args)
+      tStart = cStart
+  	} else {
+      timer = setTimeout(() =&gt; {
+      	fn.apply(this, args);
+      }, delay)
+  	}
+  }
+}</pre></div>
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+<li><a href="http://www.alloyteam.com/2012/11/javascript-throttle/">浅谈javascript的函数节流</a></li>
+</ul>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

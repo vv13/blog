@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  js变量作用域与垃圾回收 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">js变量作用域与垃圾回收</h1>
+      <h2 class="date">November 21, 2016</h2>
+
+      
+    </header>
+
+    
+
+<h2 id="栈内存与堆内存">栈内存与堆内存</h2>
+
+<p>js变量分为基本类型与引用类型, 所有变量都储存在函数方法体内,但根据类型的不同实际存储位置不一样.基本类型存储于栈内中,而引用类型存于堆内存中, 我们先来看看什么是堆内存与栈内存.初始化以下代码:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#fff;font-weight:bold">const</span> name = <span style="color:#0ff;font-weight:bold">&#39;某某某&#39;</span>;
+<span style="color:#fff;font-weight:bold">const</span> age = <span style="color:#ff0;font-weight:bold">22</span>;
+<span style="color:#fff;font-weight:bold">const</span> hasGf = <span style="color:#fff;font-weight:bold">false</span>;
+<span style="color:#fff;font-weight:bold">const</span> obj = {
+  test: <span style="color:#ff0;font-weight:bold">123</span>,
+}
+<span style="color:#fff;font-weight:bold">const</span> anotherObj = obj;</code></pre></div>
+<p>它们在内存中的结构如图：</p>
+
+<p><img src="https://vv13.cn/static/imgs/js变量的内存管理.jpg" alt="" /></p>
+
+<ul>
+<li>栈内存(stack): 如int,string,number等基本变量,他们的大小是固定的,由系统分配栈存储空间</li>
+<li>堆内存(heap):对象的属性是动态扩展的,系统并不知道它栈多少空间,因此创建一个对象, 会在堆内存中开辟一个不固定的空间, 然后返回首地址指针给函数内的变量进行引用</li>
+</ul>
+
+<p>由上图即可看出, 对基本类型与引用类型进行值传递也会不一样:</p>
+
+<ul>
+<li>基本类型直接在栈内存中进行复制值</li>
+<li>引用类型只是将堆内存中的索引传递给变量,它们实际指向的是同一个对象</li>
+</ul>
+
+<p>既然涉及到变量的使用与改变, 难免会遇到栈溢出,堆溢出等问题,以下是一个递归的求和函数, 当调用多次,就会发生栈溢出:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function test(n) {
+  if (n === 1) {
+    return 1;
+  }
+  return n + test(n - 1);
+}
+test(10000); // 50005000
+test(100000); // Uncaught RangeError: Maximum call stack size exceeded(…)</pre></div>
+<p>正是因为每个函数栈中限制了大小, 而每次递归调用都会保存着当前函数栈的信息,等待下一函数执行完返回结果, 执行test函数5次,栈空间变化为:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">test(5)
+5 + test(4)
+5 + (4 + test(3))
+5 + (4 + (3 + test(2)))
+5 + (4 + (3 + (2 + test(1))))
+5 + (4 + (3 + (2 + 1)))
+5 + (4 + (3 + 3))
+5 + (4 + 6)
+5 + 10
+15</pre></div>
+<p>正由于每递归一次都会在内存中形成一个调用帧,于是就会形成栈溢出,我们可用尾递归对栈调用进行优化,尾递归的含义为:在函数尾部调用函数本身,因为只调用了自身,当前栈大多数局部变量都不需要进行保存,因此就不会出现栈溢出了,以下是用尾递归进行实现:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function test(n, count) {
+  if (n === 0) {
+    return count;
+  }
+  return test(n - 1, count + n);
+}
+test(100000); // Uncaught RangeError: Maximum call stack size exceeded(…)</pre></div>
+<p>上述还是会出现栈溢出，究其结果是因为es6没有进行尾递归优化：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Temporarily Removed in Babel 6
+Only explicit self referencing tail recursion was supported due to the complexity and performance impact of supporting tail calls globally. Removed due to other bugs and will be re-implemented.</pre></div>
+<p>那么为了消除栈溢出,只能使用另一种方法了:蹦床(Trampolining), 蹦床函数会将函数的递归调用转换成循环:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function trampoline(f) {
+    while (f &amp;&amp; f instanceof Function) {
+        f = f();
+    }
+    return f;
+}
+
+function test(x, count) {
+    function recur(x, count) {
+        if (x &gt; 0) {
+          return recur.bind(null, x - 1, count + x);
+        } else {
+          return count;
+        }
+    }
+    return trampoline(recur.bind(null, x, count));
+}
+
+console.log(test(100000, 0)); // 5000050000</pre></div>
+<h2 id="内存泄漏">内存泄漏</h2>
+
+<p>javascript具有自动垃圾回收机制(GC),当变量所属的函数执行结束后,就会等待垃圾回收器对其内存进行释放,回收器主要有使用的是标记清楚策略,核心概念为：</p>
+
+<ol>
+<li>遍历所有可访问的对象。</li>
+<li>回收已不可访问的对象。</li>
+</ol>
+
+<p>因此我们应当特别小心那些造成作用域改变的对象或者没有留意到对象的引用,这样它们的内存就会得不到释放,常驻于内存影响性能.</p>
+
+<h4 id="闭包拾遗">闭包拾遗</h4>
+
+<p>通过闭包,内部函数可以访问外部函数的变量,要特别小心在闭包内引用了外部函数的变量后,将内部函数返回出去时, 由于内部函数依赖外部函数的变量,因此不会失去引用而被垃圾回收机制释放掉,直到指向内部函数的指针为null:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function outerFn() {
+  var a = 0;
+  function innerFn() {
+    console.log(a++);
+  }
+  return innerFn;
+}
+
+var fn = outerFn();
+fn(); // 0
+fn(); // 1</pre></div>
+<h4 id="在函数内创建全局变量">在函数内创建全局变量</h4>
+
+<p>若在方法内不带var或let等关键字访问变量,若变量不存在的画就会创建一个全局变量, 从而造成无法释放掉内存,也有可能是构造函数自身进行了调用,this就会指向全局对象:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function Test() {
+  hehe = 123;
+  this.a = 1;
+}
+Test();
+console.log(hehe, a); // 123, 1</pre></div>
+<h4 id="循环引用">循环引用</h4>
+
+<p>如果dom元素操作不当, 很容易造成非常规的内存占用:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function assignHandler () {
+  var element = document.getElementById(&#39;someElement&#39;);
+  element.onclick = function () {
+    alert(element.id);
+  };
+}</pre></div>
+<p>由于匿名函数引用了element, 因此element并不会被垃圾回收器回收,在代码中不要直接通过对象获取属性:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function assignHandler () {
+  var element = document.getElementById(&#39;someElement&#39;);
+  var id = element.id;
+  element.onclick = function () {
+    alert(id);
+  };
+  element = null;
+}</pre></div>
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

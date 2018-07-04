@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  python求质数的几种方法 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">python求质数的几种方法</h1>
+      <h2 class="date">December 26, 2016</h2>
+
+      
+    </header>
+
+    
+
+<p>今天偶然在博客上上看到有人提<a href="http://blog.csdn.net/program_think/article/details/7032600/">求质素的几种境界</a>,在此用python进行实现代码,并进行简单的说明.</p>
+
+<p>我们将要实现函数的功能是输入一个数N,能把小于N的质数个数打印出来,并计算出所耗时间.</p>
+
+<h3 id="境界1">境界1</h3>
+
+<p>我们采用试除法,意思就是将比N小的符合要求的每一个数都除以它,若都无法整除则N为质数,这也是我们能想到的最简单的方法,我们可以从j的范围进行优化一下,很容易想到j的范围可以取<code>2~N/2</code>.
+代码如下:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">def f1(num):
+    # 2也是质数,之后程序从3开始判断
+    count = 1
+    for i in range(3, num):
+        b = True
+        for j in range(2, i/2 + 1):
+            if i % j == 0:
+                b = False
+                break
+        if b:
+            count += 1
+    return count
+
+f1(100000)
+# 耗时35.1589805796秒, 个数9592</pre></div>
+<h3 id="境界2">境界2</h3>
+
+<p>我们可以从j的范围再进行优化一下,最优的范围是<code>2~sqrt(N)</code>,这是因为因数都是成对出现,一个因子不可能超过sqrt(N).再思考一下,除了2以外所有偶数都不会是质数,因此可将偶数全部排除掉,让我们来修改并测试一下程序:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">def f1(num):
+    count = 1
+    # 优化点1:偶数不做判断
+    for i in range(3, num, 2):
+        b = True
+        sq = int(math.sqrt(i)) + 1
+        # 优化点2:缩小试除范围
+        for j in range(2, sq):
+            if i % j == 0:
+                b = False
+                break
+        if b:
+            count += 1
+    return count
+
+f1(100000)
+# 耗时0.264536051872秒, 个数9592</pre></div>
+<h3 id="境界3">境界3</h3>
+
+<p>是否很有趣,通过一步一步的优化从35秒优化到了0.26秒,我们接着进行优化,普通程序员也许在境界2就浅尝辄止了,可是境界永远是用无止境的.</p>
+
+<p>细想一下, 比如判断101是否为质数,<code>sqrt(101)</code>为10, 那我们就要依次用这个数去除以<code>2, 3, 5, 7, 9</code>,大家主要到其实只要除以了3以后就不用除以9了,这样我们就找到了切入点:只要尝试小于sqrt(n) 的<strong>质数</strong>即可. 顺着这个思路,我们会将求得的质数临时保存起来,于是就有了以下方法:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">def f2(num):
+    arrs = [2]
+    count = 1
+    # 质数数组中的索引
+    stop = 0
+    for i in range(3, num):
+        k = int(math.sqrt(i))
+        while stop &lt; count and arrs[stop] &lt;= k:
+            stop += 1
+        # 整除计数
+        j = 0
+        for k in range(stop):
+            if i % arrs[j] == 0:
+                break
+            j += 1
+        # 判定为质数后加入质数数组
+        if j == stop:
+            arrs.append(i)
+            count += 1
+    return count
+
+f2(100000)
+# 耗时0.199287338917秒, 个数9592</pre></div>
+<h3 id="境界4">境界4</h3>
+
+<p>以上都是试除法,现在让我们来尝试以下筛法.让我们先看以下维基百科上十分形象的一张筛法工作原理图:</p>
+
+<p><img src="http://7xp5r4.com1.z0.glb.clouddn.com/16-4-23/38858775.jpg" alt="" /></p>
+
+<p>首先2是质数,因此将2的倍数全部去掉;3为质数,理应将6,9,12等去掉,同理我们只要指定一个质数范围,扩大其倍数进行筛选,将不大于N的所有倍数都筛除掉,剩下的就为质数!</p>
+
+<p>我们在运用筛选法的时候,当然还是得用以上总结出来的各种技巧:</p>
+
+<ul>
+<li>试除数的范围是为２～sqrt(N),同理质数求合数范围也取这个值</li>
+<li>筛法的初始化数组因为要占用字节空间,应尽可能的取小.在此我们用bool型来表示,1代表质数,0代表合数,这样开销会更小</li>
+<li>用加法代替乘法</li>
+</ul>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">def f4(num):
+    # 初始化时将偶数全预筛除掉
+    arrs = [0 if _i % 2 == 0 else 1 for _i in range(num + 1)]
+    arrs[2] = 1
+    count = 0
+    for i in range(3, int(math.sqrt(num)), 2):
+        if arrs[i] == 0:
+            continue
+        # j为i的合数,此处用加法代替乘法
+        j = i + i
+        while j &lt;= num:
+            arrs[j] = 0
+            j += i
+    # 计数
+    for k in range(2, num + 1):
+        if arrs[k] == 1:
+            count += 1
+    return count
+
+f4(100000)
+# 耗时0.03232869726秒, 个数9592</pre></div>
+<h3 id="境界5">境界5</h3>
+
+<p>&hellip;</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

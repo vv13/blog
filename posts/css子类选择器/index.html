@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  CSS子类选择器 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/css%E5%AD%90%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">CSS子类选择器</h1>
+      <h2 class="date">April 17, 2018</h2>
+
+      
+    </header>
+
+    
+
+<h2 id="nth-child和nth-of-type之间的差异">nth-child和nth-of-type之间的差异</h2>
+
+<ul>
+<li>p:nth-child(n)：<code>选取元素为父级的第n个子元素，并且类型为p标签</code></li>
+<li>p:nth-of-type(n)：<code>选取元素为父级的第n个p标签</code></li>
+</ul>
+
+<p>举个例子：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;div class=&#34;wrap&#34;&gt;
+	&lt;h1&gt;标题&lt;/h1&gt;
+	&lt;p&gt;段落1&lt;/p&gt;
+	&lt;p&gt;段落2&lt;/p&gt;
+	&lt;p&gt;段落3&lt;/p&gt;
+	&lt;p&gt;段落4&lt;/p&gt;
+&lt;/div&gt;</pre></div>
+<p>当我们想给段落1设置为红色，如果使用<code>p:nth-child(1) { color: red}</code>，其实是选不了段落1的，因为段落1属于父级的第2个子元素，改为nth-of-type即可选中。</p>
+
+<p>在实际编码中，往往nth-of-type使用较多，因为不容易造成误解。</p>
+
+<h2 id="范围选取">范围选取</h2>
+
+<p>还是以上述html代码为例子，我们可以使用nth-of-type时进行一些范围选取(用法同nth-child)。</p>
+
+<h4 id="特定元素-n">特定元素(n)</h4>
+
+<p>第一个元素的索引为1，n代指选取第几个元素。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">p:nth-of-type(2) {display: none}
+effect：段落2
+show：段落1、段落3、段落4</pre></div>
+<p>除了指定特定的数字，我们也可直接使用n，n代表的是元素的全部索引，<strong>2n表示索引为2的倍数</strong>，3n同理。</p>
+
+<h4 id="基偶选择-odd-even">基偶选择(odd、even)</h4>
+
+<p>odd为基数、even为偶数。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">p:nth-of-type(even) {display: none}
+effect：段落2、段落4
+show：段落1、段落3</pre></div>
+<h4 id="正向选择-n">正向选择(n + ?)</h4>
+
+<p>选取从第？个元素开始到最后的集合。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">p:nth-of-type(n + 3) {display: none}
+effect：段落3、段落4
+show：段落1、段落2</pre></div>
+<h4 id="负向选择-n">负向选择(-n + ?)</h4>
+
+<p>选取第1个到第？个元素的集合。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">p:nth-of-type(-n + 3) {display: none}
+effect：段落1 ~ 段落3
+show：段落4</pre></div>
+<h4 id="范围选择-正负选择组合">范围选择(正负选择组合)</h4>
+
+<p>同时使用正向与负向，即可选取合理的范围。</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">p:nth-of-type(n + 2):nth-of-type(-n + 4) {display: none}
+effect：段落2 ~ 段落4
+show：段落1</pre></div>
+<p>上述所有选择器都可以以这样的形式组合。</p>
+
+<h2 id="其他伪类选择器">其他伪类选择器</h2>
+
+<h4 id="first-child-first-of-type-last-child-last-of-type">first-child、first-of-type、last-child、last-of-type</h4>
+
+<p>选取第一个子元素、第一个指定类型的子元素、最后一个子元素、最后一个指定类型的子元素。</p>
+
+<h4 id="not选择器">not选择器</h4>
+
+<p>通过:not进行包裹，我们可以进行更复杂的选择，比如:not(:nth-child(2))，选取除了第2个元素的所有元素。</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

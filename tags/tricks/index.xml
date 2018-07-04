@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tricks on 🤪</title>
+    <link>https://vv13.cn/tags/tricks/</link>
+    <description>Recent content in Tricks on 🤪</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vv13.cn/tags/tricks/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>简历中的STAR原则</title>
+      <link>https://vv13.cn/posts/%E7%AE%80%E5%8E%86%E4%B8%AD%E7%9A%84star%E5%8E%9F%E5%88%99/</link>
+      <pubDate>Sun, 08 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E7%AE%80%E5%8E%86%E4%B8%AD%E7%9A%84star%E5%8E%9F%E5%88%99/</guid>
+      <description>STAR概念  Situation：事情是在什么情况下发生的 Task：主要的任务目标是什么 Action：朝向目标的具体行动方式 Result：结果如何，有哪些成长  Star法则主要用于叙述一件事情，不仅可以用于描述简历中的项目经理，当给别人讲述一件事情时，遵从STAR法则也能让故事线更加清晰，因为他是一种表现力强的逻辑方式，能让阐述一件事情更具有：清晰性、条理性和逻辑性。
+Example 1 举一个示例：获得省比赛跨栏季军。
+S：省比赛一共有三十个四川省本科院校，其中B组参赛有12个院校，我处于B组。
+T：获取前三名，为学院争光。
+A：在学校每周都会进行两次跨栏训练。
+R：获得四川省110跨栏比赛季军，并受到学院表彰。
+总结 明确目标，保持专注，大步向前。</description>
+    </item>
+    
+    <item>
+      <title>BEM规范</title>
+      <link>https://vv13.cn/posts/bem%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Mon, 09 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/bem%E8%A7%84%E8%8C%83/</guid>
+      <description>什么是BEM？ block(块)、element(元素)、modifier(修饰符)，是一种css命名方式，它让css类对开发者更加透明与易于维护。
+语法 .block {} // 块 .block__element {} // 块所属元素 .block__element--modifier {} // 块所属元素的状态 与sass结合 &amp;amp; 通过&amp;amp;会直接引用父元素，嵌套使用&amp;amp;可以增强可读性：
+.block { &amp;amp;__element1 {} &amp;amp;__element2 {} } extend 如下html：
+&amp;lt;ul&amp;gt; &amp;lt;li class=&amp;#34;nav__item&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li class=&amp;#34;nav__item&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li class=&amp;#34;nav__item--active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;!-- 梦想 --&amp;gt; &amp;lt;li class=&amp;#34;nav__item nav__item--active&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;!-- 现实 --&amp;gt; &amp;lt;/ul&amp;gt; extend可以继承类的所有定义，于是可以这样消除冗余：
+.nav { ... &amp;amp;__item { ... &amp;amp;--active { @extend .nav__item; ... } } } css module&amp;hellip; css module确实能给react带来很好的css独立性，再也不用担心产生命名冲突，但通过实际编程，发现以下问题：
+书写麻烦 使用css module引入的标签：
+&amp;lt;div className={classnames(style[&amp;#39;class1__child&amp;#39;], style[&amp;#39;class2&amp;#39;]}&amp;gt;&amp;lt;/div&amp;gt; 而使用import导入bem类会是这样的：</description>
+    </item>
+    
+    <item>
+      <title>git实用命令技巧</title>
+      <link>https://vv13.cn/posts/git-tricks/</link>
+      <pubDate>Sun, 11 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/git-tricks/</guid>
+      <description>git pull &amp;ndash;rebase 从分支上拉取最新的代码时，往往会多出一条merge记录，这样有时不是我们所期望的，因为它会让整个提交线图变得难以理解：
+我们期望的分支图也许时这样的：
+只需要将git pull -&amp;gt; git pull &amp;ndash;rebase。rebase的好处就在于，它会将当前新的提交记录，全部追加到远程提交信息记录之后:
+合并前： D---E master / A---B---C---F origin/master merge合并： D--------E / \ A---B---C---F---G master, origin/master rebase合并： A---B---C---F---D---E master, origin/master 如果遇到冲突，请将冲突解决后执行: git rebase --continue。它也有两面性，至于谁好谁坏，慎用就行了。
+git commit &amp;ndash;amend 有时候我们生成commit信息后有点小的改动，并不希望新添加一个commit，而是将其追加到上一次提交内容中，这条命令就是为了做这件事情，它还可以更改之前的提交信息。
+获取远程库的更新 普通的工作流程一般是先folk整个工程到本地，再添加上游分支：
+git remote add upstream https://xxx.git 这样一来，我们就可以获取远程的更新到当前分支：
+git pull upstream master 若拉取本地不存在的分支，则可以使用这条命令：
+git checkout -b new_branch upstream/new_branch 推送多个远程库 用法：
+$ vim ~/.git/config [remote &amp;#34;upstream&amp;#34;] url = git@gitlab.main.com:project.git url = git@github.main.com:project.git $ git push upstream 解释：通过编辑config文件，给远程库多添加一个url，那么再执行push操作时，就可以同时push两个库，如上github与gitlab仓库的项目都会更新。</description>
+    </item>
+    
+  </channel>
+</rss>

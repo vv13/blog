@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Typescript on 🤪</title>
+    <link>https://vv13.cn/tags/typescript/</link>
+    <description>Recent content in Typescript on 🤪</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vv13.cn/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一览TypeScript基本类型</title>
+      <link>https://vv13.cn/posts/%E4%B8%80%E8%A7%88typescript%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/posts/%E4%B8%80%E8%A7%88typescript%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</guid>
+      <description>基本类型 TypeScript的基本类型有：boolean、number、string、null、undefined、any等，any代表不确定的类型，不会触发类型检测，它们可以用于指定JavaScript变量的类型：
+const test: string = &amp;#39;vv13&amp;#39; 函数类型 类型系统可以用来定义函数参数与返回值的类型：
+function test(arg1: number): string { return number &amp;gt; 60 ? &amp;#39;good&amp;#39; : &amp;#39;bad&amp;#39; } 函数还有其他两种类型：
+ void：不属于任何类型。函数若没有返回值，可以用void指代：function test(): void {} never：代表函数不会执行完成，如抛出错误、死循环等 (event lop)：function test(): never { while(true) {} }  数组类型 数组类型有两种定义的方式（recommend 1）:
+ let test: number[] = [1, 2, 3] let test: Array&amp;lt;number&amp;gt; = [1, ,2 ,3]  元组Tuple 元组用于定义固定个数不同类型的集合：
+let tuple: [string, number] = [&amp;#39;11&amp;#39;, 2] // true let tuple: [string, number] = [&amp;#39;11&amp;#39;, &amp;#39;2&amp;#39;] // false let tuple: [string, number] = [&amp;#39;11&amp;#39;, 2, &amp;#39;11&amp;#39;] // true 当元素索引超出定义范围的时候，将使用联合类型 ，即只要符合元组定义的类型之一即可。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 🤪</title>
+    <link>https://vv13.cn/tags/</link>
+    <description>Recent content in Tags on 🤪</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Apr 2018 00:52:54 +0800</lastBuildDate>
+    
+	<atom:link href="https://vv13.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Js</title>
+      <link>https://vv13.cn/tags/js/</link>
+      <pubDate>Mon, 16 Apr 2018 00:52:54 +0800</pubDate>
+      
+      <guid>https://vv13.cn/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://vv13.cn/tags/nodejs/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://vv13.cn/tags/python/</link>
+      <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tricks</title>
+      <link>https://vv13.cn/tags/tricks/</link>
+      <pubDate>Sun, 08 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/tricks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Typescript</title>
+      <link>https://vv13.cn/tags/typescript/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue</title>
+      <link>https://vv13.cn/tags/vue/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://vv13.cn/tags/web/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://vv13.cn/tags/web/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

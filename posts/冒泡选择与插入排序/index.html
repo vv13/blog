@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  几个简单的排序-js描述 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">几个简单的排序-js描述</h1>
+      <h2 class="date">December 26, 2016</h2>
+
+      
+    </header>
+
+    
+
+<p>排序算法的精髓就在于：不用会忘，看一遍就能懂。 所以记录一下还是很有必要的。</p>
+
+<h2 id="冒泡">冒泡</h2>
+
+<p>冒泡排序（Bubble Sort），是一种较简单的排序算法，较稳定，用途广，时间复杂度为O(n^2)。</p>
+
+<h4 id="原理">原理</h4>
+
+<p><img src="https://vv13.cn/static/imgs/冒泡、选择与插入排序-1.jpg" alt="" /></p>
+
+<p>此示例一共进行了4次循环，每次确认一个最大的索引值。每进行一次循环时，从索引0开始往下进行比较，若索引0大于索引1则互相交换位置，否则不进行交换，然后接着往下进行比较，保证索引位置始终大于之前找到的数。</p>
+
+<h4 id="代码">代码</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function sort(arrs) {
+  const len = arrs.length;
+  for (let i = 0; i &lt; len - 1; i++) {
+    for (let j = 0; j &lt; len - 1 - i; j++) {
+      if ( arrs[j] &gt; arrs[j + 1]) {
+        [arrs[j], arrs[j + 1]] = [arrs[j + 1], arrs[j]];
+      }
+    }
+  }
+}
+
+输入：3,6,9,4,2
+输出：2,3,4,6,9
+耗时：18ms</pre></div>
+<h2 id="选择排序">选择排序</h2>
+
+<p>选择排序也很简单，大家懂冒泡就理解，它是冒泡排序的一种改进方法，他们都是每次循环找出一个最大或最小的数，区别在于冒泡排序会进行很多次交换数据，而选择排序用一个变量来暂存值，每趟循环只进行一次交换。</p>
+
+<h4 id="原理-1">原理</h4>
+
+<p><img src="https://vv13.cn/static/imgs/冒泡、选择与插入排序-2.jpg" alt="选择排序" /></p>
+
+<p>如图所示，每次循环找出最大值，与最小索引进行交换，这样就实现了从大到小的排序。</p>
+
+<h4 id="代码-1">代码</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function sort(arrs) {
+  const len = arrs.length;
+  let index;
+  for (let i = 0; i &lt; len - 1; i++) {
+    index = i;
+    for (let j = i; j &lt; len; j++) {
+      if (arrs[index] &lt; arrs[j]) {
+        index = j;
+      }
+    }
+    if (i !== index) {
+      [arrs[i], arrs[index]] = [arrs[index], arrs[i]];
+    }
+  }
+}
+
+输入：3,6,9,4,2
+输出：9,6,4,3,2
+耗时：18ms</pre></div>
+<h2 id="插入">插入</h2>
+
+<p>插入排序即将一个数插入到一个已经有序的数字序列中，是一个稳定的排序方法，平均情况稍微比选择排序快。</p>
+
+<h4 id="原理-2">原理</h4>
+
+<p><img src="https://vv13.cn/static/imgs/冒泡、选择与插入排序-3.jpg" alt="" /></p>
+
+<p>想想一下你手中有4张手牌2、4、5、10，当你抽到1张7后，与10进行比较，比10小，往右挪10，与5进行比较，7&gt;5，因此将牌放于次空隙中。而插入排序就是手牌从2张到任意张手牌进行此抽排方式的过程的抽象。</p>
+
+<h4 id="代码-2">代码</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function sort(arrs) {
+  const len = arrs.length;
+  for (let i = 1; i &lt; len; i++) {
+    let j = i - 1;
+    const index = arrs[i];
+    while (j &gt;= 0 &amp;&amp; arrs[j] &gt; index) {
+      arrs[j + 1] = arrs[j--];
+    }
+    arrs[j + 1] = index;
+  }
+}
+
+输入：3,6,9,4,2
+输出：2,3,4,6,9
+耗时：18ms</pre></div>
+<h2 id="快排">快排</h2>
+
+<p>快速排序是在实际中最常用的一种排序算法，速度快，效率高。就像名字一样，快速排序是最优秀的一种排序算法。它采用了分治法的思想，整个排序过程递归进行。</p>
+
+<h4 id="原理-3">原理</h4>
+
+<ol>
+<li>选取数组中最左边的数作为基准。</li>
+<li>分区过程，将比这个数大的放到它的右边，小于它的数放到它的左边。</li>
+<li>对左右区间重复第二步，直到各区间只有一个数。</li>
+</ol>
+
+<h4 id="代码-3">代码</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function sort(arrs, left, right) {
+  if (left &gt; right) return;
+  const len = arrs.length;
+  const key = arrs[left];
+  let low = left;
+  let high = right;
+  while (low &lt; high) {
+    while (low &lt; high &amp;&amp; arrs[high] &gt; key) {
+      high--;
+    }
+    arrs[low] = arrs[high];
+    while (low &lt; high &amp;&amp; arrs[low] &lt; key) {
+      low++;
+    }
+    arrs[high] = arrs[low];
+  }
+  arrs[low] = key;
+  sort(arrs, left, low - 1);
+  sort(arrs, low + 1, right);
+}
+
+输入：[3,6,9,4,2],0,4
+输出：[2,3,4,6,9],0,4
+耗时：15ms</pre></div>
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

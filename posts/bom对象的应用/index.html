@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="vv13">
+    <meta name="description" content="vv13&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://vv13.cn">
+    <title>
+  BOM对象的应用 · 🤪
+</title>
+
+    <link rel="canonical" href="https://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://vv13.cn/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://vv13.cn/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.36" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vv13.cn">
+      🤪
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://vv13.cn/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">BOM对象的应用</h1>
+      <h2 class="date">December 18, 2016</h2>
+
+      
+    </header>
+
+    
+
+<p>BOM即浏览器对象模型，在js代码里，存在一个代表窗体的全局window对象，通过它可以与浏览器进行一定的交互功能，如：
++ 跳转到新的网址：<code>window.location.href = 'http://www.google.com';</code>
++ 打开新的窗体：<code>window.open('http://www.google.com');</code>
++ 刷新页面：<code>window.location.reload();</code>
++ 后退：<code>window.history.back();</code>
++ 前进：<code>window.history.forward();</code></p>
+
+<h4 id="子窗体与父窗体对象的引用">子窗体与父窗体对象的引用</h4>
+
+<p>考虑以下场景：在一个页面中弹出一个子页面，在操作完成后即关闭子页面并刷新父页面。这个场景会在登录页面中十分常见，我们希望当用户登陆完成后刷新父页面，因此需要引用父对象，若在同源页面（浏览器的同源保护策略）即可对子页面进行以下方法的调用：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">function dealOk() {
+  window.opener.location.reload();
+  window.close();
+}</pre></div>
+<p>若是引入第三方的页面，如qq互联接口，则无法直接通过opener获取到父对象进行操作，我们可以通过轮询子窗体状态进行控制：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">// showPopup会返回window对象，原理是window.open()方法的调用
+const childrenWindow = QC.Login.showPopup({
+  appId: APPID,
+  redirectURI: REDIRECT_URI,
+});
+
+const timer = setInterval(() =&gt; {
+
+  // 查看窗体是否被关闭
+  if (childrenWindow.closed) {
+    clearInterval(timer); // 清除轮询
+    window.location.reload(); // 刷新页面
+  }
+},500);</pre></div>
+<h4 id="a标签阻止其跳转">a标签阻止其跳转</h4>
+
+<p>将a标签的href值设为undefined，就可以阻止其跳转，void函数会执行一个表达式，并只返回undefined，我们也可以通过执行<code>;</code>直接返回undefined：</p>
+
+<ul>
+<li><code>&lt;a href=&quot;javascript:void(0);&quot;&gt;点击不会进行跳转&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;javascript:;&quot;&gt;点击不会进行跳转&lt;/a&gt;</code></li>
+</ul>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018  
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
