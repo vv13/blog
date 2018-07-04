@@ -1,2 +1,1 @@
-> [blog.vv13.cn](http://blog.vv13.cn) | [RSS](http://blog.vv13.cn/index.xml)
-
+## Thanks for Star and Watch
