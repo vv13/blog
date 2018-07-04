@@ -6,10 +6,19 @@
     <description>Recent content on 🤪</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Jul 2018 13:57:05 +0800</lastBuildDate>
     
 	<atom:link href="http://vv13.cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About Me</title>
+      <link>http://vv13.cn/about/</link>
+      <pubDate>Mon, 02 Jul 2018 13:57:05 +0800</pubDate>
+      
+      <guid>http://vv13.cn/about/</guid>
+      <description> EMAIL: zwhvv13@gmail.com  </description>
+    </item>
     
     <item>
       <title>一览TypeScript基本类型</title>
