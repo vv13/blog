@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Js on 🤪</title>
-    <link>https://vv13.cn/tags/js/</link>
+    <link>http://vv13.cn/tags/js/</link>
     <description>Recent content in Js on 🤪</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 16 Apr 2018 00:52:54 +0800</lastBuildDate>
     
-	<atom:link href="https://vv13.cn/tags/js/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://vv13.cn/tags/js/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>js继承小结</title>
-      <link>https://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</link>
+      <link>http://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</link>
       <pubDate>Mon, 16 Apr 2018 00:52:54 +0800</pubDate>
       
-      <guid>https://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</guid>
+      <guid>http://vv13.cn/posts/js%E7%BB%A7%E6%89%BF%E5%B0%8F%E7%BB%93/</guid>
       <description>重写原型链 初始化父类实例，将实例赋予给子类的原型链，这样一来，新原型不仅具有父类的所有属性和方法，而且内部还有一个__proto__指针指向父类的原型，这种方法称之为类式继承，代码如下：
 function SuperClass() {} function SubClass() {} SubClass.prototype = new SuperClass() 使用这类继承需要注意以下特性：
  使用子类创建的实例，constructor会指向父类，这是因为子类prototype被替换为父类的prototype了 引用类型的值会被所有实例共享  借用构造函数 将初始化属性与方法定义在父类中，在子类构造函数中使用call()调用父类的构造函数，这样父类的所有实例方法就会赋予给子类实例，这样可以解决引用类型共享问题：
@@ -31,10 +31,10 @@ function createAnother(obj) { const newObj = Object.</description>
     
     <item>
       <title>js事件触发机制</title>
-      <link>https://vv13.cn/posts/js-event-trigger/</link>
+      <link>http://vv13.cn/posts/js-event-trigger/</link>
       <pubDate>Tue, 17 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/js-event-trigger/</guid>
+      <guid>http://vv13.cn/posts/js-event-trigger/</guid>
       <description>原理 事件捕获
 由网景最先提出，事件会从最外层开始发生，直到最具体的元素，也就是说假如父元素与子元素都绑定有点击事件，又互相重叠，那么先出发的会是父元素的事件，然后再传递到子元素。
 事件冒泡
@@ -53,10 +53,10 @@ container.addEventListener(&amp;#34;click&amp;#34;, e =&amp;gt; { if (e.target.i
     
     <item>
       <title>什么是函数节流</title>
-      <link>https://vv13.cn/posts/throttle/</link>
+      <link>http://vv13.cn/posts/throttle/</link>
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/throttle/</guid>
+      <guid>http://vv13.cn/posts/throttle/</guid>
       <description>什么是函数节流 避免同一时间函数调用多次，消耗大量的性能，比如resize事件、input事件等，通过设定函数执行时间间隔与延时，来达到优化的效果，应用最多的如lodash的debounce防抖函数了吧。
 代码实现 首先通过setTimeout实现一个简单的版本，原理为使用clearTimeout刷新定时器即可：
 function throttle(fn, delay, ...args) { let timer = null return function() { clearTimeout(timer) timer = setTimeout(() =&amp;gt; fn.apply(this, args), delay) } } 测试函数：
@@ -66,10 +66,10 @@ function throttle(fn, delay, duration, ...args) { let timer = null let tStart re
     
     <item>
       <title>异步编程中的thunk函数</title>
-      <link>https://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</link>
+      <link>http://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</link>
       <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</guid>
+      <guid>http://vv13.cn/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84thunk%E5%87%BD%E6%95%B0/</guid>
       <description>什么是Thunk Thunk英译即转化程序，第一次遇见这个名词是在使用redux-thunk的时候，只知道是做为异步和同步中间件来使用，并未深入的了解，接下来发现koa的框架中是因在koa1的概念中设计到了它，故学习了一番，因此做一个简单的总结。
 写一个简单的函数，用于读取package.json的信息：
 fs.readFile(&amp;#39;package.json&amp;#39;, (err, data) =&amp;gt; { if (err) throw err; console.log(data.toString()) }) 在某些情况下，我们需要将参数进行包装一下，比如在koa1的生成器中间件中，我们必须将函数包装成有且只有一个callback函数，这样koa中间件才能识别函数：
@@ -79,10 +79,10 @@ app.use(async(ctx, next) =&amp;gt; { const data = await readFileWrap(&amp;#39;pa
     
     <item>
       <title>理解javascript线程</title>
-      <link>https://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</link>
+      <link>http://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</link>
       <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</guid>
+      <guid>http://vv13.cn/posts/%E7%90%86%E8%A7%A3javascript%E7%BA%BF%E7%A8%8B/</guid>
       <description>进程和线程  进程：系统资源分配与组织的最小单位，具备独立功能的程序即可成为一个进程，它有自己的内存空间 线程：cpu调度和分派(运行)的最小单位，线程是一个进程的实体，可以共享进程独占的资源，自己只拥有一点在运行中必不可少的资源(程序计数器、寄存器、栈)  线程的作用：
  大多数程序需要多个线程同步或互斥的并行完成工作，将工作分化到线程中简化了编程模型 线程很轻量，创建与销毁消耗的资源小 线程提高了cpu利用率，避免了如等待用户输入、异步资源请求等一系列阻塞操作  根据以上概念，多核cpu可以同时运行多个线程，那可以运行多个进程吗？普遍的答案是cpu只能同时运行一个线程，它是靠时间片轮转来实现的伪多进程，以下有一个关于利用多核心cpu的一个解释：
 最早 UNIX 的调度是以 “进程” 为最小调度单位，那个时候还没有线程的概念。线程有两种，一种是 “用户态线程” ，对内核不可见，内核不可以调度，现在一般叫做纤程或协程。另一种是 “内核态线程”，由内核调度，也称作轻量进程 LWP 。现在说的线程，一般不特殊指定，都是内核线程。 能不能利用多核的关键是能不能被内核调度，既然内核态线程可以被调度，自然可以利用多核。 另外只要资源足够（内存） CPU 可以 hold 住任意多的进程或线程，这与 CPU 的核数无关。你在这里指的应该是 “运行” 。 javascript单线程机制 javascipt语言最大的特点就是单线程，同一时间只有一段代码在执行，这种语言有一个共同的特点：基于事件驱动。它虽然是单线程的，但是所在的平台肯定是异构的：
@@ -100,10 +100,10 @@ Web Worker所执行的代码是在另一个作用域中，与当前代码不共�
     
     <item>
       <title>几个简单的排序-js描述</title>
-      <link>https://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</link>
+      <link>http://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</link>
       <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</guid>
+      <guid>http://vv13.cn/posts/%E5%86%92%E6%B3%A1%E9%80%89%E6%8B%A9%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</guid>
       <description>排序算法的精髓就在于：不用会忘，看一遍就能懂。 所以记录一下还是很有必要的。
 冒泡 冒泡排序（Bubble Sort），是一种较简单的排序算法，较稳定，用途广，时间复杂度为O(n^2)。
 原理 此示例一共进行了4次循环，每次确认一个最大的索引值。每进行一次循环时，从索引0开始往下进行比较，若索引0大于索引1则互相交换位置，否则不进行交换，然后接着往下进行比较，保证索引位置始终大于之前找到的数。
@@ -113,10 +113,10 @@ Web Worker所执行的代码是在另一个作用域中，与当前代码不共�
     
     <item>
       <title>BOM对象的应用</title>
-      <link>https://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <link>http://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</link>
       <pubDate>Sun, 18 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <guid>http://vv13.cn/posts/bom%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
       <description> BOM即浏览器对象模型，在js代码里，存在一个代表窗体的全局window对象，通过它可以与浏览器进行一定的交互功能，如： + 跳转到新的网址：window.location.href = &#39;http://www.google.com&#39;; + 打开新的窗体：window.open(&#39;http://www.google.com&#39;); + 刷新页面：window.location.reload(); + 后退：window.history.back(); + 前进：window.history.forward();
 子窗体与父窗体对象的引用 考虑以下场景：在一个页面中弹出一个子页面，在操作完成后即关闭子页面并刷新父页面。这个场景会在登录页面中十分常见，我们希望当用户登陆完成后刷新父页面，因此需要引用父对象，若在同源页面（浏览器的同源保护策略）即可对子页面进行以下方法的调用：
 function dealOk() { window.opener.location.reload(); window.close(); } 若是引入第三方的页面，如qq互联接口，则无法直接通过opener获取到父对象进行操作，我们可以通过轮询子窗体状态进行控制：
@@ -126,10 +126,10 @@ function dealOk() { window.opener.location.reload(); window.close(); } 若是引
     
     <item>
       <title>js代理函数技巧</title>
-      <link>https://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</link>
+      <link>http://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</link>
       <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</guid>
+      <guid>http://vv13.cn/posts/js%E4%BB%A3%E7%90%86%E5%87%BD%E6%95%B0%E6%8A%80%E5%B7%A7/</guid>
       <description>简述 有时候我们总想改造某些函数，保留它原有的功能与参数，追加新的操作在里面，若是自己写的函数，则直接改写函数即可，但假若是系统给定的函数与未知的参数，那么该怎么办呢？
 示例 假设下面有一个自定义函数splice, 它主要的功能是删除原数组指定索引元素，再将其返回：
 function splice(arrs, start, length) { arrs.splice(start, length); return arrs; } const arrs = [1,2,3]; splice(arrs, 1, 1); // 返回为：[1,3] 如果我们需要扩展splice，比如打印被删除的元素信息，则只需要进行如下更改：
@@ -139,10 +139,10 @@ const arrs = [1,2,3]; const proxy = (...args) =&amp;gt; { const cutArrs = arrs.s
     
     <item>
       <title>js变量申明解析</title>
-      <link>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</link>
+      <link>http://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</link>
       <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</guid>
+      <guid>http://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%94%B3%E6%98%8E%E8%A7%A3%E6%9E%90/</guid>
       <description>var属性有多种需要注意的特性： 1. 无块级作用域 2. 不带申明类型默认为全局变量 3. 变量提升 4. 运行重新申明变量
 一、块级作用域 首先，js中申明的var变量或是方法，都没有块级作用域，只有函数作用域，最典型的示例为：
 for (var i = 0; i &amp;lt; 100; i++){ // ... } console.log(i); // 输入100 若我们使用es6的let与const，就不会出现这种问题。
@@ -153,10 +153,10 @@ const testobj = { foo: &amp;#39;bar&amp;#39; }; let value; let starttime; let en
     
     <item>
       <title>js变量作用域与垃圾回收</title>
-      <link>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
+      <link>http://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
       <pubDate>Mon, 21 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
+      <guid>http://vv13.cn/posts/js%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
       <description>栈内存与堆内存 js变量分为基本类型与引用类型, 所有变量都储存在函数方法体内,但根据类型的不同实际存储位置不一样.基本类型存储于栈内中,而引用类型存于堆内存中, 我们先来看看什么是堆内存与栈内存.初始化以下代码:
 const name = &amp;#39;某某某&amp;#39;; const age = 22; const hasGf = false; const obj = { test: 123, } const anotherObj = obj; 它们在内存中的结构如图：
  栈内存(stack): 如int,string,number等基本变量,他们的大小是固定的,由系统分配栈存储空间 堆内存(heap):对象的属性是动态扩展的,系统并不知道它栈多少空间,因此创建一个对象, 会在堆内存中开辟一个不固定的空间, 然后返回首地址指针给函数内的变量进行引用  由上图即可看出, 对基本类型与引用类型进行值传递也会不一样:

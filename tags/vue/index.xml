@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vue on 🤪</title>
-    <link>https://vv13.cn/tags/vue/</link>
+    <link>http://vv13.cn/tags/vue/</link>
     <description>Recent content in Vue on 🤪</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 31 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://vv13.cn/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://vv13.cn/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>vue中如何自定义v-model</title>
-      <link>https://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</link>
+      <link>http://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</guid>
+      <guid>http://vv13.cn/posts/vue%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</guid>
       <description> 简介 在vue的表单中，大家都享受着v-model带来的便利性，有时候也会遇到自定义v-model的场景，其实它是一颗语法糖而已，那我们接下来就来吃糖吧。
 基本的v-model用法为：
 &amp;lt;input v-model=&amp;#34;something&amp;#34;&amp;gt; 其实它是以下用法的简写：

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on 🤪</title>
-    <link>https://vv13.cn/tags/python/</link>
+    <link>http://vv13.cn/tags/python/</link>
     <description>Recent content in Python on 🤪</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 26 Dec 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://vv13.cn/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://vv13.cn/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>python求质数的几种方法</title>
-      <link>https://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <link>http://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://vv13.cn/posts/%E6%B1%82%E8%B4%A8%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
       <description>今天偶然在博客上上看到有人提求质素的几种境界,在此用python进行实现代码,并进行简单的说明.
 我们将要实现函数的功能是输入一个数N,能把小于N的质数个数打印出来,并计算出所耗时间.
 境界1 我们采用试除法,意思就是将比N小的符合要求的每一个数都除以它,若都无法整除则N为质数,这也是我们能想到的最简单的方法,我们可以从j的范围进行优化一下,很容易想到j的范围可以取2~N/2. 代码如下:
@@ -26,10 +26,10 @@ def f1(num): count = 1 # 优化点1:偶数不做判断 for i in range(3, num, 2)
     
     <item>
       <title>python变量作用域</title>
-      <link>https://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</link>
+      <link>http://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</link>
       <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</guid>
+      <guid>http://vv13.cn/posts/python%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</guid>
       <description>class比作整个屋子，def为卧室，class外面的部分就是小区环境。
 首先测试房子(class)与公共设施变量(globals)之间的关系 # encoding: utf-8 PUBLIC_FACILITIES = u&amp;#34;公共厕所&amp;#34; class House(): print PUBLIC_FACILITIES PUBLIC_FACILITIES = &amp;#39;改造&amp;#39; if __name__ == &amp;#39;__main__&amp;#39;: test = House() print PUBLIC_FACILITIES 测试结果：
 公共厕所 公共厕所 ***Repl Closed*** 房屋的拥有者可以使用小区内的公共设施。由此可知class内部可以访问外部的变量，但不能进行修改，在class中执行改造命令的效果就是新建了一个类局部变量变量，在访问域中覆盖了全局变量的访问域。

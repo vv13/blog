@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodejs on 🤪</title>
-    <link>https://vv13.cn/tags/nodejs/</link>
+    <link>http://vv13.cn/tags/nodejs/</link>
     <description>Recent content in Nodejs on 🤪</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 25 Dec 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://vv13.cn/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://vv13.cn/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>nodejs中exports与module.exports的区别</title>
-      <link>https://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <link>http://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <guid>http://vv13.cn/posts/nodejs%E4%B8%ADexports%E4%B8%8Emodule-exports%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>在nodejs中常常会使用require()加载模块，为了使得文件模块化，将其的变量与方法提供给别的模块使用，就会使用到exports与module.exports，可是如何区分它们呢？ 在此简单的记录一下。
 require()的返回值 require()返回的是module.exports指向的内容而不是exports的，我们将两个变量分别赋予新的内存地址，以此来进行观察：
 test.js:
