@@ -1,56 +1,126 @@
 ---
-title: "Vue Cli3多入口配置说明"
+title: "Vue CLI 3 多入口打包教程"
 date: 2018-08-13T14:22:13+08:00
 ---
+## 前言
 
-用Webpack对网站应用进行单页应用（SPA）构建无疑是一个比较好的选择，它具备用户体验好、维护方便等各种现代化特性，可是网页应用错综复杂，很多时候单页应用并不能解决所有问题，如在重SEO、兼容性要求高、基于桌面浏览器的传统网站中，若贸然全站使用SPA会带来后期高昂的维护成本，因此很少有应用全站使用SPA技术，因此单页应用也无法避免需要多入口打包的情况。
+vue-cli是Vue.js官方推出的脚手架，它功能丰富、扩展性强，为Vue应用开发带来了极大的便捷，它提供了多种开发范式，诠释了开箱即用。vue-cli@3版本经历了alpha、beta、rc版本近7个月的迭代开发，在最近几天正式版终于发布，本文主要讲解如何使用vue-cli创建一个多入口工程，若要近一步了解vue-cli，请访问[官方文档](https://cli.vuejs.org/guide/)。
 
-由于Webpack配置错综复杂，整个流程自由度也非常高，所以维护别人写配置会变得十分困难，因此在开发过程中往往会去选择Zero-Config的方式，也就是说由底层脚手架封装好基本配置信息，满足基本的使用要求，底层也做好了各打包环境的优化工作，常规配置信息在统一的配置文件进行改变，这样一来十分便于维护，二是开发者无需了解底层原理，开箱即用，某些脚手架也支持将配置进行导出后自行手动定制(create-react-app)。本文主要讲的是基于vue-cli3的多入口打包实践方法，也会介绍一些Webpack多入口的基本配置方法。
+## 什么是多页应用
 
-## vue-cli3多入口配置实例
+单页应用（SPA）往往只含有包含一个主入口文件与index.html，页面间切换通过局部刷新资源来完成。而在多页应用中，我们会为每个HTML文档文件都指定好一个JS入口，这样一来当页面跳转时用户会获得一个新的HTML文档，整个页面会重新加载。
 
-用户通过自定义vue.config.js配置文件中的pages字段，即可开启框架的多入口模式，以下为配置字段的示例：
+单页应用、多页应用的优劣势在此就不进行分析了，总而言之，多页架构模式暂时是无法取代的，如果尝试把几十个不关联的页面做成一个，那么开发成本会非常大的，**Not every app has to be an SPA**。
+
+## 初始化项目
+
+首先我们安装好vue-cli脚手架，并初始化一个默认工程：
+
+```
+$ npm i -g @vue-cli@3.0.0
+$ vue create --default multi-page-demo
+```
+
+此时的目录结构为：
+
+```
+...
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── src
+│   ├── App.vue
+│   ├── assets
+│   │   └── logo.png
+│   ├── components
+│   │   └── HelloWorld.vue
+│   └── main.js
+```
+
+我们首先需要重构工程目录，可以基于以下或自身的需求进行考虑：
+
+1. 通过一个pages目录来存放不同的入口，每个入口包含：index.html、main.js，pages，其中文件夹名即路由名
+2. src目录下可以存放项目的通用组件和静态资源，每个入口单独管理自己独有的资源
+
+通过以上考虑，决定将工程结果重构为：
+
+```
+...
+├── public
+│   └── favicon.ico
+├── src
+│   ├── assets
+│   ├── components
+│   └── pages
+│       └── page1
+│           ├── App.vue
+│           ├── assets
+│           │   └── logo.png
+│           ├── components
+│           │   └── HelloWorld.vue
+│           ├── index.html
+│           └── main.js
+│       └── page2
+│           ├── ...
+```
+
+更改完结构后，我们再通过vue.config.js对入口进行一下调整，保证项目正常运行：
+
+```
+// vue.config.js
+const path = require("path");
+
+module.exports = {
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      args[0].template = path.join(__dirname, "./src/pages/page1/index.html");
+      return args;
+    });
+  },
+  configureWebpack: {
+    entry: {
+      app: path.join(__dirname, "./src/pages/page1/main.js")
+    }
+  }
+};
+
+```
+
+vue.config.js是一个可选文件，用户需要自行创建，它会被`@vue/cli-service`读取。当正确添加配置后，重启一下项目，测试一下项目在改变目录结构后能否正常运行。试想一下，若照着这个思路进行配置多入口，那么首先需要删除或修改掉原有webpack配置项，然后还需添加多入口的一些插件，虽然通过脚手架对外提供的API可以实现，可是这种修改方式还不是直接修改原生构建配置更快，那么还有其他解决方法吗？
+
+## Multi-Page模式
+
+Vue CLI 3 支持多入口模式，只需要在vue.config.js中提供pages选项即可开启[多入口模式](https://cli.vuejs.org/zh/config/#pages)，我们现在将使用pages字段来重构vue.config.js：
 
 ```
 module.exports = {
   pages: {
     index: {
-      // entry for the page
-      entry: 'src/index/main.js',
-      // the source template
-      template: 'public/index.html',
-      // output as dist/index.html
-      filename: 'index.html',
-      // when using title option,
-      // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
-      title: 'Index Page',
-      // chunks to include on this page, by default includes
-      // extracted common chunks and vendor chunks.
-      chunks: ['chunk-vendors', 'chunk-common', 'index']
+      // page 的入口
+      entry: "src/pages/page1/main.js",
+      // 模板来源
+      template: "src/pages/page1/index.html",
+      // 在 dist/index.html 的输出
+      filename: "index.html",
+      // 当使用 title 选项时，
+      // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+      title: "Index Page",
+      // 在这个页面中包含的块，默认情况下会包含
+      // 提取出来的通用 chunk 和 vendor chunk。
+      chunks: ["chunk-vendors", "chunk-common", "index"]
     }
-  }，
-  another: {...}
-}
+  }
+};
 ```
 
-@vue/cli-service会根据我们是否传入pages字段来生成不同的webpack配置的相关插件，在项目工程中，我们通过一个函数来根据特定的文件夹目录结构自动生成这些配置信息，假设目录结构为：
+配置完成后，服务依然正确访问，至此已经完成了添加多入口的基本准备工作，借助于脚手架多入口构建模式，因此需要做的工作仅剩下一个：**通过目录结构生成对应的入口配置**，也就是说，我们需要实现一个函数，函数的具体功能为：
+
+![](http://7xp5r4.com1.z0.glb.clouddn.com/18-8-14/41944374.jpg)
+
+以下是具体配置：
 
 ```
-/src
-- pages
-- - entry1
-- - - app.vue
-- - - main.js
-- - - index.html
-- - entry2
-- - - app.vue
-- - - main.js
-- - - index.html
-```
-
-对应自动生成pages字段的vue.config.js文件为：
-
-```
+// vue.config.js
 const path = require("path");
 const glob = require("glob");
 const fs = require("fs");
@@ -65,14 +135,18 @@ const genPages = () => {
   const pages = {};
   const pageEntries = config.pattern.map(e => {
     const matches = glob.sync(path.resolve(__dirname, e));
-    return matches.filter(match => fs.existsSync(`${match}/${config.entry}`));
+    return matches.filter(
+      match =>
+        fs.existsSync(`${match}/${config.entry}`) &&
+        fs.existsSync(`${match}/${config.html}`)
+    );
   });
   Array.prototype.concat.apply([], pageEntries).forEach(dir => {
-    const filename = dir.split(path.sep).pop()
+    const filename = dir.split(path.sep).pop();
     pages[filename] = {
       entry: `${dir}/${config.entry}`,
       template: `${dir}/${config.html}`,
-      filename: `${filename}/${config.html}`
+      filename: filename === 'index' ? config.html : `${filename}/${config.html}`
     };
   });
   return pages;
@@ -84,4 +158,164 @@ module.exports = {
 
 ```
 
-需要注意的是，config.pattern定义了所包含多入口的路径，之所以使用这种形式，是为了更方便的定义基于不同根路径的多入口工程，我们也可以直接指定对应的文件夹，有选择性的去生成入口配置。
+通过以上配置后，如果是page1的入口，则会最终在dist目录生成一个：`page1/index.html`，因此还需要设置vue.config.js中的devServer.historyApiFallback，确保任意的 404 响应都可能需要被替代为 index.html正常返回：
+
+```
+...
+  devServer: {
+    historyApiFallback: true,
+  },
+...
+```
+
+至此，我们配置工作就结束了。复制一份page1文件夹为page2，通过将App.vue内的img标签去除，然后重新启动项目，在浏览器中测试一下访问，若以上步骤没问题，那么访问/page2时，应该会出现不带logo的页面，运行`yarn build输出结构如下：
+
+```
+.
+├── css
+│   ├── page1.5f9ed80b.css
+│   └── page2.80dc2e75.css
+├── favicon.ico
+├── img
+│   └── logo.82b9c7a5.png
+├── js
+│   ├── chunk-vendors.f061f10e.js
+│   ├── chunk-vendors.f061f10e.js.map
+│   ├── page1.973fb73f.js
+│   ├── page1.973fb73f.js.map
+│   ├── page2.5e495ede.js
+│   └── page2.5e495ede.js.map
+├── page1
+│   └── index.html
+└── page2
+    └── index.html
+```
+
+## 源码部分
+
+@vue/cli-service通过判断是否传入pages参数来生成对应Webpack配置文件，让我们先来看看没有传入时的处理函数：
+
+```
+   if (!multiPageConfig) {
+      // default, single page setup.
+      htmlOptions.template = fs.existsSync(htmlPath)
+        ? htmlPath
+        : defaultHtmlPath
+
+      webpackConfig
+        .plugin('html')
+          .use(HTMLPlugin, [htmlOptions])
+
+      if (!isLegacyBundle) {
+        // inject preload/prefetch to HTML
+        ...
+      }
+    }
+```
+
+由源码可知，pages参数可用于生成三个插件：preload-plugin、prefetch-plugin、html-plugin，若不传html文件则会使用一个只空的默认html文件，而在多入口模式下，代码的逻辑也很简单，在此就不贴源码了，它会执行以下步骤：
+
+1. 清除原有entry
+2. 对pages字段的每个key做循环，解析每个入口对象的参数entry(必填)、title、template、filename、chunks
+3. 通过entry字段生成webpack的entry入口
+4. 通过其余参数生成对应的html-webpack-plugin，若不为传统模式，也会生成对应入口的preload插件与prefetch插件
+
+## 局部优化
+
+#### 移除prefetch
+
+由于本人并不喜欢为将来做打算，因此并不希望预加载一些可能会用到的asyncChunk，因为会浪费掉一些带宽，而且在多页面中并不见得预加载其他入口的文件是一件好事情，于是我们通过chainWebpack进行删除：
+
+```
+modules.exports = {
+	// ...
+  chainWebpack: config => {
+    Object.keys(pages).forEach(entryName => {
+      config.plugins.delete(`prefetch-${entryName}`);
+    });
+  }
+}
+```
+
+#### 关闭SourceMap
+
+关闭之后不仅能加快生产环境的打包速度，也能避免源码暴露在浏览器端：
+
+```
+modules.exports = {
+	// ...
+    productionSourceMap: false,
+}
+```
+
+#### 打包分类(强迫症患者福音)
+
+首先回顾一下dist中的部分文件夹：
+
+```
+.
+├── css
+│   ├── page1.5f9ed80b.css
+│   └── page2.80dc2e75.css
+├── js
+│   ├── chunk-vendors.f061f10e.js
+│   ├── chunk-vendors.f061f10e.js.map
+│   ├── page1.973fb73f.js
+│   ├── page1.973fb73f.js.map
+│   ├── page2.5e495ede.js
+│   └── page2.5e495ede.js.map
+├── page1
+│   └── index.html
+└── page2
+    └── index.html
+```
+
+其实我们更希望的是不同入口的css与js文件放入不同入口中，而不是统一放在一个js和css文件夹，为了做到这一点，js打包路径我们可已通过修改webpack的output配置来完成，而css打包路径，脚手架是通过MiniCssExtractPlugin插件来完成的，因此可以使用chainWebpack的tap来修改其配置，以上只需要在生产环境修改即可：
+
+```
+modules.exports = {
+  // ...
+  chainWebpack: config => {
+	// ...
+    if (process.env.NODE_ENV === "production") {
+      config.plugin("extract-css").tap(() => (() => [
+        {
+          filename: "[name]/css/[name].[contenthash:8].css",
+          chunkFilename: "[name]/css/[name].[contenthash:8].css"
+        }
+      ]));
+    }
+  },
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === "production") {
+      config.output = {
+        path: path.join(__dirname, "./dist"),
+        filename: "[name]/js/[name].[contenthash:8].js",
+        publicPath: "/",
+        chunkFilename: "[name]/js/[name].[contenthash:8].js"
+      };
+    }
+  }
+}
+```
+
+此时打包后的dist文件夹为：
+
+```
+├── page1
+│   ├── css
+│   │   └── page1.42195c95.css
+│   ├── index.html
+│   └── js
+│       └── page1.569bf4e5.js
+└── page2
+    ├── css
+    │   └── page2.4e7ad924.css
+    ├── index.html
+    └── js
+        └── page2.05e51252.js
+```
+
+## Demo
+
+[https://github.com/vv13/vue-cli-multipage.git](https://github.com/vv13/vue-cli-multipage.git)
