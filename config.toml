@@ -1,29 +1,33 @@
 baseurl = "/" # Hostname (and path) to the root.
 title = "vv13" # Site title.
 theme = "coder" # Set the theme.
-languagecode = "en" # The site’s language code.
+languagecode = "en" # The site’s language code used to generate RSS.
+defaultcontentlanguage = "en" # The default content language.
 
-paginate = 99 # Default number of pages per page in pagination.
+paginate = 20 # Default number of pages per page in pagination.
 canonifyurls = true # Enable to turn relative URLs into absolute.
 
 pygmentsstyle = "b2" # Color-theme or style for syntax highlighting.
 pygmentscodefences = true # Enable code fence background highlighting.
 pygmentscodefencesguesssyntax = true # Enable syntax guessing for code fences without specified language.
 
+disqusShortname = "vv13" # Enable or disable Disqus.
 [params] # theme parameters
     author = "vv13" # Author's name.
     info = "FRONT-END DEVELOPER " # Author's job title or info.
     description = "vv13's personal website" # Site description.
     keywords = "blog,developer,personal" # Site keywords.
-
-    disqusShortname = "vv13" # Enable or disable Disqus
-
+    footercontent = "I'm no one" # Add footer content
     # Whether you want to hide copyright and credits in the footer.
     hideCredits = true
-    hideCopyright = false
+    hideCopyright = true
+
+    # to switch bewteen LTR and RTL layout
+    rtl = false
 
     # Custom CSS
-	custom_css = []
+    custom_css = []
+
 
 # Social links
 [[params.social]]
