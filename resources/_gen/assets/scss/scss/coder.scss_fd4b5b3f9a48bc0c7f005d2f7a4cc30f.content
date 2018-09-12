@@ -153,6 +153,9 @@ img {
 .float-left {
   float: left; }
 
+.iconfont {
+  font-size: inherit; }
+
 .content {
   flex: 1;
   margin-top: 1.6rem;
@@ -230,7 +233,8 @@ img {
             .centered .about ul li a {
               font-size: 1.4rem; } }
           .centered .about ul li a i {
-            font-weight: 400; }
+            font-weight: 400;
+            font-size: 25px; }
   .centered .error {
     text-align: center; }
     .centered .error h1 {
@@ -254,12 +258,15 @@ img {
   .navigation a, .navigation span {
     display: inline;
     font-size: 1.6rem;
-    text-transform: uppercase;
     line-height: 6.0rem;
     letter-spacing: 0.1rem; }
     @media only screen and (max-device-width: 768px) {
       .navigation a, .navigation span {
         font-size: 1.4rem; } }
+  .navigation .navigation-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
   .navigation .navigation-list {
     float: right;
     list-style: none;
@@ -337,7 +344,8 @@ img {
 .footer {
   width: 100%;
   text-align: center;
-  line-height: 2.0rem;
+  line-height: 1.0rem;
+  font-size: 1.0rem;
   margin-bottom: 1.0rem; }
 
 /*# sourceMappingURL=coder.css.map */

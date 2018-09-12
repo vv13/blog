@@ -1,10 +1,10 @@
 baseurl = "/" # Hostname (and path) to the root.
 title = "vv13" # Site title.
-theme = "coder" # Set the theme.
+theme = "vv13" # Set the theme.
 languagecode = "en" # The site’s language code used to generate RSS.
 defaultcontentlanguage = "en" # The default content language.
 
-paginate = 20 # Default number of pages per page in pagination.
+paginate = 10 # Default number of pages per page in pagination.
 canonifyurls = true # Enable to turn relative URLs into absolute.
 
 pygmentsstyle = "b2" # Color-theme or style for syntax highlighting.
@@ -13,11 +13,11 @@ pygmentscodefencesguesssyntax = true # Enable syntax guessing for code fences wi
 
 disqusShortname = "vv13" # Enable or disable Disqus.
 [params] # theme parameters
-    author = "vv13" # Author's name.
-    info = "FRONT-END DEVELOPER " # Author's job title or info.
+    # author = "vv13" # Author's name.
+    # info = "I'm no one" # Author's job title or info.
     description = "vv13's personal website" # Site description.
     keywords = "blog,developer,personal" # Site keywords.
-    footercontent = "I'm no one" # Add footer content
+    footercontent = "时间带走一切" # Add footer content
     # Whether you want to hide copyright and credits in the footer.
     hideCredits = true
     hideCopyright = true
@@ -27,24 +27,24 @@ disqusShortname = "vv13" # Enable or disable Disqus.
 
     # Custom CSS
     custom_css = []
+    banner = "http://7xp5r4.com1.z0.glb.clouddn.com/18-9-12/24175809.jpg"
 
 
 # Social links
 [[params.social]]
     name = "Github"
+    icon = "iconfont icon-github"
     weight = 1
     url = "https://github.com/vv13/"
 [[params.social]]
     name = "CodePen"
+    icon = "iconfont icon-codepen"
     weight = 1
     url = "https://codepen.io/vv13/"
 
+
 # Menu links
 [[menu.main]]
-    name = "Blog"
+    name = "博客"
     weight = 1
     url  = "/posts/"
-[[menu.main]]
-    name = "About"
-    weight = 2
-    url = "/about/"
