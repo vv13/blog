@@ -1,7 +1,7 @@
 ---
 title: 什么是函数节流
 date: 2017-10-14
-tags: ['js']
+tags: ['JavaScript']
 ---
 ## 什么是函数节流
 

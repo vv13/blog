@@ -21,6 +21,7 @@ disqusShortname = "vv13" # Enable or disable Disqus.
     # Whether you want to hide copyright and credits in the footer.
     hideCredits = true
     hideCopyright = true
+    google_analytics = "UA-87368781-1"
 
     # to switch bewteen LTR and RTL layout
     rtl = false

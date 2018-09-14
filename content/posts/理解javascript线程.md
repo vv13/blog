@@ -2,7 +2,7 @@
 layout: post
 title: 理解javascript线程
 date: 2017-02-09
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 ## 进程和线程

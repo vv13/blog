@@ -2,7 +2,7 @@
 layout: post
 title: js变量作用域与垃圾回收
 date: 2016-11-21
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 ## 栈内存与堆内存

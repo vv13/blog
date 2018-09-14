@@ -2,7 +2,7 @@
 layout: post
 title: js变量申明解析
 date: 2016-12-09
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 

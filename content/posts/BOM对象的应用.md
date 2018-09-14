@@ -2,7 +2,7 @@
 layout: post
 title: BOM对象的应用
 date: 2016-12-18
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 BOM即浏览器对象模型，在js代码里，存在一个代表窗体的全局window对象，通过它可以与浏览器进行一定的交互功能，如：

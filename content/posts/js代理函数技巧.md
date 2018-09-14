@@ -2,7 +2,7 @@
 layout: post
 title: js代理函数技巧
 date: 2016-12-09
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 #### 简述

@@ -22,7 +22,6 @@ body {
       line-height: 1.6em; } }
 
 a {
-  font-weight: 700;
   color: #000;
   text-decoration: none; }
   a:focus, a:hover {
@@ -163,10 +162,11 @@ img {
   .content article header {
     margin-top: 3.2rem;
     margin-bottom: 3.2rem; }
-    .content article header h1, .content article header h2 {
+    .content article header h1,
+    .content article header h2 {
       margin: 0; }
     .content article header h2 {
-      margin-top: 1.0rem;
+      margin-top: 1rem;
       font-size: 1.8rem;
       color: #323232; }
       @media only screen and (max-device-width: 768px) {
@@ -181,25 +181,43 @@ img {
     .avatar img {
       width: 10rem; } }
 
-.list ul {
+.list .list-items {
   margin: 3.2rem 0 3.2rem 0;
   list-style: none;
   padding: 0; }
-  .list ul li {
-    font-size: 1.6rem; }
-    @media only screen and (max-device-width: 768px) {
-      .list ul li {
-        font-size: 1.4rem;
-        margin: 1.6rem 0 1.6rem 0; } }
-    .list ul li span {
+  .list .list-items .list-item {
+    font-weight: bold;
+    position: relative;
+    height: 6rem;
+    font-size: 1.5rem;
+    display: flex; }
+    .list .list-items .list-item .list-date {
       display: inline-block;
-      width: 20.0rem;
+      width: 20rem;
       text-align: right;
-      margin-right: 3.0rem; }
-      @media only screen and (max-device-width: 768px) {
-        .list ul li span {
-          display: block;
-          text-align: left; } }
+      margin-right: 3rem; }
+    .list .list-items .list-item .list-tags {
+      font-weight: normal;
+      text-decoration: underline;
+      display: flex; }
+      .list .list-items .list-item .list-tags .list-tag {
+        font-size: 1rem; }
+    .list .list-items .list-item .list-wordcount {
+      font-size: 1rem; }
+
+@media only screen and (max-device-width: 768px) {
+  .list .list-items .list-item {
+    flex-direction: column;
+    height: auto;
+    font-size: 1.6rem;
+    margin: 1.6rem 0 1.6rem 0; }
+    .list .list-items .list-item .list-date {
+      font-size: 1rem;
+      width: auto;
+      display: block;
+      text-align: left; }
+    .list .list-items .list-item .list-tags {
+      display: none; } }
 
 .centered {
   display: flex;
@@ -209,25 +227,25 @@ img {
   .centered .about {
     text-align: center; }
     .centered .about h1 {
-      margin-top: 2.0rem;
+      margin-top: 2rem;
       margin-bottom: 0.5rem; }
     .centered .about h2 {
-      margin-top: 1.0rem;
+      margin-top: 1rem;
       margin-bottom: 0.5rem;
       font-size: 2.4rem; }
       @media only screen and (max-device-width: 768px) {
         .centered .about h2 {
-          font-size: 2.0rem; } }
+          font-size: 2rem; } }
     .centered .about ul {
       list-style: none;
-      margin: 3.0rem 0 1.0rem 0;
+      margin: 3rem 0 1rem 0;
       padding: 0; }
       .centered .about ul li {
         display: inline-block;
         position: relative; }
         .centered .about ul li a {
-          margin-left: 1.0rem;
-          margin-right: 1.0rem;
+          margin-left: 1rem;
+          margin-right: 1rem;
           font-size: 1.6rem; }
           @media only screen and (max-device-width: 768px) {
             .centered .about ul li a {
@@ -238,14 +256,14 @@ img {
   .centered .error {
     text-align: center; }
     .centered .error h1 {
-      margin-top: 2.0rem;
+      margin-top: 2rem;
       margin-bottom: 0.5rem;
       font-size: 4.6rem; }
       @media only screen and (max-device-width: 768px) {
         .centered .error h1 {
           font-size: 3.2rem; } }
     .centered .error h2 {
-      margin-top: 2.0rem;
+      margin-top: 2rem;
       margin-bottom: 3.2rem;
       font-size: 3.2rem; }
       @media only screen and (max-device-width: 768px) {
@@ -347,5 +365,21 @@ img {
   line-height: 1.0rem;
   font-size: 1.0rem;
   margin-bottom: 1.0rem; }
+
+.section-tags {
+  padding: 0;
+  display: flex;
+  justify-content: center; }
+  .section-tags .tag {
+    margin: 1rem; }
+    .section-tags .tag.current {
+      transform: scale(1.2);
+      text-decoration: underline; }
+  @media only screen and (max-device-width: 768px) {
+    .section-tags {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center; } }
 
 /*# sourceMappingURL=coder.css.map */

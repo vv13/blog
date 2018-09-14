@@ -1,7 +1,7 @@
 ---
 title: "js继承小结"
 date: 2018-04-16T00:52:54+08:00
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 ## 重写原型链

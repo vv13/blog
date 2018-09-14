@@ -1,7 +1,7 @@
 ---
 title: 异步编程中的thunk函数
 date: 2017-08-23
-tags: ['js']
+tags: ['JavaScript']
 ---
 
 ## 什么是Thunk
