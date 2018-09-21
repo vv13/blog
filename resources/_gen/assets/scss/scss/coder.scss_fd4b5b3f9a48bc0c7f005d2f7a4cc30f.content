@@ -101,6 +101,9 @@ code {
   background-color: #000;
   color: #fefefe;
   padding: 0.4rem 0.8rem 0.4rem 0.8rem; }
+  code a {
+    color: #fefefe;
+    text-decoration: underline; }
 
 blockquote {
   border-left: 2px solid #dcdcdc;

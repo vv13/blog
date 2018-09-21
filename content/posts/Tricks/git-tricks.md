@@ -72,6 +72,38 @@ $ git push upstream
 ## 更改提交人
 在有一次和小伙伴协作代码时，由于需要伪造成同一个身份，让代码管理者看commit历史以为是同一个人做的，因此就用到了--author参数，提交的格式为：`name<mail>`，比如：`git commit -m 'feat: something' --author="TJ<mail@gmail.com>"`，这是通过git log即可看到作者信息发生了变化。
 
+## Stash
+
+用于保存和恢复工作现场，如在切分支时、拉取代码、热修复时，需要将当前修改的文件内容储存起来，完成另一个场景的个工作，再恢复现场，以下是一些常用命令：
+
+- git stash
+
+  保存当前的工作进度。会分别对暂存区和工作区的状态进行保存
+
+- git stash save "message..."
+
+  这条命令实际上是第一条 `git stash` 命令的完整版
+
+- git stash list
+
+  显示进度列表。此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择
+
+- git stash pop [--index] [<stash>]
+
+  如果不使用任何参数，会恢复最新保存的工作进度，并将恢复的工作进度从存储的工作进度列表中清除。
+
+  如果提供参数（来自 `git stash list` 显示的列表），则从该 `<stash>` 中恢复。恢复完毕也将从进度列表中删除 `<stash>`。
+
+  选项--index 除了恢复工作区的文件外，还尝试恢复暂存区。
+
+- git stash apply [--index] [<stash>]
+
+  除了不删除恢复的进度之外，其余和 `git stash pop` 命令一样
+
+- git stash clear
+
+  删除所有存储的进度
+
 ## 其他
 
 - 删除远程分支：$ git push origin --delete <branchName>
