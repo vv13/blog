@@ -1,6 +1,7 @@
 ---
 title: "Redux-Thunk源码解析"
 date: 2018-07-22T12:05:23+08:00
+tags: ['React']
 ---
 
 redux-thunk是一个神奇的库，短短14行代码，目前将近1w个star，那么这个库究竟做了些什么事情呢？

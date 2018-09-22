@@ -1,7 +1,7 @@
 ---
 title: css的BFC特性
 date: 2017-10-23
-tags: ['web']
+tags: ['Web']
 ---
 
 ### 预备知识

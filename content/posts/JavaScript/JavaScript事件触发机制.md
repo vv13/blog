@@ -1,5 +1,5 @@
 ---
-title: js事件触发机制
+title: JavaScript事件触发机制
 date: 2017-10-17
 tags: ['JavaScript']
 ---

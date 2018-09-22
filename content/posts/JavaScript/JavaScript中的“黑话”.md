@@ -305,6 +305,26 @@ function flattenDeep(arrs) {
 ![](http://7xp5r4.com1.z0.glb.clouddn.com/18-8-28/89073993.jpg)
 
 
+## Object
+###Object.prototype.toString.call
+
+
+
+### Object.create(null)
+
+用于创建无“副作用”的对象，也就是说，它创建的是一个**空对象**，不包含原型链与其他属性。若使用`const map = {}`创建出来的对象相当于Object.create(Object.prototype)，它继承了对象的原型链。
+
+### JSON.parse(JSON.stringify(Obj))
+
+很常用的一种深拷贝对象的方式，将对象进行JSON字符串格式化再进行解析，即可获得一个新的对象，要注意它的性能不是特别好，而且无法处理闭环的引用，比如：
+
+```
+const obj = {a: 1};
+obj.b = obj;
+JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular structure to JSON
+```
+
+这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
 ## 计算机基础
 
@@ -348,23 +368,5 @@ function flattenDeep(arrs) {
 ```
 
 这样一来，-0的问题就可以解决了。
-
-## Object
-
-### Object.create(null)
-
-用于创建无“副作用”的对象，也就是说，它创建的是一个**空对象**，不包含原型链与其他属性。若使用`const map = {}`创建出来的对象相当于Object.create(Object.prototype)，它继承了对象的原型链。
-
-### JSON.parse(JSON.stringify(Obj))
-
-很常用的一种深拷贝对象的方式，将对象进行JSON字符串格式化再进行解析，即可获得一个新的对象，要注意它的性能不是特别好，而且无法处理闭环的引用，比如：
-
-```
-const obj = {a: 1};
-obj.b = obj;
-JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular structure to JSON
-```
-
-这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
 > 未完待续...

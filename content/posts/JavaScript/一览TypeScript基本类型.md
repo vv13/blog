@@ -1,7 +1,7 @@
 ---
 title: "一览TypeScript基本类型"
 date: 2018-05-19
-tags: ['typescript']
+tags: ['JavaScript']
 ---
 
 #### 基本类型

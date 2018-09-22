@@ -2,7 +2,7 @@
 layout: post
 title: nodejs中exports与module.exports的区别
 date: 2016-12-25
-tags: ['nodejs']
+tags: ['JavaScript']
 ---
 
 在nodejs中常常会使用require()加载模块，为了使得文件模块化，将其的变量与方法提供给别的模块使用，就会使用到exports与module.exports，可是如何区分它们呢？ 在此简单的记录一下。
