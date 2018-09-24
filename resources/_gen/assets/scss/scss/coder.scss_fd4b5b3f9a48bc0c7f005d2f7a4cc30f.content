@@ -361,6 +361,9 @@ img {
       margin: 0;
       text-align: center;
       width: 3.2rem; }
+  .pagination .current {
+    font-weight: bold;
+    text-decoration: underline; }
 
 .footer {
   width: 100%;

@@ -306,9 +306,39 @@ function flattenDeep(arrs) {
 
 
 ## Object
-###Object.prototype.toString.call
+### Object.prototype.toString.call
 
+每个对象都有一个toString()，用于将对象以字符串方式引用时自动调用，如果此方法未被覆盖，toString则会返回[object type]，因此`Object.prototype.toString.call`只是为了调用原生对象上未被覆盖的方法，call将作用域指向需要判断的对象，为了获取最终的type。
 
+在ES3中，获取到的type为[[Class]]属性，它可以用来判断一个原生属性属于哪一种内置的值；在ES5中新增了两条规则：若this值为null、undefined分别返回： [object Null]、[object Undefined]；在ES6中不存在[[Class]]了，取而代之的是一种内部属性：[[NativeBrand]]，它是一种标记值，用于区分原生对象的属性，具体的判断规则为：
+
+```
+19.1.3.6Object.prototype.toString ( )
+When the toString method is called, the following steps are taken:
+
+If the this value is undefined, return "[object Undefined]".
+If the this value is null, return "[object Null]".
+Let O be ! ToObject(this value).
+Let isArray be ? IsArray(O).
+If isArray is true, let builtinTag be "Array".
+Else if O is a String exotic object, let builtinTag be "String".
+Else if O has a [[ParameterMap]] internal slot, let builtinTag be "Arguments".
+Else if O has a [[Call]] internal method, let builtinTag be "Function".
+Else if O has an [[ErrorData]] internal slot, let builtinTag be "Error".
+Else if O has a [[BooleanData]] internal slot, let builtinTag be "Boolean".
+Else if O has a [[NumberData]] internal slot, let builtinTag be "Number".
+Else if O has a [[DateValue]] internal slot, let builtinTag be "Date".
+Else if O has a [[RegExpMatcher]] internal slot, let builtinTag be "RegExp".
+Else, let builtinTag be "Object".
+Let tag be ? Get(O, @@toStringTag).
+If Type(tag) is not String, set tag to builtinTag.
+Return the string-concatenation of "[object ", tag, and "]".
+This function is the %ObjProto_toString% intrinsic object.
+
+NOTE
+Historically, this function was occasionally used to access the String value of the [[Class]] internal slot that was used in previous editions of this specification as a nominal type tag for various built-in objects. The above definition of toString preserves compatibility for legacy code that uses toString as a test for those specific kinds of built-in objects. It does not provide a reliable type testing mechanism for other kinds of built-in or program defined objects. In addition, programs can use @@toStringTag in ways that will invalidate the reliability of such legacy type tests.
+
+```
 
 ### Object.create(null)
 
