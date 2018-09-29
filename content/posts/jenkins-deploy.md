@@ -29,7 +29,7 @@ docker run -d --name jenkins_node -p 8899:8080 -v /var/jenkins_home:/var/jenkins
 
 以上步骤都执行成功后，访问`server_ip/8899`可以看到如下页面：
 
-![](http://7xp5r4.com1.z0.glb.clouddn.com/17-10-18/84127408.jpg)
+![](http://qn.vv13.cn/17-10-18/84127408.jpg)
 
 此时查询到container ID， 然后通过`docker logs id`可以查询到密钥就在log中：
 

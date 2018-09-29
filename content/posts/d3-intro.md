@@ -102,7 +102,7 @@ d3.select(".chart")
 
 效果图：
 
-![](http://7xp5r4.com1.z0.glb.clouddn.com/17-10-24/89023358.jpg)
+![](http://qn.vv13.cn/17-10-24/89023358.jpg)
 
 其中，api方法如下：
 

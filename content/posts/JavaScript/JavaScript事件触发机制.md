@@ -19,7 +19,7 @@ tags: ['JavaScript']
 
 ------
 
-![](http://7xp5r4.com1.z0.glb.clouddn.com/17-10-17/68340524.jpg)
+![](http://qn.vv13.cn/17-10-17/68340524.jpg)
 
 `addEventListen(event, function, useCapture)`添加事件的第三个参数默认值为false，即默认使用事件冒泡，若为true则使用事件捕获的机制，以下为测试代码：
 
@@ -73,7 +73,7 @@ container.addEventListener("click", e => {
 
 让我们举一个实际场景来说明关于冒泡的应该(偷懒不附上详细代码了)：
 
-![](http://7xp5r4.com1.z0.glb.clouddn.com/17-10-19/36934899.jpg)
+![](http://qn.vv13.cn/17-10-19/36934899.jpg)
 
 场景如下：
 

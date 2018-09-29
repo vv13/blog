@@ -302,7 +302,7 @@ function flattenDeep(arrs) {
 
 经过测试，效率与lodash对比如下：
 
-![](http://7xp5r4.com1.z0.glb.clouddn.com/18-8-28/89073993.jpg)
+![](http://qn.vv13.cn/18-8-28/89073993.jpg)
 
 
 ## Object
