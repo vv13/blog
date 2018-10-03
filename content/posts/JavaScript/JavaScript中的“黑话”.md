@@ -280,7 +280,7 @@ function shuffle(arrs) {
 }
 ```
 
-### flatten
+### Array.prototype.concat.apply
 
 apply接收数组类型的参数来调用函数，而concat接收字符串或数组的多个参数，因此可使用此技巧将二维数组直接展平：
 
@@ -304,6 +304,59 @@ function flattenDeep(arrs) {
 
 ![](http://qn.vv13.cn/18-8-28/89073993.jpg)
 
+### Array.prototype.push.apply
+在es5中，若想要对数组进行拼接操作，我们习惯于使用数组中的concat方法：
+```
+let arrs = [1, 2, 3];
+arrs = arrs.concat([4,5,6]);
+```
+但还有酷的方法，利用apply方法的数组传参特性，可以更简洁的执行拼接操作：
+```
+const arrs = [1, 2, 3];
+arrs.push.apply(arrs, [4, 5, 6]);
+```
+
+### Array.prototype.length
+它通常用于返回数组的长度，但是也是一个包含有复杂行为的属性，首先需要说明的是，**它并不是用于统计数组中元素的数量**，而是代表数组中最高索引的值：
+```
+const arrs = [];
+arrs[5] = 1;
+console.log(arrs.length); // 6
+```
+另外，length长度随着数组的变化而变化，但是这种变化仅限于：**子元素最高索引值的变化**，假如使用`delete`方法删除最高元素，length是不会变化的，因为最高索引值也没变：
+```
+const arrs = [1, 2, 3];
+delete arrs[2]; // 长度依然为3
+```
+length还有一个重要的特性，那就是允许你修改它的值，若修改值小于数组本身的最大索引，则会对数组进行部分截取：
+```
+const arrs = [1, 2, 3, 4];
+arrs.length = 2; // arrs = [1, 2]
+arrs.length = 0; // arrs = []
+```
+若赋予的值大于当前最大索引，则会得到一个稀疏数组：
+```
+const arrs = [1, 2];
+arrs.length = 5; // arrs = [1, 2,,,,]
+```
+若将值赋为0，则执行了**清空数组**的操作:
+```
+const arrs = [1, 2, 3, 4];
+arrs.length = 0; // arrs = []
+```
+使用此方法会将数组中的所有索引都删除掉，因此也会影响其他引用此数组的值，这点跟使用`arrs = []`有很大的区别：
+```
+let a = [1,2,3];
+let b = [1,2,3];
+let a1 = a;
+let b1 = b;
+a = [];
+b.length = 0;
+console.log(a, b, a1, b1); // [], [], [1, 2, 3], []
+```
+在对length进行修改的时候，还需要注意：
+- 值需要为正整数
+- 传递字符串会被尝试转为数字类型
 
 ## Object
 ### Object.prototype.toString.call
@@ -356,8 +409,40 @@ JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular struc
 
 这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
-## 计算机基础
+## 技巧篇
+### 获取数组中最大最小值
+```
+const a = [4 ,8, 1];
+Math.max.apply(Math, a); // 8
+Math.min(...a); // 1
+```
+### 清空数组
+```
+const arrs = [1, 2, 3];
+arrs.length = 0;
+```
+### 获取对象中的某几个属性
+相信大家听说过lodash中的[pick](https://lodash.com/docs/4.17.10#pick)与[omit](https://lodash.com/docs/4.17.10#omit)，在表单提交时它们都是非常有用的方法，首先来看看实现类似功能的pick函数：
+```
+function pick(obj, keys) {
+  return keys
+    .map(k => obj.hasOwnProperty(k) ? {[k]: obj[k]} : {})
+    .reduce((accumulator, currentValue) => Object.assign(accumulator, currentValue), {});
+}
+```
+1. map：找到所有键对应的单个键值对象，若找不到则返回空对象
+2. reduce：将上一步所得的所有对象合并成一个对象
 
+omit函数同理，只是需要先获取到对象中所有key，再进行过滤就行了：
+```
+function omit(obj, keys) {
+    return Object.keys(obj)
+      .filter(key => !keys.includes(key))
+      .map(k => ({[k]: obj[k]}))
+      .reduce((res, o) => Object.assign(res, o), {});
+}
+```
+## 原理篇
 ### 原码, 反码, 补码
 
 在JavaScript进行位运算时，采用32位有符号整型，即数字5有以下表示方式：
@@ -400,3 +485,7 @@ JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular struc
 这样一来，-0的问题就可以解决了。
 
 > 未完待续...
+
+## 参考资料
+-  [https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/](https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/)
+- [https://dmitripavlutin.com/the-magic-behind-array-length-property/](https://dmitripavlutin.com/the-magic-behind-array-length-property/)
