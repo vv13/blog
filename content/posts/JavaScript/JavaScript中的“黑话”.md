@@ -5,34 +5,40 @@ date: 2018-08-31
 tags: ['JavaScript']
 ---
 
-> 老司机也要翻车系列/恐吓外行集锦/装逼指南
+因为球是圆的，所以不论发生什么都有可能，对这点我是深信不疑的，但最近我总是在怀疑，JavaScript也是圆的！本文带你细数JavaScript的黑话，因为这一切是多么的有趣，又是多么的无意义，就如这世界一般，很多事情只有当你了解过，才能做出错误的选择。
 
-## Operator
+## 什么是“黑话”
+黑话，本指旧时江湖帮会人物的暗语、暗号，往往见于小说，后指流行于某一特殊行业中，非局外人所能了解的语言。而本文涉及到的“黑话”，其实是一些利用语言的特征使用的一些不常见的奇淫技巧，JavaScript的语法是十分简单灵活的，在项目中建议大家遵从ESLint规范编写可维护性的代码，各路神仙们也应该进行自我约束，毕竟“黑话”也并不全是什么好的东西，如果很多话可以直接讲，何必拐弯抹角的去说呢？
 
-在JavaScript程序中，请一定要慎用位运算，再次被列为三大禁术之一！
+## “算术”
+算术中的位运算已被作者列为禁术，因此希望你在工程中使用位运算时，请确保你有充足的理由使用，并在需要时写好Hack注释。
 
-### !!
+### !与!!
+`!`为逻辑非操作符，可以应用于ECMAScript中的任何值，无论这个值是什么类型，它会被强制转化为一个布尔值变量，再对其值取反。
 
-将任意类型转为布尔型变量，以下是部分结果集：
+`!!`只是单纯的将操作数执行两次逻辑非，它能将任意类型的值转化为相应的布尔值，它包含的步骤为：
+1. 将一个值转化为布尔值；
+2. 将其取反；
+3. 再次取反。
 
+假设你需要通过一个布尔型变量表示是否有id值，以下写法推荐你使用最后一种方式来进行转化：
 ```
-// false
-!!undefined
-!!null
-!!NaN
-!!0
-// true
-!![]
-!!{}
-!!1
-...
+const enable1 = !!id；
+const enable2 = id ? true : false;
+const enable3 = Boolean(id);
 ```
 
-在实际项目中，也可使用单!，用于排除null、undefined、0等值。
+### ~ 与 ~~
+`~`表示按位取反，`~5`的运行步骤为：
+1. 转为一个字节的二进制表示：00000101，
+2. 按位取反：11111010
+3. 取其反码：10000101
+4. 取其补码：10000110
+5. 转化为十进制：-6
 
-### ~~
+至于原码、反码、补码原理请看原理篇。
 
-它代表双非按位运算符，如果你想使用比Math.floor()更快的方法，那就是它了。需要注意，对于正数，它向下取整；对于负数，向上取整；非数字取值为0，它具体的表现形式为：
+`~~`它代表双非按位取反运算符，如果你想使用比Math.floor()更快的方法，那就是它了。需要注意，对于正数，它向下取整；对于负数，向上取整；非数字取值为0，它具体的表现形式为：
 
 ```
 ~~null;      // => 0
@@ -49,10 +55,7 @@ tags: ['JavaScript']
 ~~-1.9;      // => -1
 ```
 
-而一个~表示按位取反，如十进制5，以8位二进制表示：00000101，通过按位取反得：11111010，再取其反码：10000101，得其补码：10000110，因此~5 = -6，至于原码、反码、补码原理请看[以下章节](#原码, 反码, 补码)。
-
 ### +
-
 在变量值前使用+的本意是将变量转换为数字，在一个函数接受数字类型的参数时特别有用：
 
 ```
@@ -62,32 +65,65 @@ tags: ['JavaScript']
 +{} // NaN
 ```
 
-根据观察，`+a`与`a * 1`结果类似，使用+也可以产生一个立即执行函数：`+function() {}()`。
+根据观察，`+a`与`a * 1`结果类似。除此之外，使用+也可以作为立即执行函数：`+function() {}()`，等效于`(function(){})()`。
 
-Vice Versa，将数字转为字符串的快捷方法也有：`'' + 1`。
+字符串与数字相加时会将数值默认转为字符串，因此有了一下将数字转为字符串的快捷方法：`'' + 1`。
 
-### &, &&
+### & 与 &&
+如何你是从类C语言过来的话，请抛弃之前的刻板印象：&可以充当逻辑操作符号。在JavaScript中，&只能进行位运算。
 
-请抛弃脑海中隐隐若现的理论： &会判断完所有条件是否成立，返回结果；而&&会判断第一个条件是否成立，若不成立，则直接返回结果了。
+`&`，它表示按位与，此运算符需要两个数字并返回一个数字。如果它们不是数字，则会转换为数字。如果执行`7 & 3`， 则会经过以下步骤：
+1. 先转换为2进制： `111 & 11`
+2. 比较结果为：`011`
+3. 将二进制转回十进制，因此：`7 & 3 = 3`
 
-首先来说说&，它代表位运算的与，逻辑含义是两个条件都需要满足，来看一个示例：
+它也可用于基偶数判断：`const isOdd = num => !!(num & 1);`
 
+`&&`，表示逻辑与，通常用于if条件判断，可跟你想象的不太一样，&&并不是单纯的返回true或者false，而是依据：
+1. 若第一个表达式为false，则返回第一个表达式；
+2. 若第一个表达式为true，返回第二个表达式。
+在这里举几个例子：
 ```
-10进制：7 & 3
-转换为2进制： 111 & 11
-比较结果：011
-因此： 7 & 3 = 3
+0 && false          0 (both are false-y, but 0 is the first)
+true && false       false (second one is false-y)
+true && true        true (both are true-y)
+true && 20          20 (both are true-y)
 ```
 
-而对于&&，在条件判断中用于短路求值，返回第一个假值，也可用于赋值运算中，比如：`a = b.c && b.c.d`，这样可避免当c为undefined时，报Uncaught TypeError。
+`&&`可以连接多个操作符，如：`a && b && c && d`，返回值的规则与上面一样。除此以外，它还经常被作为短路逻辑使用：若前面表达式不是truthy，则不会继续执行之后的表达式。如在取一个对象的属性，我们需要先判断是否为空才能进行取值，否则会抛出Uncaught TypeError，这种情况下一般我们也会通过逻辑或，给与表达式一个默认值：
+```
+const value = obj && obj.value || false
+```
+当JavaScript压缩工具遇到if判断时，也会使用&&短路逻辑从而节省内存空间：
+```
+// before
+if (test) { alert('hello') }
+// after
+test && alert('hello')
+```
 
-### |, ||
+### | 与 ||
+它们与`&`和`&&`使用方法很相似，不同的是它们表示的是逻辑或，因此使用`|`会进行按位或运算，而`||`会返回第一个Truthy值。
 
-基本原理同上，在此也举一个例子：`1 | 2` alike `1 | 10` equal `11` ,因此1 | 2 = 3。
+使用||进行默认值赋值在JavaScript中十分常见，这样可以省略很多不必要的if语句，比如：
+```
+// before
+let res;
+if (a) {
+  res = a;
+} else if (b) {
+  res = b;
+} else if (c) {
+  res = c;
+} else {
+  res = 1;
+}
 
-对于||，除了条件判断，也可用于默认值赋值，如： `a = b || 'something'`。
+// after
+const res = a || b || c || 1;
+```
 
-### == , ===
+### == 与 ===
 
 `==`为相等运算符，操作符会先将左右两边的操作数强制转型，转换为相同的操作数，再进行相等性比较。
 
@@ -201,59 +237,24 @@ console.log(11 == '11') // true
 console.log(11 === '11') // false
 ```
 
-以上是使用相等运算符需要注意的一些用法，可以提一下的是，在JavaScript语言中，Falsy值有以下几种：
+### ^
+按位异或运算符，对比每一个比特位，当比特位不相同时则返回1，否则返回0。很少人在Web开发中使用此运算符吧，除了传说中的一种场景：交换值。
 
-- false
-- null
-- undefined
-- 0
-- ''
-- NaN
-- document.all
-
-document.all属于历史遗留原因，所以为false，它违背了JavaScript的规范，可以不管它，而NaN这个变量，千万不要用全等或相等对其进行判断，因为它发起疯来连自己都打：
-
+若要交换a与b的值，如果可以的话推荐你使用：
 ```
-console.log(NaN === 0) // false
-console.log(NaN === NaN) // false
-console.log(NaN == NaN) // false
+[a, b] = [b, a];
 ```
-
-但是我们可以使用Object.is方法进行判断值是否为NaN，它是ES6新加入的语法，用于比较两个值是否相同，它可以视为比全等判断符更为严格的判断方法，但是不可混为一谈：
-
-```
-Object.is(NaN, NaN) // true
-Object.is(+0, -0) // false
-```
-
-### swap
-
-两个数互相交换是一个很常见的操作，当然大家都希望每人都写这样的代码：`[a, b] = [b, a]`，可是世事总不如人意，你可能会遇到这样的异或运算：
-
+或者新建一个c，用于存储临时变量，如果你遇到有人这样书写：
 ```
 // 异或运算，相同位取0，不同位取1，a ^ b ^ b = a， a ^ a ^ b = b
 a = a ^ b
 b = a ^ b
 a = a ^ b
 ```
+这样通过异或运算进行交换两个数字型变量，请原谅他并忽视它，他只可能是一个醉心于魔法的初心者，并祝愿他早日发现，简洁易读的函数才是最佳实践。
 
-与异或运算思路相同，也可以使用加减法：
-
-```
-a = a + b
-b = a - b
-a = a - b
-```
-
-更有甚者，可能是这样的：
-
-```
-a = [b,b=a][0];
-```
-
-## Array
-
-### shuffle
+## “话术
+### Array.prototype.sort
 
 Array.prototype.sort()默认根据字符串的Unicode编码进行排序，具体算法取决于实现的浏览器，在[v8引擎](https://github.com/v8/v8/blob/b8a5ae4749be1b34246957982e205517737d814b/src/js/array.js#L545)中，若数组长度小于10则使用从插入排序，大于10使用的是快排。
 
@@ -281,7 +282,6 @@ function shuffle(arrs) {
 ```
 
 ### Array.prototype.concat.apply
-
 apply接收数组类型的参数来调用函数，而concat接收字符串或数组的多个参数，因此可使用此技巧将二维数组直接展平：
 
 ```
@@ -304,20 +304,22 @@ function flattenDeep(arrs) {
 
 ![](http://qn.vv13.cn/18-8-28/89073993.jpg)
 
+对上上述方法中的`Array.prototype.concat.apply([], target)`亦可以写成：`[].concat(...target)`。
+
 ### Array.prototype.push.apply
 在es5中，若想要对数组进行拼接操作，我们习惯于使用数组中的concat方法：
 ```
 let arrs = [1, 2, 3];
 arrs = arrs.concat([4,5,6]);
 ```
-但还有酷的方法，利用apply方法的数组传参特性，可以更简洁的执行拼接操作：
+但还有酷的方法，利用apply方法的数组传参特性，可以更简洁的执行拼接操作：
 ```
 const arrs = [1, 2, 3];
 arrs.push.apply(arrs, [4, 5, 6]);
 ```
 
 ### Array.prototype.length
-它通常用于返回数组的长度，但是也是一个包含有复杂行为的属性，首先需要说明的是，**它并不是用于统计数组中元素的数量**，而是代表数组中最高索引的值：
+它通常用于返回数组的长度，但是也是一个包含有复杂行为的属性，首先需要说明的是，**它并不是用于统计数组中元素的数量**，而是代表数组中最高索引的值：
 ```
 const arrs = [];
 arrs[5] = 1;
@@ -358,9 +360,7 @@ console.log(a, b, a1, b1); // [], [], [1, 2, 3], []
 - 值需要为正整数
 - 传递字符串会被尝试转为数字类型
 
-## Object
 ### Object.prototype.toString.call
-
 每个对象都有一个toString()，用于将对象以字符串方式引用时自动调用，如果此方法未被覆盖，toString则会返回[object type]，因此`Object.prototype.toString.call`只是为了调用原生对象上未被覆盖的方法，call将作用域指向需要判断的对象，为了获取最终的type。
 
 在ES3中，获取到的type为[[Class]]属性，它可以用来判断一个原生属性属于哪一种内置的值；在ES5中新增了两条规则：若this值为null、undefined分别返回： [object Null]、[object Undefined]；在ES6中不存在[[Class]]了，取而代之的是一种内部属性：[[NativeBrand]]，它是一种标记值，用于区分原生对象的属性，具体的判断规则为：
@@ -394,11 +394,9 @@ Historically, this function was occasionally used to access the String value of 
 ```
 
 ### Object.create(null)
-
 用于创建无“副作用”的对象，也就是说，它创建的是一个**空对象**，不包含原型链与其他属性。若使用`const map = {}`创建出来的对象相当于Object.create(Object.prototype)，它继承了对象的原型链。
 
 ### JSON.parse(JSON.stringify(Obj))
-
 很常用的一种深拷贝对象的方式，将对象进行JSON字符串格式化再进行解析，即可获得一个新的对象，要注意它的性能不是特别好，而且无法处理闭环的引用，比如：
 
 ```
@@ -409,18 +407,14 @@ JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular struc
 
 这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
-## 技巧篇
-### 获取数组中最大最小值
-```
-const a = [4 ,8, 1];
-Math.max.apply(Math, a); // 8
-Math.min(...a); // 1
-```
-### 清空数组
-```
-const arrs = [1, 2, 3];
-arrs.length = 0;
-```
+## “套路”
+### 一招鲜
+- 数组去重：`[...new Set([1,1,2,3,4])] // [1, 2, 3, 4]`
+- 求2的n次方：`Math.pow(2, 10) === 1 << 10`
+- 基偶数判断：`const isOdd = n => !!(n & 1)`
+- 正整数判断：`const isPos = n => !!(n === (n >>> 0))`
+- 获取数组极值：`Math.max.apply(Math, [3,5,1])`
+- 深拷贝：`const deepCopy = obj => JSON.parse(JSON.stringify(obj))`，需要注意`JSON.stringify`不支持循环引用
 ### 获取对象中的某几个属性
 相信大家听说过lodash中的[pick](https://lodash.com/docs/4.17.10#pick)与[omit](https://lodash.com/docs/4.17.10#omit)，在表单提交时它们都是非常有用的方法，首先来看看实现类似功能的pick函数：
 ```
@@ -442,9 +436,69 @@ function omit(obj, keys) {
       .reduce((res, o) => Object.assign(res, o), {});
 }
 ```
-## 原理篇
-### 原码, 反码, 补码
+### 格式化JSON字符串
+JSON.stringify中的可以传入第三个参数，用于格式化JSON字符串：
+```
+const obj = { 
+  foo: { bar: [11, 22, 33, 44], baz: { bing: true, boom: 'Hello' } } 
+};
 
+JSON.stringify(obj)
+/** 格式化输出
+"{"foo":{"bar":[11,22,33,44],"baz":{"bing":true,"boom":"Hello"}}}"
+*/
+
+JSON.stringify(obj, null, 4)
+/* 格式化输出
+"{
+    "foo": {
+        "bar": [
+            11,
+            22,
+            33,
+            44
+        ],
+        "baz": {
+            "bing": true,
+            "boom": "Hello"
+        }
+    }
+}"
+*/
+```
+
+## “理论”
+### Truthy与Falsy
+对每一个类型的值来讲，它每一个对象都有一个布尔型的值，Falsy表示在Boolean对象中表现为false的值，在条件判断与循环中，JavaScript会将任意类型强制转化为Boolean对象。
+以下这些对象在遇到if语句时都表现为Falsy：
+```
+if (false)
+if (null)
+if (undefined)
+if (0)
+if (NaN)
+if ('')
+if ("")
+if (document.all)
+```
+
+document.all属于历史遗留原因，所以为false，它违背了JavaScript的规范，可以不管它，而NaN这个变量，千万不要用全等或相等对其进行判断，因为它发起疯来连自己都打：
+
+```
+console.log(NaN === 0) // false
+console.log(NaN === NaN) // false
+console.log(NaN == NaN) // false
+```
+
+但是我们可以使用Object.is方法进行判断值是否为NaN，它是ES6新加入的语法，用于比较两个值是否相同，它可以视为比全等判断符更为严格的判断方法，但是不可混为一谈：
+```
+Object.is(NaN, NaN) // true
+Object.is(+0, -0) // false
+```
+
+而除了Falsy值，所有值都是Truthy值，在Boolean上下文中表现为true。
+
+### 原码, 反码, 补码
 在JavaScript进行位运算时，采用32位有符号整型，即数字5有以下表示方式：
 
 - 原码：00000000 00000000 00000000 00000101
@@ -484,8 +538,9 @@ function omit(obj, keys) {
 
 这样一来，-0的问题就可以解决了。
 
-> 未完待续...
-
 ## 参考资料
 -  [https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/](https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/)
 - [https://dmitripavlutin.com/the-magic-behind-array-length-property/](https://dmitripavlutin.com/the-magic-behind-array-length-property/)
+- [https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3](https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3)
+- [https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript](https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript)
+
