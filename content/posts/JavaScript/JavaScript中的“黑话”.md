@@ -5,7 +5,7 @@ date: 2018-08-31
 tags: ['JavaScript']
 ---
 
-因为球是圆的，所以不论发生什么都有可能，对这点我是深信不疑的，但最近我总是在怀疑，JavaScript也是圆的！本文带你细数JavaScript的黑话，因为这一切是多么的有趣，又是多么的无意义，就如这世界一般，很多事情只有当你了解过，才能做出错误的选择。
+> 因为球是圆的，所以不论发生什么都有可能，对这点我是深信不疑的，但最近我总是在怀疑，JavaScript也是圆的！
 
 ## 什么是“黑话”
 黑话，本指旧时江湖帮会人物的暗语、暗号，往往见于小说，后指流行于某一特殊行业中，非局外人所能了解的语言。而本文涉及到的“黑话”，其实是一些利用语言的特征使用的一些不常见的奇淫技巧，JavaScript的语法是十分简单灵活的，在项目中建议大家遵从ESLint规范编写可维护性的代码，各路神仙们也应该进行自我约束，毕竟“黑话”也并不全是什么好的东西，如果很多话可以直接讲，何必拐弯抹角的去说呢？
@@ -73,6 +73,7 @@ const enable3 = Boolean(id);
 如何你是从类C语言过来的话，请抛弃之前的刻板印象：&可以充当逻辑操作符号。在JavaScript中，&只能进行位运算。
 
 `&`，它表示按位与，此运算符需要两个数字并返回一个数字。如果它们不是数字，则会转换为数字。如果执行`7 & 3`， 则会经过以下步骤：
+
 1. 先转换为2进制： `111 & 11`
 2. 比较结果为：`011`
 3. 将二进制转回十进制，因此：`7 & 3 = 3`
@@ -253,7 +254,42 @@ a = a ^ b
 ```
 这样通过异或运算进行交换两个数字型变量，请原谅他并忽视它，他只可能是一个醉心于魔法的初心者，并祝愿他早日发现，简洁易读的函数才是最佳实践。
 
-## “话术
+### 数值表示法
+
+#### 3e9
+
+科学计数法是一种数学术语，将一个数表示为a乘以10的n次方，如光速30万公里每秒，在计算中通常将米做单位，则记为：300000000m/s，而在JavaScript中我们可使用科学计数法 `3e9`表示。
+
+在这里举几个科学计数法的示例：
+
+```
+1e5; // 100000
+2e-4; // 0.0002
+-3e3; // -3000
+```
+
+Number对象有`toExponential(fractionDigits)`方法以科学计数法返回该数值的字符串表示形式，参数fractionDigits可选，用于用来指定小数点后有几位数字，例如：`(179000).toExponential(); // "1.79e+5"`。
+
+以下情况JavaScript会自动将数值转为科学计数法表示：
+
+1. 小数点前的数字多于21位。
+2. 小数点后的零多于5个。
+
+#### .5px
+
+通常某些人习惯省略0.开头的数字，常见于数值计算、css属性中，比如`0.5px`可直接写为`.5px`，`0.2 * 0.3`可写为： `.2 * .3`
+
+#### 0x、0o和0b
+
+在十进制的世界里呆久了，请不要忘记还有其他进制的存在，在计算机中它们是同地位的。JavaScript提供了以下进制的表示方法：
+
+- 二进制：只用0和1两个数字，前缀为`0b`，十进制13可表示为`0b1101`
+- 八进制：只用0到7八个数字，前缀为`0o、0`，十进制13可表示为`0o15、015`
+- 十六进制：只用0到9的十个数字，和a到f六个字母，前缀为`0x`，十进制13可表示为`0xd`
+
+默认情况下，JavaScript 内部会自动将八进制、十六进制、二进制转为十进制再进行运算。从十进制转其他进制请查阅`toString`方法，从其他进制转十进制请查阅`parseInt`方法，从其他进制转其他进制请先转为十进制再转为其他方法。
+
+## “话术”
 ### Array.prototype.sort
 
 Array.prototype.sort()默认根据字符串的Unicode编码进行排序，具体算法取决于实现的浏览器，在[v8引擎](https://github.com/v8/v8/blob/b8a5ae4749be1b34246957982e205517737d814b/src/js/array.js#L545)中，若数组长度小于10则使用从插入排序，大于10使用的是快排。
@@ -304,7 +340,7 @@ function flattenDeep(arrs) {
 
 ![](http://qn.vv13.cn/18-8-28/89073993.jpg)
 
-对上上述方法中的`Array.prototype.concat.apply([], target)`亦可以写成：`[].concat(...target)`。
+对上述方法中的`Array.prototype.concat.apply([], target)`亦可以写成：`[].concat(...target)`。
 
 ### Array.prototype.push.apply
 在es5中，若想要对数组进行拼接操作，我们习惯于使用数组中的concat方法：
@@ -361,9 +397,9 @@ console.log(a, b, a1, b1); // [], [], [1, 2, 3], []
 - 传递字符串会被尝试转为数字类型
 
 ### Object.prototype.toString.call
-每个对象都有一个toString()，用于将对象以字符串方式引用时自动调用，如果此方法未被覆盖，toString则会返回[object type]，因此`Object.prototype.toString.call`只是为了调用原生对象上未被覆盖的方法，call将作用域指向需要判断的对象，为了获取最终的type。
+每个对象都有一个toString()，用于将对象以字符串方式引用时自动调用，如果此方法未被覆盖，toString则会返回[object type]，因此`Object.prototype.toString.call`只是为了调用原生对象上未被覆盖的方法，call将作用域指向需要判断的对象，这样一来就可以通过原生的toString方法打印对象的类型字符串： `Object.prototype.toString.call([]) => "[object Array]" `，利用这个特性，可以较为精确的实现类型判断。
 
-在ES3中，获取到的type为[[Class]]属性，它可以用来判断一个原生属性属于哪一种内置的值；在ES5中新增了两条规则：若this值为null、undefined分别返回： [object Null]、[object Undefined]；在ES6中不存在[[Class]]了，取而代之的是一种内部属性：[[NativeBrand]]，它是一种标记值，用于区分原生对象的属性，具体的判断规则为：
+在ES3中，获取到的type为内部属性[[Class]]属性，它可以用来判断一个原生属性属于哪一种内置的值；在ES5中新增了两条规则：若this值为null、undefined分别返回： [object Null]、[object Undefined]；在ES6中不存在[[Class]]了，取而代之的是一种内部属性：[[NativeBrand]]，它是一种标记值，用于区分原生对象的属性，具体的判断规则为：
 
 ```
 19.1.3.6Object.prototype.toString ( )
@@ -394,6 +430,7 @@ Historically, this function was occasionally used to access the String value of 
 ```
 
 ### Object.create(null)
+
 用于创建无“副作用”的对象，也就是说，它创建的是一个**空对象**，不包含原型链与其他属性。若使用`const map = {}`创建出来的对象相当于Object.create(Object.prototype)，它继承了对象的原型链。
 
 ### JSON.parse(JSON.stringify(Obj))
@@ -407,70 +444,11 @@ JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular struc
 
 这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
-## “套路”
-### 一招鲜
-- 数组去重：`[...new Set([1,1,2,3,4])] // [1, 2, 3, 4]`
-- 求2的n次方：`Math.pow(2, 10) === 1 << 10`
-- 基偶数判断：`const isOdd = n => !!(n & 1)`
-- 正整数判断：`const isPos = n => !!(n === (n >>> 0))`
-- 获取数组极值：`Math.max.apply(Math, [3,5,1])`
-- 深拷贝：`const deepCopy = obj => JSON.parse(JSON.stringify(obj))`，需要注意`JSON.stringify`不支持循环引用
-### 获取对象中的某几个属性
-相信大家听说过lodash中的[pick](https://lodash.com/docs/4.17.10#pick)与[omit](https://lodash.com/docs/4.17.10#omit)，在表单提交时它们都是非常有用的方法，首先来看看实现类似功能的pick函数：
-```
-function pick(obj, keys) {
-  return keys
-    .map(k => obj.hasOwnProperty(k) ? {[k]: obj[k]} : {})
-    .reduce((accumulator, currentValue) => Object.assign(accumulator, currentValue), {});
-}
-```
-1. map：找到所有键对应的单个键值对象，若找不到则返回空对象
-2. reduce：将上一步所得的所有对象合并成一个对象
-
-omit函数同理，只是需要先获取到对象中所有key，再进行过滤就行了：
-```
-function omit(obj, keys) {
-    return Object.keys(obj)
-      .filter(key => !keys.includes(key))
-      .map(k => ({[k]: obj[k]}))
-      .reduce((res, o) => Object.assign(res, o), {});
-}
-```
-### 格式化JSON字符串
-JSON.stringify中的可以传入第三个参数，用于格式化JSON字符串：
-```
-const obj = { 
-  foo: { bar: [11, 22, 33, 44], baz: { bing: true, boom: 'Hello' } } 
-};
-
-JSON.stringify(obj)
-/** 格式化输出
-"{"foo":{"bar":[11,22,33,44],"baz":{"bing":true,"boom":"Hello"}}}"
-*/
-
-JSON.stringify(obj, null, 4)
-/* 格式化输出
-"{
-    "foo": {
-        "bar": [
-            11,
-            22,
-            33,
-            44
-        ],
-        "baz": {
-            "bing": true,
-            "boom": "Hello"
-        }
-    }
-}"
-*/
-```
-
 ## “理论”
 ### Truthy与Falsy
 对每一个类型的值来讲，它每一个对象都有一个布尔型的值，Falsy表示在Boolean对象中表现为false的值，在条件判断与循环中，JavaScript会将任意类型强制转化为Boolean对象。
 以下这些对象在遇到if语句时都表现为Falsy：
+
 ```
 if (false)
 if (null)
@@ -540,7 +518,8 @@ Object.is(+0, -0) // false
 
 ## 参考资料
 -  [https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/](https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/)
-- [https://dmitripavlutin.com/the-magic-behind-array-length-property/](https://dmitripavlutin.com/the-magic-behind-array-length-property/)
-- [https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3](https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3)
-- [https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript](https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript)
+-  [https://dmitripavlutin.com/the-magic-behind-array-length-property/](https://dmitripavlutin.com/the-magic-behind-array-length-property/)
+-  [https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3](https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3)
+-  [https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript](https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript)
+-  [http://javascript.ruanyifeng.com/grammar/number.html](http://javascript.ruanyifeng.com/grammar/number.html)
 
