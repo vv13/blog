@@ -42,6 +42,11 @@ disqusShortname = "vv13" # Enable or disable Disqus.
     icon = "iconfont icon-codepen"
     weight = 1
     url = "https://codepen.io/vv13/"
+[[params.social]]
+    name = "SegmentFault"
+    icon = "iconfont icon-segmentfault"
+    weight = 1
+    url = "https://segmentfault.com/u/vv13"
 
 
 # Menu links
