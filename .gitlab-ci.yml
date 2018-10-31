@@ -1,0 +1,14 @@
+stages:
+  - build
+
+before_script:
+  - docker info
+
+hugo build:
+  stage: build
+  script:
+    - test ! -z "$(docker ps | grep blog)" && docker rm -f blog
+    - git submodule init
+    - git submodule update
+    - docker build -t blog_hugo .
+    - docker run -d -p 1313:1313 --name blog blog_hugo
