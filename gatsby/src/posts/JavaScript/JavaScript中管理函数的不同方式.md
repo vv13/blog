@@ -1,8 +1,8 @@
-+++ 
-date = 2018-09-25T17:21:48+08:00
-title = "JavaScript中管理函数的不同方式"
-tags = ["JavaScript"]
-+++
+---
+date: 2018-09-25T17:21:48+08:00
+title: "JavaScript中管理函数的不同方式"
+tags: ["JavaScript"]
+---
 
 你能分清以下三种方法吗？
 

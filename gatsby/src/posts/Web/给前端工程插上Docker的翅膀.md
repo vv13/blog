@@ -3,23 +3,23 @@ title: "给前端工程插上Docker的翅膀"
 date: 2018-11-11T23:01:15+08:00
 tags: ['Web']
 ---
-# 给前端工程插上Docker的翅膀
+> What Docker / Why Docker / Install Docker，请自行查阅相关资料。
 
-> What Docker/Why Docker/Install Docker，略
+一个不包含Docker的前端工程，是不会飞的，因此我们需要强行插上翅膀，即使你之前`npm run build && rsync`一把梭是多么的高效，这样不仅仅是为了效率与可维护性，单单是从逼格的角度，你也应该尽快使用Docker部署你的前端应用。
 
-没错，作者很懒...，总而言之，你需要Docker来编译前端工程，也需要Docker来启动静态资源服务器，接下来就和大家一起来实践一下。
-
-## Step 1：启动Nginx容器
-
-执行`docker pull nginx`，即可从[远程仓库](https://hub.docker.com/)中拉取标记为latest（一般为最近更新版本）的nginx镜像，此时可通过`docker images`查看本地镜像：
+## Step 1：初始Nginx容器
+Nginx是一个轻量级的Web服务器，用它来部署前端应用再好不过了，因此我们先将Nginx的镜像拉取到本地：
+```
+$ docker pull nginx
+```
+命令执行时，会从[远程仓库](https://hub.docker.com/)中拉取标记为latest（一般为最近更新版本）的nginx镜像，你可以运行命令查看本地镜像：
 
 ```
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 nginx               latest              dbfc48660aeb        2 weeks ago         109MB
 ```
-
-首先通过`docker run`命令结合一些参数来跑一个容器服务吧：`docker run -d --rm -p 3333:80 --name nginx-demo nginx`，访问`http://localhost:3333`：
+现在让我们来运行一下吧：`docker run -d --rm -p 3333:80 nginx`，访问`http://localhost:3333`可以看到：
 
 ```
 Welcome to nginx!
@@ -31,23 +31,15 @@ Commercial support is available at nginx.com.
 Thank you for using nginx.
 ```
 
-当执行run的时候，有几个参数需要说明一下：
+这里涉及到以下参数：
+- `--rm`，退出时自动删除容器
+- `-p`，将容器的端口发布到主机的端口，3333:80代表将容器的80端口映射到主机的3333端口
+- `-d`，后台运行
 
-- --name，命名容器id
-- -d，后台运行此容器
-- --rm，退出时自动删除容器
-- -p，将容器的端口发布到主机的端口，3333:80代表将容器的80端口映射到主机的3333端口
+没错，启动一个Nginx服务就是那么简单，`docker run` 用法很多，在此就不一一介绍了。
 
-没错，启动一个Nginx服务就是那么简单。
-
-### Step 2：使用Nginx容器
-
-为了使用Nginx，我们需要做两件事：
-
-1. 更新Nginx中的静态资源文件
-2. 自定义Nginx配置文件
-
-我们先进入到容器的shell环境查看一下基本的配置信息：
+## Step 2：配置Nginx容器
+当Nginx容器运行时，配置文件、静态资源目录都是在容器内部的，因此我们需要想办法将其中的文件进行修改，首先先进入到容器的shell环境查看一下基本的配置信息：
 
 ```
 $ docker exec -it nginx-demo sh
@@ -58,7 +50,7 @@ $ docker exec -it nginx-demo sh
 - -i，保持STDIN打开
 - -t，分配一个TTY终端
 
-进入到系统中以后，很容易找到路径为`/etc/nginx/conf.d/default.conf`的文件：
+当进入到系统中以后，按照Nginx默认路径，很容易找到路径为`/etc/nginx/conf.d/default.conf`的文件内容：
 
 ```
 # 已去掉文件注释
@@ -78,31 +70,42 @@ server {
 }
 ```
 
-这样我们就能知道Nginx的服务路径了，之后我们可以采用挂载的方式，将本机的文件路径挂载到容器内对应路径，这样通过修改主机的文件，Nginx也会进行相应的更新。为了验证是否配置成功，首先我们来创建一个`~/nginx-demo`文件夹与`~/nginx-demo/index.html`文件：
+这样我们获取到了两个路径：
+1. default.conf路径：`/etc/nginx/conf.d/default.conf/usr/share/nginx/html`
+2. 静态资源服务路径：`/usr/share/nginx/html`
 
+那我们可不可以将主机的目录文件映射到容器内呢？答案当然是可以的，这时候`-v / --volume`出场了，它说老子就是专门干这件事情的。
+
+为了测试，首先在根目录下创建一个名为nginx-demo的文件夹，并初始化index.html文件：
 ```
 $ cd ~ && mkdir nignx-demo && cd nginx-demo && echo '<h1>Hello World</h1>' > index.html
 ```
 
-然后停掉之前的容器，再重新启动，并附上挂载路径：
-
+然后我们启动Nginx容器，并附上一些参数：
 ```
-$ docker stop nginx-demo
-$ docker run -d  --rm -p 3333:80 \
+$ docker run -d --rm -p 3333:80 \
 	-v ~/nginx-demo:/usr/share/nginx/html \
 	--name nginx-demo nginx
+
+```
+在此又新增了几个参数：
+- `-d`，后台运行容器
+- `--name`，给容器命名
+- `-v`，系统卷映射
+
+
+让我们来验证一下：
+```
 $ curl http://localhost:3333
 <h1>Hello World</h1>
 ```
 
--v参数指将主机目录挂载到容器目录，除此以外，我们还想同时自定义`/etc/nginx/conf.d/default.conf`，通过`docker cp`将它拷贝到`~/docker-nginx/`进行修改：
-
+若要自定义Nginx配置文件也同理，为了修改方面，可以使用`docker cp`将它拷贝到`~/docker-nginx/`在原有基础上进行进行修改：
 ```
 $ docker cp nginx-demo:/etc/nginx/conf.d/default.conf ~/docker-nginx/default.conf
 ```
 
-在这里仅仅为了测试，因此将location改为/hello-world/，期望当访问`http://localhost:3333/hello-world/`也能返回正确的结果，修改后的配置文件为：
-
+修改后的文件为：
 ```
 server {
     listen       80;
@@ -115,8 +118,7 @@ server {
     }
 }
 ```
-
-现在再需要重新构建容器，并将Nginx配置文件也从主机挂载到容器中：
+为了测试修改成功与否，将location改为/hello-world/，这样的话，当访问`http://localhost:3333/hello-world/`即可获取正确的响应，因为之前的容器还在运行，因此我们需要先停掉之前的容器，再重新运行即可：
 
 ```
 $ docker stop nginx-demo
@@ -128,7 +130,7 @@ $ curl -L http://localhost:3333/hello-world/
 <h1>Hello World</h1>
 ```
 
-如果你和我一样，感觉每次执行 `docker run `携带一大堆参数不太优雅，那就试试`docker-compose`吧，它是一种YAML配置文件，主要的职责是完成容器的编排，当然也可以为容器的运行配置一些参数，为了实现相同的效果，于是乎得到了下面的`docker-compose.yml`文件：
+如果你和我一样，感觉每次执行 `docker run `携带一大堆参数不太优雅，那就试试`docker-compose`工具吧（请自行安装），它主要的职责是完成容器的编排，当然也可以配置启动参数，为了实现相同的效果，于是乎得到了下面的`docker-compose.yml`文件：
 
 ```
 services:
@@ -158,23 +160,26 @@ docker-compose还有一些常用命令：
 $ npx create-react-app react-app
 ```
 
-进入到项目，执行`yarn build`，即可在根目录生成`build`目录。我们首先采取以下步骤：
-
-1. 编译前端项目。
-2. 将编译后的文件拷贝到Nginx镜像，如有需要你也可以创建一个nginx文件，拷贝到镜像中替换掉默认配置。
-
-因此，我们写一个最简单的Dockerfile：
-
+我们希望直接通过上述学到的启动Nginx容器先运行一下服务，因此首先执行`yarn build`手动编译，这时会在根目录下生成编译目录：`build/`，此时在根目录下添加docker-compose.yml：
+```
+services:
+  web:
+    image: nginx
+    container_name: docker-app
+    ports:
+      - 3333:80
+    volumes:
+      - ~/react-app/build:/usr/share/nginx/html
+```
+执行`docker-compose up -d`，create-react-app项目已经正常运行在你的容器里了。以上是通过各种手段直接构建的容器，现在我们换一种方式，直接构建镜像，构建镜像一般是通过Dockerfile来构建，那我们来写一个Dockerfile文件"替换"掉docker-compose.yml：
 ```
 FROM nginx
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY build/ /usr/share/nginx/html
 
 EXPOSE 80
 ```
-
-相信不用解释大家也明白指令的意义，在这里用COPY代替了之前的挂载文件夹的方式，我们现在就在跑一下这个容器吧：
+在这里最主要的是通过过COPY命令替代了`--volume`参数，我们先构建镜像，构建好以后，就可以直接通过镜像运行容器了，此时可直接运行镜像：
 
 ```
 $ docker build --tag react-app .
@@ -184,7 +189,7 @@ react-app           latest              f151ab2c873e        6 seconds ago       
 $ docker run --rm -p 3333:80 react-app
 ```
 
-此时访问http://localhost:3333 ，恭喜你运行成功。在通常构建流程中，我们也会**将编译所需环境与编译脚本集成进构建镜像**步骤中，因此上述Dockerfile可改写为：
+访问http://localhost:3333 ，恭喜你运行成功。在通常构建流程中，我们也会**将编译所需环境与编译脚本集成进构建镜像**步骤中，因此上述Dockerfile可改写为：
 
 ```
 # stage 1
