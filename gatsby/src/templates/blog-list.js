@@ -12,6 +12,25 @@ const Title = styled.h3`
   }
 `
 
+const ListItemWrap = styled.div`
+  display: flex;
+  width: 80%;
+  margin: 3rem auto 0;
+  &:first-of-type {
+    margin-top: 0;
+  }
+`
+const ListItemHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 10rem;
+  flex-shrink: 0;
+`
+const ListItemBody = styled.div`
+
+`
+
 export default ({ data, pathContext }) => {
   const {
     allMarkdownRemark: { edges, totalCount }
@@ -20,14 +39,18 @@ export default ({ data, pathContext }) => {
     <MainLayout>
       <Helmet title="博客" />
       {edges.map(({ node }) => (
-        <div key={node.fields.slug}>
-          <Title>
-            <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-          </Title>
-          <p>
-            {node.frontmatter.date} {node.frontmatter.tags}
-          </p>
-        </div>
+        <ListItemWrap key={node.fields.slug}>
+          <ListItemHeader>
+            <div>{node.frontmatter.date}</div>
+            <div>{node.frontmatter.tags}</div>
+          </ListItemHeader>
+          <ListItemBody>
+            <Link to={node.fields.slug}>
+              {node.frontmatter.title}
+            </Link>
+            <p>{node.excerpt}</p>
+          </ListItemBody>
+        </ListItemWrap>
       ))}
       <Pagination totalCount={totalCount} {...pathContext} />
     </MainLayout>
@@ -52,6 +75,7 @@ export const blogListQuery = graphql`
             date(formatString: "YYYY-MM-DD")
             tags
           }
+          excerpt(pruneLength: 140)
         }
       }
     }
