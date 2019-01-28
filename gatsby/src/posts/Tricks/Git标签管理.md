@@ -1,5 +1,5 @@
 ---
-title: "在项目中使用git标签"
+title: "Git标签管理"
 date: 2018-04-02T23:36:55+08:00
 tags: ['tricks']
 ---

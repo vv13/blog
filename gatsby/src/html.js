@@ -14,6 +14,7 @@ export default class HTML extends React.Component {
           />
           {this.props.headComponents}
           <link rel="stylesheet" href="//at.alicdn.com/t/font_829312_ji9hz6ssd99.css"></link>
+          <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
         </head>
         <body {...this.props.bodyAttributes}>
           {this.props.preBodyComponents}
