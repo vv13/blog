@@ -1,0 +1,122 @@
+---
+title: "Git中的后悔药"
+date: 2019-01-26
+tags: ['tricks']
+---
+# Git中的后悔药
+
+在Git中，当你提交失误其实并不可怕，因为一切操作都有对应的后悔药卖，唯有懒惰不可医治。在这里简单总结一下几种重置提交的操作，希望您能对症服药。
+
+## 改变最近的一次提交
+```
+git commit --amend
+```
+
+如果你想改变上一个commit的提交信息与文件内容，即可使用--amend命令，它允许你将暂存区的修改合并到上一个commit，从而生成一个新的commit，您也可以仅适用它来修改commit message。
+
+需要注意的是，如果已经将commit到远程库，不建议使用ammend命令，因为这样会修改掉最近一次commit的hash值，只能强制推送才能push上去，如果你的commit已经同步到了其他仓库或别人已经拉取之前的提交，这样强推上去就会产生冲突。
+
+## 重置某一次提交内容
+```
+git revert [<commit>]
+```
+
+若当某一次的提交内容导致一些错误发生，通常会进行还原操作，此时revert就派上用场了，它会生成一条新的commit，将指定的commit中包含的更改进行还原。
+
+revert是一个十分礼貌的命令，对于多人协作的项目来讲，是十分有用的，因为它会保持HEAD指针在不断的前进，不会产生意想不到的冲突。
+
+## 将最近几个提交合并为一个
+```
+git rebase -i [<start_commit>] [<end_commit>]
+```
+在推送到远程分之前，为了保持逻辑清晰可回溯步骤，我们需要会进行许多个小的提交，而到推送到远程库的时候，更希望将其汇总为一个feat提交，这时命令就派上了用场。
+
+首先我们来初始化一个git仓库：
+```
+mkdir gittest && cd gittest && git init
+touch a && git add * && git commit -m 'a'
+touch b && git add * && git commit -m 'b'
+touch c && git add * && git commit -m 'c'
+touch d && git add * && git commit -m 'd'
+```
+这时执行`git log`可获取到以下信息：
+```
+commit b9843274e87455a87b16802ebb2b48cf8cb67175 (HEAD -> master)
+    d
+commit dc681aadc81491c3d2b2cb2f8ca1d66586f65903
+    c
+commit db9dc842b6c854b7175c03c7fd50bf08a262cfcb
+    b
+commit 3bc7dbe4ddfad85606e6dd39c6583d8fa7b353b7
+    a
+```
+
+为了将b、c合成为一个提交，我们需要选取最近3个提交进行才行，需要注意的是指定两个commit范围时区间为前开后闭区间`(]`，如果省略第二个end_commit则会指向HEAD指针，因此以下三个命令是等效的：
+- `git rebase -i HEAD~3`
+- `git rebase -i 3bc7dbe4ddfad85606e6dd39c6583d8fa7b353b7`
+- `git rebase -i 3bc7dbe4ddfad85606e6dd39c6583d8fa7b353b7 b9843274e87455a87b16802ebb2b48cf8cb67175`
+
+这时会弹出一个交互界面：
+```
+pick 3a13544 b
+pick 3b3d704 c
+pick 9205e1b d
+
+# Rebase 97b2217..9205e1b onto 97b2217 (3 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+```
+注释里已经包含了一切你需要知道的信息，在这里还是简单的描述下：
+- 命令会从上到下执行，按时间的先后顺序进行合并commit
+- 提交可被重新排序，在这里可交互b与c的顺序后保存退出，打印的commit信息即为：`a -> c -> b -> d`
+- 若删除某行，可移除对应的整个提交内容
+- 命令有以下不同的模式：
+  - pick：保留该commit（缩写:p）
+  - reword：保留该commit，但我需要修改该commit的注释（缩写:r）
+  - edit：保留该commit, 但我要停下来修改该提交(不仅仅修改注释)（缩写:e）
+  - squash：将该commit和前一个commit合并（缩写:s）
+  - fixup：将该commit和前一个commit合并，但我不要保留该提交的注释信息（缩写:f）
+  - exec：执行shell命令（缩写:x）
+  - drop：我要丢弃该commit（缩写:d）
+
+在选取范围时，我们往往会指定一个start_commit，那么如果commit为第一个提交呢？因为命令为前开区间，这时候就无法选取了，只能通过--root指定：`git rebase -i --root`。
+
+以上命令尽量都自己尝试一遍。
+
+## 回退到指定版本
+```
+git reset [<mode>] [<commit>]
+```
+
+首先应该理清HEAD、暂存区、工作区三者的关系再去使用`reset`命令。使用reset回退版本通常是通过移动HEAD指针的指向来实现的，HEAD是当前分支引用的指针，它总是指向该分支上的最后一次提交。当HEAD指针发生变化时，有几种模式可以选择：
+- `--soft`，暂存区与工作区都不会重置，只会重置掉提交。此模式不改变暂存区与工作区的文件内容，仅仅是将HEAD指针位置边了，这样所有在reset指定的提交之后的提交都会被撤销，文件更改集中放在了暂存区。
+- `--mixed`，重置暂存区，但不会重置工作区。reset会用HEAD指向的快照去更新暂存区的内容，只保留工作区的文件，简单的说，回到了`git add`之前。
+- `--hard`，同时重置暂存区和工作区。它会彻底弃用之后的提交，且不可撤销。
+
+## 总结
+文章只是涉及一些浅显的用法，希望在玩转重写Git时，您也应该掌握：
+1. 理解Head、Index、Working Directory，即头部索引、暂存区、工作目录之间的联系。
+2. 使用`git reflog`随时对进行的操作进行撤销。
+3. 理清chekout与reset的区别。
+4. 多多练习rebase各种命令操作。
+
+以上只是抛砖引玉，最重要的是能**知道自己在做什么，清楚操作带来的影响**。
+
+## 参考资料
+- [Git - 重置揭密](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E7%BD%AE%E6%8F%AD%E5%AF%86)
+- [git amend \| Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/rewriting-history)
