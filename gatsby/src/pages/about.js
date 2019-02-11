@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql } from "gatsby"
+import MainLayout from '../layout/MainLayout';
 
 
 export default ({ data }) => (
-  <div style={{ color: `teal` }}>
-    <h1>About {data.site.siteMetadata.title}</h1>
-    <p>Hello, I'm vv13, a Front End Develop.</p>
-  </div>
+  <MainLayout>
+    没想好
+  </MainLayout>
 )
 
 export const query = graphql`

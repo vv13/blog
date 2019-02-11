@@ -12,12 +12,19 @@ const Header = styled.header`
   justify-content: space-between;
   a {
     color: #000;
+    text-decoration: none;
+  }
+  section > a {
+    margin-left: 2em;
   }
 `
 
 export default () => (
   <Header>
     <Link to="/">vv13</Link>
-    <Link to="/blog/">博客</Link>
+    <section>
+      <Link to="/blog/">博客</Link>
+      {/* <Link to="/about/">关于我</Link> */}
+    </section>
   </Header>
 )

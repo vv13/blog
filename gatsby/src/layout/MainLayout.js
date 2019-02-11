@@ -10,6 +10,12 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 `;
 
 export default ({ children }) => (
