@@ -11,7 +11,7 @@ before_install:
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key root@$SERVER_IP pwd
 script:
-- cd gatsby
+- cd blog
 - npm i
 after_script:
 - npm run build
