@@ -1,6 +1,10 @@
 import Typography from 'typography'
-import githubTheme from 'typography-theme-github'
+import funstonTheme from 'typography-theme-funston'
+import CodePlugin from 'typography-plugin-code'
 
-const typography = new Typography(githubTheme)
+funstonTheme.plugins = [
+  new CodePlugin(),
+]
+const typography = new Typography(funstonTheme)
 
 export default typography

@@ -25,6 +25,7 @@
     "react-typography": "^0.16.13",
     "styled-components": "^4.1.1",
     "typography": "^0.16.17",
-    "typography-theme-github": "^0.15.10"
+    "typography-plugin-code": "^0.16.18",
+    "typography-theme-funston": "^0.16.18"
   }
 }
