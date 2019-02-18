@@ -26,6 +26,6 @@
     "styled-components": "^4.1.1",
     "typography": "^0.16.17",
     "typography-plugin-code": "^0.16.18",
-    "typography-theme-funston": "^0.16.18"
+    "typography-theme-github": "^0.16.18"
   }
 }

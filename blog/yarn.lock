@@ -8831,11 +8831,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typography-breakpoint-constants@^0.16.18:
-  version "0.16.18"
-  resolved "http://registry.npm.taobao.org/typography-breakpoint-constants/download/typography-breakpoint-constants-0.16.18.tgz#5b1e24a31879662ca0456828b8f8f8158cd2b436"
-  integrity sha1-Wx4koxh5ZiygRWgouPj4FYzStDY=
-
 typography-normalize@^0.16.18:
   version "0.16.18"
   resolved "http://registry.npm.taobao.org/typography-normalize/download/typography-normalize-0.16.18.tgz#19e8db32c6881d3745b7d67dc63ee6f6cfb681d1"
@@ -8849,13 +8844,12 @@ typography-plugin-code@^0.16.18:
     gray-percentage "^2.0.0"
     lodash "^4.13.1"
 
-typography-theme-funston@^0.16.18:
+typography-theme-github@^0.16.18:
   version "0.16.18"
-  resolved "http://registry.npm.taobao.org/typography-theme-funston/download/typography-theme-funston-0.16.18.tgz#c28b2791689f25c6a86eeb6722af9fcf114368a6"
-  integrity sha1-wosnkWifJcaobutnIq+fzxFDaKY=
+  resolved "http://registry.npm.taobao.org/typography-theme-github/download/typography-theme-github-0.16.18.tgz#b2ac344695b6f6c5499f016f11d7b0112a46e374"
+  integrity sha1-sqw0RpW29sVJnwFvEdewESpG43Q=
   dependencies:
     gray-percentage "^2.0.0"
-    typography-breakpoint-constants "^0.16.18"
 
 typography@^0.16.17:
   version "0.16.18"
