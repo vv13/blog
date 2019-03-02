@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import {Link} from 'gatsby'
 
 const NavWrap = styled.ul`
+  position: relative;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   list-style: none;
-  margin-left: 0;
 `
 const NavItem = styled.li`
   width: 2em;
@@ -21,6 +22,12 @@ const NavBtn = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
+`
+
+const NavInfo = styled.span`
+  font-size: 12px;
+  position: absolute;
+  right: -40px;
 `
 
 export default (props) => {
@@ -48,6 +55,10 @@ export default (props) => {
       <NavItem>
         {currentPage !== totalPage ? (<Link to={finalLink}><NavBtn>»</NavBtn></Link>) : ''}
       </NavItem>
+      <NavInfo>
+        共{totalCount}篇
+      </NavInfo>
+      <span></span>
     </NavWrap>
   )
 }

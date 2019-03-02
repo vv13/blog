@@ -23,7 +23,7 @@ tags: ['JavaScript']
 
 ![](/static/imgs/冒泡捕获.png)
 
-当我们使用默认事件注册的时候，当点击child元素时，会先后输出child，container，这就是事件冒泡机制：
+当我们使用默认事件注册的时候，点击child元素时，会先后输出child，container，这就是事件冒泡机制：
 ```
 container.addEventListener('click', () => console.log('container'))
 child.addEventListener('click', () => console.log('child'))

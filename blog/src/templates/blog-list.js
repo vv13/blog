@@ -1,16 +1,10 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components'
+import MediaQuery from 'react-responsive';
 import MainLayout from '../layout/MainLayout';
 import Pagination from '../components/Pagination';
 import Helmet from '../components/Helmet'
-
-const Title = styled.h3`
-  font-size: 1rem;
-  a {
-    color: ${({theme}) => theme.strong}
-  }
-`
 
 const ListItemWrap = styled.div`
   display: flex;
@@ -27,8 +21,10 @@ const ListItemHeader = styled.div`
   width: 10rem;
   flex-shrink: 0;
 `
-const ListItemBody = styled.div`
 
+const ArticleExcerpt = styled.div`
+  width: 80%;
+  margin: 1rem auto;
 `
 
 export default ({ data, pathContext }) => {
@@ -39,18 +35,27 @@ export default ({ data, pathContext }) => {
     <MainLayout>
       <Helmet title="博客" />
       {edges.map(({ node }) => (
-        <ListItemWrap key={node.fields.slug}>
-          <ListItemHeader>
-            <div>{node.frontmatter.date}</div>
-            <div>{node.frontmatter.tags}</div>
-          </ListItemHeader>
-          <ListItemBody>
-            <Link to={node.fields.slug}>
-              {node.frontmatter.title}
-            </Link>
-            <p>{node.excerpt}</p>
-          </ListItemBody>
-        </ListItemWrap>
+        <article>
+          <ListItemWrap key={node.fields.slug}>
+            <ListItemHeader>
+              <div>{node.frontmatter.date}</div>
+              <div>{node.frontmatter.tags}</div>
+            </ListItemHeader>
+            <div>
+              <Link to={node.fields.slug}>
+                {node.frontmatter.title}
+              </Link>
+              <MediaQuery query="(min-width: 900px)">
+                <p>{node.excerpt}</p>
+              </MediaQuery>
+            </div>
+          </ListItemWrap>
+          <MediaQuery query="(max-width: 900px)">
+            <ArticleExcerpt>
+              <p>{node.excerpt}</p>
+            </ArticleExcerpt>
+          </MediaQuery>
+        </article>
       ))}
       <Pagination totalCount={totalCount} {...pathContext} />
     </MainLayout>

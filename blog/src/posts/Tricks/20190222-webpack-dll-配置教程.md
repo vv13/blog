@@ -213,4 +213,4 @@ scripts: {
 之后在变动DLL时，一定要记得执行：`npm run make:dll`。
 
 ## 其他
-Demo仓库地址：[GitHub - vv13/react-dll-demo](https://github.com/vv13/react-dll-demo.git)
+Demo仓库地址：[GitHub - vv13/react-dll-demo](https://github.com/vv13/demo/tree/master/react-dll-demo)

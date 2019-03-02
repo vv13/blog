@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import MainLayout from '../layout/MainLayout';
 
 const ArticleWrap = styled.div`
-  padding: 0 4em;
+  padding: 0 1em;
 `
 
 const ArticleTitle = styled.h1`
