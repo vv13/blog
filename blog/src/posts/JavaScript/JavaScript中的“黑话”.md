@@ -252,42 +252,14 @@ a = a ^ b
 ```
 这样通过异或运算进行交换两个数字型变量，请原谅他并忽视它，他只可能是一个醉心于魔法的初心者，并祝愿他早日发现，简洁易读的函数才是最佳实践。
 
-### 数值表示法
+### ..
+在JavaScipt整数和浮点数都属于`Number`类型，所有数字都以64位浮点数的形式储存，因此在解析语句时允许数组后面跟着一个小数点（`1. === 1`），可这样其实会引发一个问题，解释器无法解析`1.toString()`这样的语句，会抛出：`Uncaught SyntaxError`，此时表达式中的`.`并没有视为属性访问器，而是与1结合为浮点数`1.`，所以程序会报错，`1.toString()`等同于`1toString()`。
 
-#### 3e9
+为了更便于理解，可以记住这个规则：在解释器眼中，Number型表达式的出现的第一个`.`为浮点数的小数分隔符号，第二个`.`为属性访问器。比如`1.0.toString()`与`1..toString()`这样的语法都能正常执行。需要注意的是变量与表达式的区别，若将Number型表达式赋值给变量，通过变量是可以直接调用原型方法的，因为此时的`.`没有歧义。
 
-科学计数法是一种数学术语，将一个数表示为a乘以10的n次方，如光速30万公里每秒，在计算中通常将米做单位，则记为：300000000m/s，而在JavaScript中我们可使用科学计数法 `3e9`表示。
+这样的松散类型结构确实很使人产生误解，在程序中我们都应该规避这样的歧义性语句，通过括号消除数值表达式的歧义`(1).toString()`，而不是为了耍酷使用`1..toString()`。
 
-在这里举几个科学计数法的示例：
-
-```
-1e5; // 100000
-2e-4; // 0.0002
--3e3; // -3000
-```
-
-Number对象有`toExponential(fractionDigits)`方法以科学计数法返回该数值的字符串表示形式，参数fractionDigits可选，用于用来指定小数点后有几位数字，例如：`(179000).toExponential(); // "1.79e+5"`。
-
-以下情况JavaScript会自动将数值转为科学计数法表示：
-
-1. 小数点前的数字多于21位。
-2. 小数点后的零多于5个。
-
-#### .5px
-
-通常某些人习惯省略0.开头的数字，常见于数值计算、css属性中，比如`0.5px`可直接写为`.5px`，`0.2 * 0.3`可写为： `.2 * .3`
-
-#### 0x、0o和0b
-
-在十进制的世界里呆久了，请不要忘记还有其他进制的存在，在计算机中它们是同地位的。JavaScript提供了以下进制的表示方法：
-
-- 二进制：只用0和1两个数字，前缀为`0b`，十进制13可表示为`0b1101`
-- 八进制：只用0到7八个数字，前缀为`0o、0`，十进制13可表示为`0o15、015`
-- 十六进制：只用0到9的十个数字，和a到f六个字母，前缀为`0x`，十进制13可表示为`0xd`
-
-默认情况下，JavaScript 内部会自动将八进制、十六进制、二进制转为十进制再进行运算。从十进制转其他进制请查阅`toString`方法，从其他进制转十进制请查阅`parseInt`方法，从其他进制转其他进制请先转为十进制再转为其他方法。
-
-#### void
+### void
 根据MDN中的定义：`void对给定的表达式进行求值，然后返回undefined`，我们可以有很多种方式去理解这句话。
 
 首先它可以作为undefined的替代品，由于undefined不是保留字，它其实是一个全局变量值，因此我们可以对其进行改变，程序可能会出现不稳定的状态，在ES5中已经是一个只读属性了，但是在局部作用域中，还是有被重载的可能（你可能也有被害妄想症）：
@@ -329,6 +301,42 @@ void function() {
 ```
 <a href="javascript: void 0;" onclick="return false;">hello</a>
 ```
+
+### 数值表示法
+
+#### 3e9
+
+科学计数法是一种数学术语，将一个数表示为a乘以10的n次方，如光速30万公里每秒，在计算中通常将米做单位，则记为：300000000m/s，而在JavaScript中我们可使用科学计数法 `3e9`表示。
+
+在这里举几个科学计数法的示例：
+
+```
+1e5; // 100000
+2e-4; // 0.0002
+-3e3; // -3000
+```
+
+Number对象有`toExponential(fractionDigits)`方法以科学计数法返回该数值的字符串表示形式，参数fractionDigits可选，用于用来指定小数点后有几位数字，例如：`(179000).toExponential(); // "1.79e+5"`。
+
+以下情况JavaScript会自动将数值转为科学计数法表示：
+
+1. 小数点前的数字多于21位。
+2. 数值小于1且小数点后的零多于5个，如`0.0000001`。
+
+#### .5px
+
+通常某些人习惯省略0.开头的数字，常见于数值计算、css属性中，比如`0.5px`可直接写为`.5px`，`0.2 * 0.3`可写为： `.2 * .3`
+
+#### 0x、0o和0b
+
+在十进制的世界里呆久了，请不要忘记还有其他进制的存在，在计算机中它们是同地位的。JavaScript提供了以下进制的表示方法：
+
+- 二进制：只用0和1两个数字，前缀为`0b`，十进制13可表示为`0b1101`
+- 八进制：只用0到7八个数字，前缀为`0o、0`，十进制13可表示为`0o15、015`
+- 十六进制：只用0到9的十个数字，和a到f六个字母，前缀为`0x`，十进制13可表示为`0xd`
+
+默认情况下，JavaScript 内部会自动将八进制、十六进制、二进制转为十进制再进行运算。从十进制转其他进制请查阅`toString`方法，从其他进制转十进制请查阅`parseInt`方法，从其他进制转其他进制请先转为十进制再转为其他方法。
+
 
 ## “话术”
 ### Array.prototype.sort
@@ -485,6 +493,49 @@ JSON.parse(JSON.stringify(obj)) // Uncaught TypeError: Converting circular struc
 
 这样通过JSON解析的方式其实性能并不高，若对象可通过浅拷贝复制请一定使用浅拷贝的方式，不管你使用`{...obj}`还是`Object.assign({}, obj)`的方式，而如果对性能有要求的情况下，请不要再造轮子了，直接使用npm:clone这个包或是别的吧。
 
+### 生成[0, 1, ..., N-1]
+依稀记得在Python中生成列表的语法是多么简洁：`[ x for x in range(1, 10) ]`，那么在JavaScript如何进行初始化1~10的有序序列呢？
+
+行车有规范，直接使用`new Array(10)`进行初始化并`.map`是不可取的，因为这样只设置了数组的length字段：
+```
+Object.getOwnPropertyNames([1, 2, 3]) // ["0", "1", "2", "length"]
+
+const a = new Array(3) // [undefined, undefined, undefined]
+Object.getOwnPropertyNames(a) // ["length"]
+```
+
+这样会导致`map`、`filter`等迭代方法无效，当然使用`fill`填充后即可正常操作数组项，但是在这里会用其他方法解决。
+
+在以前，大家喜欢使用这样的Hack技巧去初始化固定长度的数组：`Array.apply(null, { length: 3 })`，需要特意说明的是，`{ length: 3 }`其实是一个类数组对象，Array.prototype.apply内部取参数可能是这样实现的：
+```
+for (let index = 0; i < arguments[1].length; index++) {
+  // pass arguments[1][index]
+}
+```
+
+正因如此，如果你基础没问题的话，就会发现上面的语句其实等效于：`Array(undefined, undefined, undefined)`，综上，生成0~10的序列语句可写为：
+```
+Array.apply(null, { length: 10 }).map((v, k) => k)
+```
+
+而对于ES6来讲，完全可以用`Array.from`来替代以上的语句的：
+```
+Array.from(new Array(10), (k, v) => v)
+```
+
+`Array.from`不仅接受字符串、Set、Map、类数组对象作为参数，凡是可迭代对象都可以，比如我们出于娱乐的目的使用生成器实现：
+```
+function* range(start, end) {
+  for (let i = start; i < end; i++) {
+    yield i
+  }
+}
+Array.from(range(1, 10)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+[...range(1, 10)] // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+
+
 ## “理论”
 ### Truthy与Falsy
 对每一个类型的值来讲，它每一个对象都有一个布尔型的值，Falsy表示在Boolean对象中表现为false的值，在条件判断与循环中，JavaScript会将任意类型强制转化为Boolean对象。
@@ -517,6 +568,8 @@ Object.is(+0, -0) // false
 
 而除了Falsy值，所有值都是Truthy值，在Boolean上下文中表现为true。
 
+## 其他
+以上总结了JavaScript中一些自己接触过到的Trick技巧，并简单阐述使用规范，因为本文以总结为主，所以并没有将许多有价值的知识点进行展开，有需求的同学只能自助了。如果文中有错误或不足的地方还望多多包涵并提给我，谢谢。
 
 ## 参考资料
 -  [https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/](https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/)
@@ -524,4 +577,5 @@ Object.is(+0, -0) // false
 -  [https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3](https://medium.freecodecamp.org/9-neat-javascript-tricks-e2742f2735c3)
 -  [https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript](https://stackoverflow.com/questions/7310109/whats-the-difference-between-and-in-javascript)
 -  [http://javascript.ruanyifeng.com/grammar/number.html](http://javascript.ruanyifeng.com/grammar/number.html)
+- [https://medium.freecodecamp.org/https-medium-com-gladchinda-hacks-for-creating-javascript-arrays-a1b80cb372b](https://medium.freecodecamp.org/https-medium-com-gladchinda-hacks-for-creating-javascript-arrays-a1b80cb372b)
 
