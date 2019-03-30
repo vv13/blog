@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import site from '../config/site'
-import Helmet from '../components/Helmet'
+import site from '../config/site';
+import Helmet from '../components/Helmet';
 import MainLayout from '../layout/MainLayout';
 
 const Banner = styled.img`
@@ -24,16 +24,24 @@ const Links = styled.ul`
   }
 `;
 
-const links = [{
-  icon: 'github',
-  link: 'https://github.com/vv13',
-}, {
-  icon: 'codepen',
-  link: 'https://codepen.io/vv13/',
-}, {
-  icon: 'segmentfault',
-  link: 'https://segmentfault.com/u/vv13',
-}]
+const links = [
+  {
+    icon: 'github',
+    link: 'https://github.com/vv13'
+  },
+  {
+    icon: 'juejin',
+    link: 'https://juejin.im/user/59b23a016fb9a0248d2513d6'
+  },
+  {
+    icon: 'codepen',
+    link: 'https://codepen.io/vv13/'
+  },
+  {
+    icon: 'segmentfault',
+    link: 'https://segmentfault.com/u/vv13'
+  }
+];
 
 const IndexMain = styled.div`
   flex: 1;
@@ -41,7 +49,7 @@ const IndexMain = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+`;
 
 export default () => (
   <MainLayout>
@@ -49,11 +57,13 @@ export default () => (
     <IndexMain>
       <Banner src="http://qn.vv13.cn/18-9-12/24175809.jpg" />
       <Links>
-        { links.map(link => (
+        {links.map(link => (
           <li key={link.icon}>
-            <a href={link.link}><i className={`iconfont icon-${link.icon}`}></i></a>
+            <a href={link.link}>
+              <i className={`iconfont icon-${link.icon}`} />
+            </a>
           </li>
-        )) }
+        ))}
       </Links>
     </IndexMain>
   </MainLayout>

@@ -1,5 +1,5 @@
 ---
-title: '理解Flux与Redux架构'
+title: '老生常谈之Flux与Redux思想'
 date: '2019-03-23'
 tags: ['前端']
 ---
@@ -393,7 +393,7 @@ const rootReducer = combineReducers({
 
 对于`subscribe`来讲，每次调用`dispatch`方法后都会被触发，此时状态树的某一部分可能发生了改变，我们可以在订阅方法的回调函数里使用`getState`或`dispatch`方法，但需要谨慎使用。`subscribe`在调用后还会返回一个函数`unsubscribe`函数用于取消订阅。
 
-#### Middleware
+## Redux Middleware
 对于中间件的概念相信大家通过其他应用有一定的概念了解，对于Redux来讲，当我们在谈论中间件时，往往指的是从一个Action发起直到它到达Reducer之前的这一段时间里所做的事情，Redux通过Middleware机制提供给三方程序扩展的能力。
 
 为了更好的说明中间件，我先用Redux初始化一个最简实例：
@@ -422,7 +422,7 @@ void function main() {
 
 ```
 
-###### Step 1. 手动添加打印日志的中间件
+#### Step 1. 手动添加打印日志的中间件
 为了深刻的理解Redux中间件，我们一步步去实现具有中间件功能的函数。为了追踪程序的状态变化，可能我们需要实现一个日志打印中间件机制，用于打印Action与执行后的State变化。我们首先通过`store`对象创建一个`logger`对象，在`dispatch`的前后进行日志打印：
 ```
 void (function main() {
@@ -445,7 +445,7 @@ dispatching { type: 'INCREMENT' }
 next state 1
 ```
 
-###### Step 2. 再添加一个错误打印的中间件
+#### Step 2. 再添加一个错误打印的中间件
 为了监控应用程序的状态，我们还需要实现一个中间件，当在应用程序`dispatch`过程中发生错误时，中间件能及时捕获错误并上报（通常可上报至Sentry，但在这里就简单打印错误了）：
 ```
 void (function main() {
@@ -470,7 +470,7 @@ void (function main() {
 Caught an exception! ReferenceError: dispatch is not defined
 ```
 
-###### Step 3. 将2个中间件串联在一起
+#### Step 3. 将2个中间件串联在一起
 在应用程序中一般都会有多个中间件，而将不同的中间件串联在一起是十分关键的一步操作，若你读过`Koa2`的源码，你大概了解一种被称之为`compose`的函数，它将负责处理中间件的级联工作。
 
 在这里，为了理解其原理，我们还是一步一步进行分析。前面两个中间件的核心目标在于将Dispatch方法进行了一层包装，这样来说，我们只需要将dispatch一层层进行包裹，并传入最深层的中间件进行调用，即可满足我们程序的要求：
@@ -568,7 +568,7 @@ void function main() {
 }()
 ```
 
-###### Step 4. back to Redux
+#### Step 4. back to Redux
 通过Step 1 ~ 3 的探索，我们大概是照瓢画葫实现了Redux的中间件机制，现在让我们来看看Redux本身提供的中间件接口。
 
 在`createStore`方法中，支持一个`enhancer`参数，意味着三方扩展，目前支持的扩展仅为通过`applyMiddleware`方法创建的中间件。
@@ -583,9 +583,9 @@ applyMiddleware支持传入多个符合`Redux middleware API`的Middleware，每
 
 通过applyMiddleware方法，将多个 middleware 组合到一起使用，形成 middleware 链。其中，每个 middleware 都不需要关心链中它前后的 middleware 的任何信息。 Middleware最常见的场景是实现异步actions方法，如`redux-thunk`与`redux-saga`。
 
-## redux-thunk
+## 异步Action
 
-对于一个标准的Redux应用程序来说，我们只能简单的通过派发Action执行同步更新，而 redux-thunk 借由中间件机制，提供给了Redux异步派发Action的能力，可谓说 redux-thunk 与 redux 是天造地设的一对。
+对于一个标准的Redux应用程序来说，我们只能简单的通过派发Action执行同步更新，为了达到异步派发的能力，官方的标准做法是使用 redux-thunk 中间件。
 
 为了明白什么是 redux-thunk ，先回想一下上文介绍的Middleware API：`({ dispatch, getState }) => next => action`，借由灵活的中间件机制，它提供给 redux-thunk 延迟派发Action的能力，允许了人们在编写Action Creator时，可以不用马上返回一个Action对象，而是返回一个函数进行异步调度，于是称之为`Async Action Creator`：
 
@@ -625,9 +625,12 @@ thunk.withExtraArgument = createThunkMiddleware;
 export default thunk;
 ```
 
-我们通过 dispatch 派发Action时，redux-thunk 中间件会判断action是否为函数，若为函数，则将dispatch传入action中由回调函数延时触发；若Action类型为纯对象，则直接进行派发。
+通过`dispatch(ActionCreator())`进行调用时，函数会判断参数的类型：
 
-为什么称其为"thunk"，它是来源于"think"，**i变为了u，意味着将绝对权从我转交给你**，这是我认为较好的解释。如果要溯源的话，其实这是一种“求值策略”的模式，即函数参数到底应该何时求值，比如一个函数：
+1. 若为对象，走正常的触发流程，直接派发Action。
+2. 若为函数，则将其视为Async Action Creator，将dispatch方法与getState方法作为参数注入，如果全局注册了withExtraArgument的话也会作为第三个参数进行传入。
+
+至于为什么称其为"thunk"，它是来源于"think"，**i变为了u，意味着将绝对权从我转交给你**，这是我认为较好的解释。如果要溯源的话，其实这是一种“求值策略”的模式，即函数参数到底应该何时求值，比如一个函数：
 
 ```
 function test(y) { return y + 1 }
@@ -653,6 +656,6 @@ function test(thunk) {
 
 - [Getting Started with Redux · Redux](https://redux.js.org/introduction/getting-started)
 
-- [Flux \| Application Architecture for Building User Interfaces](https://facebook.github.io/flux/doc s/in-depth-overview.html#content)
+- [Flux \| Application Architecture for Building User Interfaces](https://facebook.github.io/flux/docs/in-depth-overview.html#content)
 
 - [GitHub - redux-utilities/flux-standard-action: A human-friendly standard for Flux action objects.](https://github.com/redux-utilities/flux-standard-action)
