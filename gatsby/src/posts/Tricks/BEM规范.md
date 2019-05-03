@@ -1,7 +1,7 @@
 ---
-layout: post
-title: BEM规范
-date: 2017-01-09
+layout: "post"
+title: "BEM规范"
+date: "2017-01-09"
 tags: ['tricks']
 ---
 
