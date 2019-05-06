@@ -13,7 +13,7 @@ export default class HTML extends React.Component {
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
           {this.props.headComponents}
-          <link rel="stylesheet" href="//at.alicdn.com/t/font_438575_so4pitppem.css" />
+          <link rel="stylesheet" href="//at.alicdn.com/t/font_438575_1gbpszrohja.css" />
         </head>
         <body {...this.props.bodyAttributes}>
           {this.props.preBodyComponents}
