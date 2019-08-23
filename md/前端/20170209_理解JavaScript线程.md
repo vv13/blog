@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 理解javascript线程
-date: 2017-02-09
+title: '理解javascript线程'
+date: '2017-02-09'
 tags: ['JavaScript']
 ---
 

@@ -1,3 +1,5 @@
+const path= require('path')
+
 module.exports = {
   pathPrefix: `/`,
   siteMetadata: {
@@ -10,7 +12,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `src`,
-        path: `${__dirname}/src/`
+        path: path.resolve(__dirname, '../md')
       }
     },
     {

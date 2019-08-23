@@ -104,5 +104,6 @@ $ git push upstream
 ## 其他
 
 - 删除远程分支：$ git push origin --delete <branchName>
+- 删除远程分支2：$ git branch --delete --remotes <remote>/<branch>
 
 - 推送本地分支：$ git push <远程主机名> <本地分支名>:<远程分支名>

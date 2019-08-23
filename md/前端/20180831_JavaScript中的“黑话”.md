@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript中的“黑话”
+title: 'JavaScript中的“黑话”'
 date: '2018-08-31'
 tags: ['JavaScript']
 ---

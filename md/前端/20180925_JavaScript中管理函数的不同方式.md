@@ -1,5 +1,5 @@
 ---
-date: 2018-09-25T17:21:48+08:00
+date: '2018-09-25'
 title: "JavaScript中管理函数的不同方式"
 tags: ["JavaScript"]
 ---
