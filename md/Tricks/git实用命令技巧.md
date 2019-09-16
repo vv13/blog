@@ -77,9 +77,9 @@ $ git push upstream
 
   保存当前的工作进度。会分别对暂存区和工作区的状态进行保存
 
-- git stash save "message..."
+- git stash push -m "message..."
 
-  这条命令实际上是第一条 `git stash` 命令的完整版
+  与 `git stash` 作用相同，可以自定义信息
 
 - git stash list
 
