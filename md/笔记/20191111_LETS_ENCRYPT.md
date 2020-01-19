@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LET'S ENCRYPT 笔记
+title: LET'S ENCRYPT 配置笔记
 date: '2019-11-21'
 tags: ['笔记']
 ---
