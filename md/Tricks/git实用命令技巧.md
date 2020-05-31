@@ -107,3 +107,9 @@ $ git push upstream
 - 删除远程分支2：$ git branch --delete --remotes <remote>/<branch>
 
 - 推送本地分支：$ git push <远程主机名> <本地分支名>:<远程分支名>
+
+## 快速拉取仓库
+
+对于大型项目来讲，我们往往光拉取代码就会耗费很多时间，这是因为历史提交记录占了很大的储存空间，这时可以用 `--depth=1`，代表只保留最近一个提交信息，来看看拉取`React`仓库使用前后的对比：
+- `git clone https://github.com/facebook/react.git react`，占用 180M。
+- `git clone https://github.com/facebook/react.git react --depth=1`，占用 22M。

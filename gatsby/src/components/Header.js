@@ -24,8 +24,8 @@ export default () => (
     <Link to="/">vv13</Link>
     <section>
       <Link to="/blog/">博客</Link>
+      <Link to="/about-me/">关于我</Link>
       <Link to="/rss.xml">订阅</Link>
-      {/* <Link to="/about/">关于我</Link> */}
     </section>
   </Header>
 )
