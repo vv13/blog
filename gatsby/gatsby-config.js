@@ -96,7 +96,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: 'Gatsby RSS Feed'
+            title: 'vv13 的博客'
           }
         ]
       }
