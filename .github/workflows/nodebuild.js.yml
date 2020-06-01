@@ -25,3 +25,10 @@ jobs:
         node-version: 12
     - run: yarn
     - run: yarn build
+    - name: Publish build assets
+      uses: vv13/rsync-publisher@v1
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        SERVER_DEST: ${{ secrets.SERVER_DEST }}
+        FOLDER: "public/"
+        OPTION: "-avzr --delete"
