@@ -16,6 +16,8 @@ tags: ['tricks']
 ### 删除标签
 删除本地标签较为简单，使用`git tag -d TAG_NAME`即可，若要删除远程库origin中包含的标签，则使用`git push origin --delete tag TAG_NAME`。
 
+目前自己使用较多的为：`git push origin :refs/tags/TAG_NAME`。
+
 ### 查看标签
 1. `git tag`，列出所有标签名称
 2. `git show TAG_NAME`，显示tag信息
