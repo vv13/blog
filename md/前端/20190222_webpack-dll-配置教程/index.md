@@ -8,7 +8,7 @@ tags: ["tricks"]
 DLL文件又称为动态链接库文件，它通常作为应用程序可执行代码的一部分，供应用程序在运行时进行调用。
 
 在Webpack中，内置的DllPlugin与DllReferencePlugin插件可以通过使用DLL来大幅提高构建性能，以下为在普通工程中DLL机制说明图：
-![Webpack DLL (1).png](/attachments/webpack_dll.png)
+![Webpack DLL (1).png](./webpack_dll.png)
 
 ## 初始化项目
 为了便于实验，我们通过使用`create-react-app`创建项目并eject出webpack配置：

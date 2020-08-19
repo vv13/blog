@@ -404,7 +404,7 @@ function flattenDeep(arrs) {
 
 经过测试，效率与lodash对比如下：
 
-![](http://qn.vv13.cn/18-8-28/89073993.jpg)
+![](./89073993.jpg)
 
 对上述方法中的`Array.prototype.concat.apply([], target)`亦可以写成：`[].concat(...target)`。
 

@@ -9,20 +9,35 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `src`,
-        path: path.resolve(__dirname, '../md')
-      }
-    },
-    {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography.js`
       }
     },
     'gatsby-plugin-styled-components',
-    'gatsby-transformer-remark',
+    'gatsby-plugin-sharp',
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1000,
+              quality: 100,
+              backgroundColor: `transparent`,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `src`,
+        path: path.resolve(__dirname, '../md')
+      }
+    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
     {

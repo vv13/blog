@@ -26,7 +26,7 @@ Flux应用中的数据以单一方向流动：
 2. 调度器将动作消息发送给每一个数据中心。
 3. 数据中心再将数据传递给视图。
 
-![](http://qn.vv13.cn/flux-simple-f8-diagram-with-client-action-1300w.png)
+![](./flux-simple-f8-diagram-with-client-action-1300w.png)
 
 单一方向数据流还具有以下特点：
 
@@ -37,7 +37,7 @@ Flux应用中的数据以单一方向流动：
 #### Flux的工作流
 
 从上面的章节中我们大概知道了Flux中各个角色的职责，那现在我们再结合着简单的代码示例讲解一下他们是如何构成一整个工作流的：
-![b6682c2d.png](http://qn.vv13.cn/b6682c2d.png)
+![b6682c2d.png](./b6682c2d.png)
 
 上图中有一个`Action Creator`的概念，其实他们就是用于辅助创建Action对象，并传递给Dispatcher：
 
@@ -155,7 +155,7 @@ console.log(todoStore.getState()); // [ { id: 1553392929453, done: false, descip
 #### Flux与React
 
 Flux 这样的架构设计其实在很早之前就出现了，但是为什么近几年才盛行呢？我认为很大一部分因素取决于 React 框架的出现，正是因为 React 的 Virtual DOM 让数据驱动成为了主流，再加上高效率的`React diff`，使得这样的架构存在更加合理：
-![a837658f.png](http://qn.vv13.cn/a837658f.png)
+![a837658f.png](./a837658f.png)
 
 
 在靠近视图的顶层结构中，有一个特殊的视图层，在这里我们称为视图控制器( View Controller )，它用于从Store中获取数据并将数据传递给视图层及其后代，并负责监听Store中的数据改变事件。
@@ -178,7 +178,7 @@ Redux是JavaScript应用可预测的状态管理容器，它具有以下特性�
 
 #### 与Flux的不同之处
 
-![123](http://qn.vv13.cn/1_3lvNEQE4SF6Z1l-680cfSQ.jpeg)
+![123](./1_3lvNEQE4SF6Z1l-680cfSQ.jpeg)
 
 Redux受到了Flux架构的启发，但在实现上有一些不同：
 

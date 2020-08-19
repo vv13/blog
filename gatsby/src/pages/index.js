@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import banner from '../assets/banner.jpg'
 import site from '../config/site';
 import Helmet from '../components/Helmet';
 import MainLayout from '../layout/MainLayout';
@@ -17,7 +18,7 @@ export default () => (
   <MainLayout>
     <Helmet title={site.title} noSuffix />
     <IndexMain>
-      <Banner src="http://qn.vv13.cn/18-9-12/24175809.jpg" />
+      <Banner src={banner} />
     </IndexMain>
   </MainLayout>
 );
