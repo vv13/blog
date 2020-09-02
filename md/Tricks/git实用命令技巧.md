@@ -1,6 +1,6 @@
 ---
 layout: post
-title: git实用命令技巧
+title: "Git实用命令技巧" 
 date: 2016-12-11
 tags: ['tricks']
 ---
