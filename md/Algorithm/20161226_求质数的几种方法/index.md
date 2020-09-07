@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 求质数的几种方法
-date: 2016-12-26
+date: '2016-12-26'
 tags: ['Algorithm']
 ---
 
