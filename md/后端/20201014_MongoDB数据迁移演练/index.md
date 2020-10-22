@@ -12,8 +12,6 @@ date: '2020-10-14'
 
 然后让我们来做一些环境初始化的工作，通过脚本进行初始化两个容器：
 
-首先使用 Docker 初始化一个 MongoDB 容器，初始化数据库名为：`migrate` ，账号密码是：`migrate:secret` ：
-
 ```jsx
 docker run -d --name migrate-from \
     -e MONGO_INITDB_ROOT_USERNAME=migrate \
@@ -27,7 +25,7 @@ docker run -d --name migrate-to \
     mongo:4.2
 ```
 
-现在我们拥有两台 MonogDB 了，[Connect Url](https://docs.mongodb.com/manual/reference/connection-string/) 分别为：
+现在我们拥有两台 MonogDB 服务了，[Connect Url](https://docs.mongodb.com/manual/reference/connection-string/) 分别为：
 
 - `mongodb://migrate:from@localhost:27018/admin`
 - `mongodb://migrate:to@localhost:27019/admin`

@@ -5,3 +5,7 @@ html {
 a {
   text-decoration: underline;
 }
+
+.mermaid {
+  text-align: center;
+}
