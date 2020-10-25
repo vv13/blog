@@ -15,7 +15,7 @@ const IndexMain = styled.div`
 `;
 
 export default () => (
-  <MainLayout>
+  <MainLayout dark>
     <Helmet title={site.title} noSuffix />
     <IndexMain>
       <Banner src={banner} />

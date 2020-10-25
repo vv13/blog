@@ -13,6 +13,9 @@ const ListItemWrap = styled.div`
   &:first-of-type {
     margin-top: 0;
   }
+  @media(max-width: 900px) {
+    flex-direction: column-reverse;
+  }
 `
 const ListItemHeader = styled.div`
   display: flex;
@@ -20,6 +23,11 @@ const ListItemHeader = styled.div`
   align-items: flex-start;
   width: 10rem;
   flex-shrink: 0;
+  @media(max-width: 900px) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+  }
 `
 
 const ArticleExcerpt = styled.div`
