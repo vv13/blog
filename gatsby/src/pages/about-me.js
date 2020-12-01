@@ -19,10 +19,13 @@ export default ({ data }) => (
         <a href="https://github.com/vv13" target="_blank">
           Github
         </a>
+        <a href="https://www.npmjs.com/~zwhvv13" target="_blank">
+          npm Packages
+        </a>
       </li>
     </ul>
     <h2>联系方式</h2>
-    <p>您可以通过我的邮箱与我联系：zwhvv13@gmail.com。</p>
+    <p>您可以通过邮箱与我联系：zwhvv13@gmail.com。</p>
   </MainLayout>
 );
 
