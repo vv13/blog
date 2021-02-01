@@ -12,6 +12,6 @@ const Footer = styled.footer`
 `;
 export default () => (
   <Footer>
-    <p>{site.footerTxt} | <a href="http://www.beian.miit.gov.cn" target="_blank">蜀ICP备17042657号</a></p>
+    <p>{site.footerTxt} | <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备17042657号</a></p>
   </Footer>
 );
