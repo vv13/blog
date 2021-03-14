@@ -16,6 +16,9 @@ const Header = styled.header`
   }
   section > a {
     margin-left: 2em;
+    i {
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -24,7 +27,10 @@ export default ({ dark }) => (
     <Link to="/">vv13</Link>
     <section>
       <Link to="/blog/">博客</Link>
-      <Link to="/about-me/">关于我</Link>
+      <a target="_blank" href="https://github.com/vv13">
+        Github
+        <i className="iconfont icon-link"></i>
+      </a>
     </section>
   </Header>
 );
