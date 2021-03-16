@@ -54,7 +54,7 @@ docker run --name redis-example -p 6379:6379 -e ALLOW_EMPTY_PASSWORD=yes -d redi
 
 我们来模拟一个使用固定窗口算法的网络请求图：
 
-![assets/Untitled.png](assets/Untitled.png)
+![assets/0.png](assets/0.png)
 
 - 在 09:00 ~ 09:01 这段时间内，所产生的请求数是 75，并没有达到固定窗口的请求上限，然后进入到下一个周期 09:01 ~ 09:02 后，计数会重新清零。
 - 在 09:02 ~ 09:03 期间，由于请求数很早就到达上限，在这段时间内超过上限的请求将不会相应并返回 429（Too Many Requests）。
@@ -99,7 +99,7 @@ export const fixedWindow = async (ctx, next) => {
 
 固定窗口算法是简单且易于实现的，但也有一个很明显的缺点，来看看下面的示意图：
 
-![assets/Untitled_1.png](assets/Untitled_1.png)
+![assets/1.png](assets/1.png)
 
 在快要接近 09:03 的时候，请求数达到了 80 左右，到底  09:03 以后就被清零又重新计数，在这段相隔不到 1 分钟的时间内，实际请求数已经超过了设置的最大上限，因此这个算法的短板是很明显的，我们在下一个算法中看看如何进行改进。
 
@@ -109,7 +109,7 @@ export const fixedWindow = async (ctx, next) => {
 
 为了统计当前滑动窗口的请求总数，就需要查询出所有时间范围在当前滑动窗口周期之内的窗口，然后将每个窗口的请求数进行累加，进行判断是否出发限流的条件，这就是滑动窗口算法，以下为示例图：
 
-![assets/Untitled_2.png](assets/Untitled_2.png)
+![assets/2.png](assets/2.png)
 
 首先我们来定义滑动窗的模型所依赖的变量，通过模型我们可以计算出请求速率是否超过限制，大致需要定义以下信息：
 
@@ -127,7 +127,7 @@ const SPLIT_DURATION = 1
 
 除此之外，还需要一个数据结构用于储存用户的请求信息，在 Redis 中，使用 Hash 结构来计数是较为合适的，整个结构如下：
 
-![assets/Untitled_3.png](assets/Untitled_3.png)
+![assets/3.png](assets/3.png)
 
 其中关于 Redis 结构，我们需要使用 ioredis 调用以下 Redis 命令完成相关操作：
 
@@ -194,7 +194,7 @@ export const slidingWindow = async (ctx, next) => {
 
 滑动日志算法与滑动窗口算法很接近，唯一不同的是，滑动日志算法会记录下用户的每一个请求的时间戳，这种算法的计算方式更为准确，算法也更加简单，但是相比滑动窗口算法，会更加消耗内存。
 
-![assets/Untitled_4.png](assets/Untitled_4.png)
+![assets/4.png](assets/4.png)
 
 滑动日志算法理解起来十分简单，想象我们有一个集合，用于储存每次请求的时间戳，在每一次请求到来时，查询集合中所有在时间周期内的时间戳数目即可，若请求数目没有超过最大限制，则将最新的时间戳存入集合；若超过最大限制，则返回429。
 
@@ -264,7 +264,7 @@ export const slidingLog = async (ctx, next) => {
 
 漏桶算法（Leaky Bucket）是一个经典的限速算法，我们可以将用户访问 API 接口的过程类比为往一个漏桶中加入水分，在这个过程中我们不会去限制水流入桶中的速度，而是限制水流出的速度，这样一来，当水流入速度超过流出的速度时，桶中的水平面就会不断上涨，直到填满整个桶以后，之后再有水流进入，就会溢出，示意图如下：
 
-![assets/Untitled_5.png](assets/Untitled_5.png)
+![assets/5.png](assets/5.png)
 
 为了实现一个这样的算法，我们定义了以下变量：
 
@@ -333,7 +333,7 @@ export const leakyBucket = async (ctx, next) => {
 
 令牌桶算法（Token Bucket）定义了一个集合（桶），集合只能容纳一定数量的令牌，当有请求访问服务时，都会去消耗一个令牌；若集合中没有令牌，则不允许请求通过，请求会排队或被丢弃。而令牌通通过一定速率去生成新的令牌，以此来达到限流的效果，它的模型如下：
 
-![assets/Untitled_6.png](assets/Untitled_6.png)
+![assets/6.png](assets/6.png)
 
 相较于漏桶算法，漏桶算法的请求流出出口的速率由于是恒定的，所以它没办法应对短时间的突发请求，但是在令牌算法里，我们只需要控制令牌的生成速率，即可应对各种情况的变化。
 

@@ -18,7 +18,7 @@ tags: ['后端']
 
 我们以类似于 Uber 的打车服务作为一个业务案例，由于初期团队规模小，业务量也不多，整个系统是如下的一个单体应用：
 
-![NestJS%20Microservice%2005ccf42df3aa4eae9e58db1b4a6f4b0b/Untitled.png](./Untitled.png)
+![imgs/0.png](./0.png)
 
 如上图所示，乘客和司机通过 REST API 进行交互，所有服务都请求的是一个数据库，并且所有服务，例如支付、订单、个人中心等都存在于一个框架服务之中，在早期的时候，这样的开发架构，对于一个创业型产品是十分常见的，集中管理、开发效率高，可是随着业务的不断扩展与量级的增大，慢慢的这个单体应用就变为了一个巨石应用，那我们再对其进行代码维护时，就很容易遇到以下的问题：
 
@@ -31,7 +31,7 @@ tags: ['后端']
 
 为了解决当前的业务痛点，这家打车公司参考了 Amazon、Netflix 等巨头公司的应用架构，最终将其巨石应用按照微服务的架构进行重新设计：
 
-![NestJS%20Microservice%2005ccf42df3aa4eae9e58db1b4a6f4b0b/Untitled%201.png](./Untitled%201.png)
+![imgs/1.png](./1.png)
 
 在这个服务地图中，我们看到每个核心业务模块都单独拆分出来作为一个独立的服务，针对于用户还引入了 API 网关的概念用来导航到内部的服务。现在来看，这套微服务架构解决了一些曾经单体应用下存在的缺陷：
 
@@ -79,7 +79,7 @@ Nest  内置了几种不同的微服务传输层实现，它们定义在 `@nestj
 
 我们首先在单体架构上进行功能实现：
 
-![NestJS%20Microservice%2005ccf42df3aa4eae9e58db1b4a6f4b0b/Untitled%202.png](./Untitled%202.png)
+![imgs/2.png](./2.png)
 
 其中，ms-app 通过对外暴露一个 REST API，curl 请求示例如下：
 
@@ -156,7 +156,7 @@ export class AppController {
 
 我们在这里使用 Nest 微服务默认的通讯协议为 TCP，此时的架构图为：
 
-![NestJS%20Microservice%2005ccf42df3aa4eae9e58db1b4a6f4b0b/Untitled%203.png](./Untitled%203.png)
+![imgs/3.png](./3.png)
 
 我们通过 `nest new ms-math` 创建一个新的服务，首先安装内置的微服务模块：
 
@@ -293,7 +293,7 @@ receive: a b c c
 
 如果你对为什么使用消息代理有疑问的话，那么我来给你画一张示意图：
 
-![NestJS%20Microservice%2005ccf42df3aa4eae9e58db1b4a6f4b0b/Untitled%204.png](./Untitled%204.png)
+![imgs/4.png](./4.png)
 
 ### 代码实现
 
