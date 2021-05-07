@@ -1,27 +1,28 @@
 ![](./bg.jpg)
 
 ## 最近文章
+- [20210408_在Taro3中使用weui](./md/笔记/20210408_在Taro3中使用weui.md)
+- [20210222_使用nginx的mirror模块进行流量复制](./md/笔记/20210222_使用nginx的mirror模块进行流量复制.md)
+- [20201014_MongoDB数据迁移演练](./md/后端/20201014_MongoDB数据迁移演练/index.md)
 - [20200902_手把手教你在Node.js中使用Redis做请求限流](./md/Algorithm/20200902_手把手教你在Node.js中使用Redis做请求限流/index.md)
 - [20200819_NVM进阶技巧](./md/笔记/20200819_NVM进阶技巧.md)
-- [20200802_写给自己的一份](./md/笔记/20200802_写给自己的一份.md)
-- [20200601_NPM武功秘籍](./md/笔记/20200601_NPM武功秘籍.md)
-- [20200525_Nestjs_Microservice初探](./md/Web/20200525_Nestjs_Microservice初探/index.md)
+- [20200802_写给自己的一份系统重装指南](./md/笔记/20200802_写给自己的一份系统重装指南.md)
+- [20200601_NPM的一些细节与规范](./md/笔记/20200601_NPM的一些细节与规范.md)
+- [20200525_Nestjs_Microservice初探](./md/后端/20200525_Nestjs_Microservice初探/index.md)
 - [20200415_Node读取超大文件](./md/笔记/20200415_Node读取超大文件.md)
 - [20200110_私有npm库](./md/笔记/20200110_私有npm库.md)
-- [20191229_TypeScrip模块解析笔记](./md/笔记/20191229_TypeScrip模块解析笔记.md)
-- [20191111_LETS_ENCRYPT](./md/笔记/20191111_LETS_ENCRYPT.md)
-- [20190615_Babel插件起手式](./md/前端/20190615_Babel插件起手式.md)
 
 
 ## 所有文章
 ### Web
-- [20200525_Nestjs_Microservice初探](./md/Web/20200525_Nestjs_Microservice初探/index.md)
 - [20190311_常用HTTP状态码](./md/Web/20190311_常用HTTP状态码.md)
 - [20190211_学会绘制UML类图](./md/Web/20190211_学会绘制UML类图/index.md)
 ### 笔记
+- [20210408_在Taro3中使用weui](./md/笔记/20210408_在Taro3中使用weui.md)
+- [20210222_使用nginx的mirror模块进行流量复制](./md/笔记/20210222_使用nginx的mirror模块进行流量复制.md)
 - [20200819_NVM进阶技巧](./md/笔记/20200819_NVM进阶技巧.md)
-- [20200802_写给自己的一份](./md/笔记/20200802_写给自己的一份.md)
-- [20200601_NPM武功秘籍](./md/笔记/20200601_NPM武功秘籍.md)
+- [20200802_写给自己的一份系统重装指南](./md/笔记/20200802_写给自己的一份系统重装指南.md)
+- [20200601_NPM的一些细节与规范](./md/笔记/20200601_NPM的一些细节与规范.md)
 - [20200415_Node读取超大文件](./md/笔记/20200415_Node读取超大文件.md)
 - [20200110_私有npm库](./md/笔记/20200110_私有npm库.md)
 - [20191229_TypeScrip模块解析笔记](./md/笔记/20191229_TypeScrip模块解析笔记.md)
@@ -36,6 +37,9 @@
 - [20180722_汉诺塔问题](./md/Algorithm/20180722_汉诺塔问题.md)
 - [20161226_求质数的几种方法](./md/Algorithm/20161226_求质数的几种方法/index.md)
 - [20161226_冒泡、选择与插入排序](./md/Algorithm/20161226_冒泡、选择与插入排序.md)
+### 后端
+- [20201014_MongoDB数据迁移演练](./md/后端/20201014_MongoDB数据迁移演练/index.md)
+- [20200525_Nestjs_Microservice初探](./md/后端/20200525_Nestjs_Microservice初探/index.md)
 ### 前端
 - [20190615_Babel插件起手式](./md/前端/20190615_Babel插件起手式.md)
 - [20190323_老生常谈之Flux与Redux思想](./md/前端/20190323_老生常谈之Flux与Redux思想/index.md)

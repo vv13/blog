@@ -1,12 +1,10 @@
-# gatsby-starter-hello-world
-Starter with the bare essentials needed for a [Gatsby](https://www.gatsbyjs.org/) site.
-
-Install this starter (assuming Gatsby is installed) by running from your CLI:
+## YAML 配置说明
 ```
-gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-hello-world
+---
+layout: 'post'
+title: '标题'
+date: '日期'	
+update_date: '更新日期'
+tags: ['标签1', '标签2']
+---
 ```
-
-Or [view the live demo here](https://gatsby-starter-hello-world-demo.netlify.com/).
-
-## Running in development
-`gatsby develop`
