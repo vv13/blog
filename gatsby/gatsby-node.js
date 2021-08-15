@@ -1,68 +1,59 @@
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const path = require("path");
+const { createFilePath } = require(`gatsby-source-filesystem`);
+const blogListTemplate = path.resolve("src/templates/blog-list.js");
+const blogPostTemplate = path.resolve("src/templates/blog-post.js");
 
-const blogListTemplate = path.resolve('src/templates/blog-list.js') 
-const blogPostTemplate = path.resolve('src/templates/blog-post.js') 
-
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: '' });
+  if (node.internal.type === "Mdx") {
+    const value = createFilePath({ node, getNode });
     createNodeField({
+      name: "slugpath",
       node,
-      name: 'slug',
-      value: slug
+      value: `/blog/post${value}`,
     });
   }
 };
 
-exports.createPages = async ({ graphql, actions: { createPage } }) => {
-  const graphRes = await graphql(`
-    {
-      allMarkdownRemark(
-        sort: { fields: [frontmatter___date], order: DESC }
-        limit: 1000
-      ) {
-        edges {
-          node {
-            frontmatter {
-              tags
-            }
-            fields {
-              slug
-            }
+exports.createPages = async function ({ actions, graphql }) {
+  const { data } = await graphql(`
+    query {
+      allMdx {
+        pageInfo {
+          totalCount
+        }
+        nodes {
+          id
+          fields {
+            slugpath
           }
         }
       }
     }
   `);
+  const totalCount = data.allMdx.pageInfo.totalCount;
 
-  const posts = graphRes.data.allMarkdownRemark.edges;
-
-  // create blog-list
   const postsPerPage = 10;
-  const numPages = Math.ceil(posts.length / postsPerPage);
+  const numPages = Math.ceil(totalCount / postsPerPage);
   Array.from({ length: numPages }).forEach((_, i) => {
-    createPage({
+    actions.createPage({
       path: i === 0 ? `/blog` : `/blog/${i + 1}`,
       component: blogListTemplate,
       context: {
         limit: postsPerPage,
-        skip: i * postsPerPage
-      }
+        skip: i * postsPerPage,
+      },
     });
   });
 
-  // create blog-post
-  posts.forEach(({ node }) => {
-    console.log(node.fields.slug)
-    createPage({
-      path: node.fields.slug,
+  data.allMdx.nodes.forEach((node) => {
+    const slugpath = node.fields.slugpath;
+    actions.createPage({
+      path: slugpath,
       component: blogPostTemplate,
       context: {
-        slug: node.fields.slug,
+        id: node.id,
       },
-    })
-  })
+    });
+  });
 };
-

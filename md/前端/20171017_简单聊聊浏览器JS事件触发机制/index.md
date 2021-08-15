@@ -21,7 +21,7 @@ tags: ['JavaScript']
 
 `addEventListen(event, function, useCapture)`添加事件的第三个参数默认值为false，即默认使用事件冒泡，若为true则使用事件捕获的机制，以下为示例：
 
-![](/static/imgs/冒泡捕获.png)
+![](./冒泡捕获.png)
 
 当我们使用默认事件注册的时候，点击child元素时，会先后输出child，container，这就是事件冒泡机制：
 ```

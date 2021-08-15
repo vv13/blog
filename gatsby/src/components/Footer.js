@@ -1,17 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
-import site from '../config/site';
+import React from 'react'
+import styled from 'styled-components'
+import site from '../config/site'
 
 const Footer = styled.footer`
-  text-align: center;
-  color: ${({ theme }) => theme.hint};
-  font-size: 12px;
-  a {
+    text-align: center;
     color: ${({ theme }) => theme.hint};
-  }
-`;
-export default () => (
-  <Footer>
-    <p>{site.footerTxt} | <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备17042657号</a></p>
-  </Footer>
-);
+    font-size: 12px;
+    a {
+        color: ${({ theme }) => theme.hint};
+    }
+`
+
+const FooterComp = () => (
+    <Footer>
+        <p>
+            {site.footerTxt} |{' '}
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="noreferrer">
+                蜀ICP备17042657号
+            </a>
+        </p>
+    </Footer>
+)
+
+export default FooterComp

@@ -9,11 +9,11 @@ tags: ['tricks']
 ## git pull --rebase
 从分支上拉取最新的代码时，往往会多出一条merge记录，这样有时不是我们所期望的，因为它会让整个提交线图变得难以理解：
 
-![](/static/imgs/git实用命令技巧-1.png)
+![](./git实用命令技巧-1.png)
 
 我们期望的分支图也许时这样的：
 
-![](/static/imgs/git实用命令技巧-2.png)
+![](./git实用命令技巧-2.png)
 
 只需要将git pull -> git pull --rebase。rebase的好处就在于，它会将当前新的提交记录，全部追加到远程提交信息记录之后:
 ```
