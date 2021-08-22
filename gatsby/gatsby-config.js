@@ -1,10 +1,6 @@
 const path = require("path");
-const config = require("./src/config/site");
 
 module.exports = {
-  siteMetadata: {
-    ...config,
-  },
   plugins: [
     "gatsby-plugin-sharp",
     "gatsby-plugin-image",

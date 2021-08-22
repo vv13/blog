@@ -27,6 +27,10 @@ const HeaderComp = ({ dark }) => (
         <Link to="/">vv13</Link>
         <section>
             <Link to="/blog/">博客</Link>
+            <a target="_blank" href="https://github.com/vv13/dojo/issues/created_by/vv13" rel="noreferrer">
+                道场
+                <i className="iconfont icon-link"></i>
+            </a>
             <a target="_blank" href="https://github.com/vv13" rel="noreferrer">
                 Github
                 <i className="iconfont icon-link"></i>
