@@ -74,19 +74,19 @@ $ git push upstream
 
 用于保存和恢复工作现场，如在切分支时、拉取代码、热修复时，需要将当前修改的文件内容储存起来，完成另一个场景的个工作，再恢复现场，以下是一些常用命令：
 
-- git stash
+- `git stash`
 
   保存当前的工作进度。会分别对暂存区和工作区的状态进行保存
 
-- git stash push -m "message..."
+- `git stash push -m "message..."`
 
   与 `git stash` 作用相同，可以自定义信息
 
-- git stash list
+- `git stash list`
 
   显示进度列表。此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择
 
-- git stash pop [--index] [<stash>]
+- `git stash pop [--index] [<stash>]`
 
   如果不使用任何参数，会恢复最新保存的工作进度，并将恢复的工作进度从存储的工作进度列表中清除。
 
@@ -94,20 +94,20 @@ $ git push upstream
 
   选项--index 除了恢复工作区的文件外，还尝试恢复暂存区。
 
-- git stash apply [--index] [<stash>]
+- `git stash apply [--index] [<stash>]`
 
   除了不删除恢复的进度之外，其余和 `git stash pop` 命令一样
 
-- git stash clear
+- `git stash clear`
 
   删除所有存储的进度
 
 ## 其他
 
-- 删除远程分支：$ git push origin --delete <branchName>
-- 删除远程分支2：$ git branch --delete --remotes <remote>/<branch>
+- 删除远程分支：`$ git push origin --delete <branchName>`
+- 删除远程分支2：`$ git branch --delete --remotes <remote>/<branch>`
 
-- 推送本地分支：$ git push <远程主机名> <本地分支名>:<远程分支名>
+- 推送本地分支：`$ git push <远程主机名> <本地分支名>:<远程分支名>`
 
 ## 快速拉取仓库
 
