@@ -1,6 +1,6 @@
-![](./bg.jpg)
+![](./generate_readme/bg.jpg)
 
-## 最近文章
+## 近期更新
 - [20210910_一份来自Web开发者的Mac软件推荐清单](./md/笔记/20210910_一份来自Web开发者的Mac软件推荐清单.md)
 - [20201014_MongoDB数据迁移演练](./md/数据库/20201014_MongoDB数据迁移演练/index.md)
 - [20200902_手把手教你在Node.js中使用Redis做请求限流](./md/Algorithm/20200902_手把手教你在Node.js中使用Redis做请求限流/index.md)
@@ -52,7 +52,5 @@
 - [20161211_Git实用命令技巧](./md/Tricks/20161211_Git实用命令技巧/index.md)
 
 
-## 更新 README
-```
-$ python3 generate_readme/update.py
-```
+## 其他
+我将一部分短篇与知识笔记型的文章迁移到了我的 [Dojo](https://github.com/vv13/dojo)，如果您感兴趣可点击前往 Repo。
