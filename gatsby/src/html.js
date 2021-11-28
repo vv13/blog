@@ -9,7 +9,7 @@ export default function HTML(props) {
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 {props.headComponents}
-                <link rel="stylesheet" href="//at.alicdn.com/t/font_438575_5x7raoizj24.css" />
+                <link rel="stylesheet" href="//at.alicdn.com/t/font_438575_tmx83ivvds.css" />
             </head>
             <body {...props.bodyAttributes}>
                 {props.preBodyComponents}
