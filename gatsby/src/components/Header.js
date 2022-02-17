@@ -74,7 +74,7 @@ const HeaderComp = ({ dark }) => {
                                     href="https://github.com/vv13/dojo/issues/created_by/vv13"
                                     rel="noreferrer"
                                 >
-                                    Dojo - 飞行笔记
+                                    Note - 飞行笔记
                                     <MenuIcon className="iconfont icon-link" />
                                 </a>
                             </li>
@@ -87,6 +87,12 @@ const HeaderComp = ({ dark }) => {
                             <li>
                                 <a target="_blank" href="https://gist.github.com/vv13" rel="noreferrer">
                                     Gist - 代码片段
+                                    <MenuIcon className="iconfont icon-link" />
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://www.icloud.com.cn/sharedalbum/zh-cn/#B0R5n8hH4uLD7Cy" rel="noreferrer">
+                                    Photo - 生活碎片
                                     <MenuIcon className="iconfont icon-link" />
                                 </a>
                             </li>
