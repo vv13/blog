@@ -28,7 +28,7 @@
     "gatsby-plugin-typography": "^3.11.0",
     "gatsby-remark-images": "^5.8.0",
     "gatsby-source-filesystem": "^3.11.0",
-    "mermaid": "^8.11.4",
+    "mermaid": "^9.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
