@@ -1,0 +1,42 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "next lint",
+    "copyimages": "node ./bin/copy-images.mjs",
+    "prebuild": "npm run copyimages"
+  },
+  "dependencies": {
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "classnames": "^2.3.2",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "fs-extra": "^11.1.0",
+    "github-markdown-css": "^5.1.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^13.0.1",
+    "mermaid": "^9.2.2",
+    "next": "13.0.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-is": "^18.2.0",
+    "react-markdown": "^8.0.4",
+    "react-responsive": "^9.0.0",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
+    "remark-images": "^3.1.0",
+    "typescript": "4.9.3",
+    "unist-util-visit": "^4.1.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
+  }
+}

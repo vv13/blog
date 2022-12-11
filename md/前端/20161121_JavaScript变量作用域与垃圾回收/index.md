@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JavaScript变量作用域与垃圾回收
-date: 2016-11-21
+date: '2016-11-21'
 tags: ['JavaScript']
 ---
 

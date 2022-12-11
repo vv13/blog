@@ -1,6 +1,6 @@
 ---
 title: 二叉查找树
-date: 2018-09-04
+date: '2018-09-04'
 tags: ['Algorithm']
 ---
 
