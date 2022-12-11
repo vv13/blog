@@ -5,9 +5,11 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   build:
@@ -18,17 +20,17 @@ jobs:
         shell: bash
         working-directory: website
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - run: yarn
-    - run: yarn build
-    - name: Publish build assets
-      uses: vv13/rsync-publisher@v1
-      env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        SERVER_DEST: ${{ secrets.SERVER_DEST }}
-        FOLDER: "website/out"
-        OPTION: "-avzr --delete"
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: yarn
+      - run: yarn build
+      - name: Publish build assets
+        uses: vv13/rsync-publisher@v1
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          SERVER_DEST: ${{ secrets.SERVER_DEST }}
+          FOLDER: "website/out"
+          OPTION: "-avzr --delete"
