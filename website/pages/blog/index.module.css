@@ -1,22 +1,3 @@
-.excerpt {
-  display: block;
-}
-
-.mobileExcerpt {
-  width: 80%;
-  margin: 1rem auto;
-  display: block;
-}
-
-.ListItemWrap {
-  display: flex;
-  width: 80%;
-  margin: 3rem auto 0;
-}
-.ListItemWrap:first-of-type {
-  margin-top: 0;
-}
-
 .ListItemHeader {
   display: flex;
   flex-direction: column;
@@ -26,9 +7,6 @@
 }
 
 @media (max-width: 960px) {
-  .excerpt {
-    display: none;
-  }
   .ListItemWrap {
     flex-direction: column-reverse;
   }
@@ -36,12 +14,6 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     width: 100%;
-  }
-}
-
-@media (min-width: 960px) {
-  .mobileExcerpt {
-    display: none;
   }
 }
 

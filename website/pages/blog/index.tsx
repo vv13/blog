@@ -27,17 +27,17 @@ const BlogList: React.FC<{ posts: Post[] }> = ({ posts }) => {
             <Helmet title="博客" />
             {currentPosts.map((node) => (
                 <article key={node.slug} className="mb-2.5">
-                    <div className={styles.ListItemWrap}>
+                    <div className="flex w-full px-4 first-of-type:mt-0 flex-col-reverse lg:flex-row">
                         <div className={styles.ListItemHeader}>
                             <div>{node.data.date}</div>
                             <div>{node.data.tags}</div>
                         </div>
                         <div>
                             <Link className={styles.titleColor} href={`/blog/post${node.slug}`}>{node.data.title}</Link>
-                            <div className={styles.excerpt}>{node.excerpt}</div>
+                            <div className="hidden lg:block">{node.excerpt}</div>
                         </div>
                     </div>
-                    <p className={styles.mobileExcerpt}>{node.excerpt}</p>
+                    <p className="px-4 my-4 mx-auto lg:hidden">{node.excerpt}</p>
                 </article>
             ))}
             <Pagination pageInfo={pageInfo} onChange={(page: number) => setPageInfo({ ...pageInfo, currentPage: page })} />
