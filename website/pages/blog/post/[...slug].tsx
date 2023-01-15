@@ -7,6 +7,7 @@ import { Post } from '../../../utils/mdParser'
 import ReactMarkdown from 'react-markdown'
 import 'github-markdown-css/github-markdown-light.css'
 import { getPost, getPosts } from '../../../utils/server'
+import Giscus from '@giscus/react'
 
 
 export async function getStaticPaths() {
@@ -58,7 +59,7 @@ const BlogPost: React.FC<{
     return (
         <MainLayout>
             <Head>
-                <title>vv13 - ${data.title}</title>
+                <title>vv13 - {data.title}</title>
             </Head>
             <div className='px-0'>
                 <h1 className='text-center border-b-0 pb-8 text-3xl font-bold'>
@@ -81,6 +82,21 @@ const BlogPost: React.FC<{
                     >
                         {content}
                     </ReactMarkdown>
+                    <Giscus
+                        id="comments"
+                        repo="vv13/blog"
+                        repoId="MDEwOlJlcG9zaXRvcnkxMjA2MzQ0Nzc="
+                        category="General"
+                        categoryId="DIC_kwDOBzC8bc4CTmyu"
+                        mapping="title"
+                        strict='0'
+                        reactionsEnabled="1"
+                        emitMetadata="0"
+                        inputPosition="top"
+                        theme="light"
+                        lang="zh-CN"
+                        loading="lazy"
+                    />
                 </div>
             </div>
         </MainLayout>
