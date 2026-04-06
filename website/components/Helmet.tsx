@@ -6,7 +6,6 @@ export const HelmetComp: React.FC<{ title: string; noSuffix?: boolean }> = ({ ti
   return (
     <Head>
       <title>{`${title}${!noSuffix ? config.titleSuffix : ""}`}</title>
-      <link rel="stylesheet" href="//at.alicdn.com/t/font_438575_tmx83ivvds.css" />
       <link
         rel="icon"
         type="image/png"

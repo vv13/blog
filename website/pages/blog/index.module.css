@@ -20,3 +20,7 @@
 .titleColor {
   color: #4078c0;
 }
+
+.titleColor:hover {
+  color: #2c5aa0;
+}
