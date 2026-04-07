@@ -7,7 +7,7 @@ export default function Document() {
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-32.ico"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon-32.ico`}
           sizes="32x32"
         />
         <script

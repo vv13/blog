@@ -74,7 +74,7 @@ const Index = () => {
             width={1280}
             height={720}
             style={{ maxWidth: '100%', height: 'auto' }}
-            src='/assets/banner.jpg'
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/assets/banner.jpg`}
             alt=''
             priority
           />
