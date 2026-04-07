@@ -1,104 +1,170 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import site from '../config/site'
 import Helmet from '../components/Helmet'
 import MainLayout from '../components/MainLayout'
 
-const Index = () => (
-  <MainLayout dark>
-    <Helmet title={site.title} noSuffix />
+const HELLO_TEXT = '你好，我是 vv13，一名专注前端与用户体验的开发者。'
+const DESC_TEXT = '这里主要记录前端工程实践、性能优化、交互设计思考，以及开发过程中的问题复盘与解决方案。'
 
-    {/* Hero Banner Section */}
-    <section className="relative w-full">
-      <div className="flex w-full items-center justify-center flex-col bg-black">
-        <Image
-          width={1280}
-          height={720}
-          style={{ maxWidth: '100%', height: 'auto' }}
-          src='/assets/banner.jpg'
-          alt={''}
-          priority
-        />
-      </div>
+const Index = () => {
+  const [typedHello, setTypedHello] = useState('')
+  const [typedDesc, setTypedDesc] = useState('')
+  const [phase, setPhase] = useState<'idle' | 'hello' | 'showQuestion2' | 'desc' | 'done'>('idle')
+  const [draftMessage, setDraftMessage] = useState('')
 
-      {/* Intro Section - Overlapping Banner */}
-      <div className="relative -mt-20 mx-auto max-w-3xl px-6 pb-12">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-soft-lg p-8 md:p-12 text-center animate-fade-in">
-          {/* Avatar Placeholder */}
-          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
-            V
-          </div>
+  useEffect(() => {
+    if (phase === 'idle') {
+      const timer = window.setTimeout(() => setPhase('hello'), 2000)
+      return () => window.clearTimeout(timer)
+    }
 
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
-            Hi, I&apos;m vv13
-          </h1>
+    const typeByChar = (
+      sourceText: string,
+      currentText: string,
+      updateText: (text: string) => void,
+      onDone: () => void
+    ) => {
+      if (currentText.length >= sourceText.length) {
+        onDone()
+        return
+      }
 
-          <p className="text-gray-500 dark:text-gray-400 text-lg mb-6 leading-relaxed">
-            {site.footerTxt}
-          </p>
+      const nextIndex = currentText.length + 1
+      const nextText = sourceText.slice(0, nextIndex)
+      const prevChar = sourceText[nextIndex - 1] || ''
+      const delay = /[,.!?，。！？、]/.test(prevChar) ? 210 : 60
+      const timer = window.setTimeout(() => updateText(nextText), delay)
+      return () => window.clearTimeout(timer)
+    }
 
-          <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-            热爱编程，专注于前端开发和用户体验。<br />
-            在这里分享我的技术心得和生活记录。
-          </p>
+    if (phase === 'hello') {
+      return typeByChar(HELLO_TEXT, typedHello, setTypedHello, () => setPhase('showQuestion2'))
+    }
 
-          {/* CTA Buttons */}
-          <div className="flex items-center justify-center space-x-4">
-            <Link
-              href="/blog/"
-              className="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors duration-200 shadow-md"
-            >
-              浏览博客
-            </Link>
-            <a
-              href="https://github.com/vv13"
-              target="_blank"
-              rel="noreferrer"
-              className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
-            >
-              GitHub
-            </a>
+    if (phase === 'showQuestion2') {
+      const timer = window.setTimeout(() => setPhase('desc'), 280)
+      return () => window.clearTimeout(timer)
+    }
+
+    if (phase === 'desc') {
+      return typeByChar(DESC_TEXT, typedDesc, setTypedDesc, () => setPhase('done'))
+    }
+  }, [phase, typedHello, typedDesc])
+
+  const handlePublish = () => {
+    const content = draftMessage.trim()
+    if (!content) return
+    const subject = encodeURIComponent('来自博客访客的新消息')
+    const body = encodeURIComponent(content)
+    window.location.href = `mailto:zwhvv13@gmail.com?subject=${subject}&body=${body}`
+  }
+
+  return (
+    <MainLayout dark>
+      <Helmet title={site.title} noSuffix />
+
+      <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden bg-black">
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/15 via-black/45 to-[#05070c]/90" />
+        <div className="pointer-events-none absolute -left-24 top-20 z-[1] h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 top-24 z-[1] h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl" />
+
+        <div className="absolute inset-0 flex items-center justify-center bg-black">
+          <Image
+            width={1280}
+            height={720}
+            style={{ maxWidth: '100%', height: 'auto' }}
+            src='/assets/banner.jpg'
+            alt=''
+            priority
+          />
+        </div>
+
+        <div className="absolute inset-0 z-[2] mx-auto flex w-full max-w-5xl items-center px-6 py-16 md:left-1/2 md:-translate-x-1/2 md:py-20">
+          <div className="flex w-full flex-col gap-3">
+            {phase !== 'idle' && (
+              <div className="animate-slide-up ml-auto flex max-w-[88%] items-end gap-2">
+                <div className="rounded-2xl rounded-tr-md border border-white/10 bg-slate-700/40 px-4 py-3 text-sm text-slate-100 backdrop-blur-md md:text-base">
+                  你好，怎么称呼你？
+                </div>
+                <span className="mb-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-slate-200/90" />
+              </div>
+            )}
+
+            {phase !== 'idle' && (
+              <div className="animate-slide-up flex max-w-[90%] items-end gap-2">
+                <span className="mb-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-blue-300/90" />
+                <div className="rounded-2xl rounded-tl-md border border-blue-200/20 bg-slate-900/70 px-4 py-3 text-sm text-slate-100 backdrop-blur-md md:text-base">
+                  {typedHello}
+                  {phase === 'hello' && <span className="ml-0.5 inline-block animate-pulse text-blue-300">|</span>}
+                </div>
+              </div>
+            )}
+
+            {(phase === 'showQuestion2' || phase === 'desc' || phase === 'done') && (
+              <div className="animate-slide-up ml-auto flex max-w-[88%] items-end gap-2">
+                <div className="rounded-2xl rounded-tr-md border border-white/10 bg-slate-700/40 px-4 py-3 text-sm text-slate-100 backdrop-blur-md md:text-base">
+                  这个网站会分享哪些内容？
+                </div>
+                <span className="mb-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-slate-200/90" />
+              </div>
+            )}
+
+            {(phase === 'desc' || phase === 'done') && (
+              <div className="animate-slide-up flex max-w-[94%] items-end gap-2">
+                <span className="mb-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-blue-300/90" />
+                <div className="rounded-2xl rounded-tl-md border border-blue-200/20 bg-slate-900/70 px-4 py-3 text-sm leading-7 text-slate-100 backdrop-blur-md md:text-base">
+                  {typedDesc}
+                  {phase === 'desc' && <span className="ml-0.5 inline-block animate-pulse text-blue-300">|</span>}
+                </div>
+              </div>
+            )}
+
+            {phase !== 'idle' && phase !== 'done' && (
+              <div className="mt-1 flex items-center gap-2 pl-1 text-xs text-slate-400">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-300" />
+                正在输入...
+              </div>
+            )}
+
+            {phase === 'done' && (
+              <div className="animate-slide-up ml-auto mt-6 flex w-full max-w-[92%] items-end gap-2">
+                <div className="w-full rounded-2xl rounded-tr-md border border-white/10 bg-slate-700/50 px-3 py-2.5 backdrop-blur-md">
+                  <div className="flex items-center gap-2">
+                    <input
+                      value={draftMessage}
+                      onChange={(event) => setDraftMessage(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                          event.preventDefault()
+                          handlePublish()
+                        }
+                      }}
+                      placeholder="输入你想交流的内容..."
+                      className="w-full bg-transparent px-1 text-sm text-slate-100 placeholder:text-slate-400/80 focus:outline-none md:text-base"
+                      aria-label="输入消息内容"
+                    />
+                    <button
+                      type="button"
+                      onClick={handlePublish}
+                      className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-900/60 text-slate-100 transition hover:bg-slate-900/80 disabled:cursor-not-allowed disabled:opacity-40"
+                      aria-label="发布并发送邮件"
+                      disabled={!draftMessage.trim()}
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 12l16-8-4 16-4-6-8-2z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <span className="mb-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-slate-200/90" />
+              </div>
+            )}
           </div>
         </div>
-      </div>
-    </section>
-
-    {/* Featured Content Section */}
-    <section className="py-16 px-6 bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">探索更多</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-screen-lg mx-auto">
-          {/* Blog Card */}
-          <Link href="/blog/" className="group block p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-1">
-            <div className="w-12 h-12 mb-4 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-              <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-black dark:group-hover:text-white">博客文章</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">技术分享、学习笔记、生活感悟</p>
-          </Link>
-
-          {/* GitHub Card */}
-          <a
-            href="https://github.com/vv13"
-            target="_blank"
-            rel="noreferrer"
-            className="group block p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-1"
-          >
-            <div className="w-12 h-12 mb-4 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-              <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-black dark:group-hover:text-white">开源项目</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">GitHub 上的开源作品和代码片段</p>
-          </a>
-        </div>
-      </div>
-    </section>
-  </MainLayout>
-)
+      </section>
+    </MainLayout>
+  )
+}
 
 export default Index

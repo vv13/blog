@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 
-const MainLayout: React.FC<PropsWithChildren<{ dark?: boolean }>> = ({ children, dark }) => {
+const MainLayout: React.FC<PropsWithChildren<{ dark?: boolean; hideFooter?: boolean }>> = ({ children, dark, hideFooter }) => {
   const [mounted, setMounted] = useState(false)
   const [isDarkTheme, setIsDarkTheme] = useState(false)
 
@@ -31,7 +31,7 @@ const MainLayout: React.FC<PropsWithChildren<{ dark?: boolean }>> = ({ children,
         <main className="flex-1 pt-16">
           {children}
         </main>
-        <Footer />
+        {!hideFooter && <Footer />}
       </div>
     </div>
   )

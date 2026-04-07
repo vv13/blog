@@ -48,7 +48,3 @@
 ### Tricks
 - [20190126_Git中的后悔药](./md/Tricks/20190126_Git中的后悔药.md)
 - [20161211_Git实用命令技巧](./md/Tricks/20161211_Git实用命令技巧/index.md)
-
-
-## 其他
-我将一部分短篇与知识笔记型的文章迁移到了我的 [Dojo](https://github.com/vv13/dojo)，如果您感兴趣可点击前往 Repo。
