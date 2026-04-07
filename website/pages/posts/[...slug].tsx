@@ -6,6 +6,7 @@ import mermaid from 'mermaid'
 import { escape2Html } from '../../utils'
 import { Post } from '../../utils/mdParser'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import remarkImages from 'remark-images'
 import { getPost, getPosts } from '../../utils/server'
 import Giscus from '@giscus/react'
@@ -150,7 +151,7 @@ const PostDetail: React.FC<{
 
         <article className="max-w-screen-xl mx-auto px-6 pb-12">
           <ReactMarkdown
-            remarkPlugins={[remarkImages]}
+            remarkPlugins={[remarkGfm, remarkImages]}
             components={{
               img: function ({ node, ...props }) {
                 const alt = node?.properties?.alt as string || ''
@@ -190,7 +191,9 @@ const PostDetail: React.FC<{
                 />
               ),
               code: ({ className, children, ...props }) => {
-                const isInline = !className;
+                const text = String(children);
+                // Fenced blocks without ```lang``` have no className; mdast still ends value with \n.
+                const isInline = !className && !text.includes('\n');
                 if (isInline) {
                   return (
                     <code
@@ -215,11 +218,11 @@ const PostDetail: React.FC<{
                       fontSize: '0.875rem',
                     }}
                   >
-                    {String(children).replace(/\n$/, '')}
+                    {text.replace(/\n$/, '')}
                   </SyntaxHighlighter>
                 );
               },
-              pre: (props) => <pre {...props} className="m-0 p-0 bg-transparent" />,
+              pre: ({ children }) => <>{children}</>,
               blockquote: (props) => (
                 <blockquote
                   {...props}
