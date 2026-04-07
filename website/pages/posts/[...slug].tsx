@@ -66,14 +66,11 @@ const PostDetail: React.FC<{
 
   useEffect(() => {
     document.querySelectorAll('.mermaid').forEach((element, index) => {
-      mermaid.mermaidAPI.render(
-        'mermaid' + index,
-        escape2Html(element.innerHTML),
-        (svgCode) => {
-          element.innerHTML = svgCode
-        },
-        element
-      )
+      void mermaid.mermaidAPI
+        .render('mermaid' + index, escape2Html(element.innerHTML))
+        .then(({ svg }) => {
+          element.innerHTML = svg
+        })
     })
   }, [])
 
