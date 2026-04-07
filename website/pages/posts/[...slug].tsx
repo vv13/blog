@@ -188,9 +188,9 @@ const PostDetail: React.FC<{
                   rel="noopener noreferrer"
                 />
               ),
-              code: ({ node, inline, className, children, ...props }) => {
-                const isInline = inline || !className;
-                if (isInline && inline) {
+              code: ({ className, children, ...props }) => {
+                const isInline = !className;
+                if (isInline) {
                   return (
                     <code
                       {...props}

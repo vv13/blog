@@ -1,10 +1,10 @@
 ![](./generate_readme/bg.jpg)
 
+> 若需要更好的阅读体验，可访问 [vv13.github.io/blog](https://vv13.github.io/blog)。
+
 ## 近期更新
 ${latest}
 
 ## 所有文章
 ${categoryPost}
 
-## 其他
-我将一部分短篇与知识笔记型的文章迁移到了我的 [Dojo](https://github.com/vv13/dojo)，如果您感兴趣可点击前往 Repo。

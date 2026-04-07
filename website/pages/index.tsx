@@ -4,8 +4,8 @@ import site from '../config/site'
 import Helmet from '../components/Helmet'
 import MainLayout from '../components/MainLayout'
 
-const HELLO_TEXT = '你好，我是 vv13，一名专注前端与用户体验的开发者。'
-const DESC_TEXT = '这里主要记录前端工程实践、性能优化、交互设计思考，以及开发过程中的问题复盘与解决方案。'
+const HELLO_TEXT = '你好，我是 vv13，一名专注全栈工程与产品体验的开发者。'
+const DESC_TEXT = '这里主要记录全栈工程实践、性能优化、架构设计思考，以及开发过程中的问题复盘与解决方案。'
 
 const Index = () => {
   const [typedHello, setTypedHello] = useState('')

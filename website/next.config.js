@@ -3,7 +3,7 @@ const isGithubPagesBuild = process.env.GITHUB_ACTIONS === 'true'
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  output: 'export',
   env: {
     NEXT_PUBLIC_BASE_PATH: isGithubPagesBuild ? '/blog' : '',
   },

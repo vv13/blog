@@ -14,10 +14,15 @@ export default function Document() {
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                const root = document.documentElement;
                 const savedTheme = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                  document.documentElement.classList.add('dark');
+                if (savedTheme === 'light') {
+                  root.classList.remove('dark');
+                } else if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                  root.classList.add('dark');
+                } else {
+                  root.classList.remove('dark');
                 }
               })();
             `,

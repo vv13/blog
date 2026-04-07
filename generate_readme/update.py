@@ -1,8 +1,7 @@
 import os
-import json
 import string
 import re
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 md_path = './md'
 md_target = './README.md'
@@ -32,30 +31,63 @@ def get_category_posts():
     return generate_obj
 
 
-def getLatest10(categoryObj: Dict[str, List[int]]):
-    strs = ''
+def _table_cell(text: str) -> str:
+    return text.replace('|', '\\|').replace('\n', ' ')
+
+
+def _table_row(post: str) -> Optional[str]:
+    meta = _parse_post_meta(post)
+    if not meta:
+        return None
+    date_fmt, category, title, link = meta
+    return '| {d} | {c} | [{t}]({l}) |'.format(
+        d=_table_cell(date_fmt),
+        c=_table_cell(category),
+        t=_table_cell(title),
+        l=link,
+    )
+
+
+def _posts_table(posts: List[str]) -> str:
+    lines = ['| 时间 | 类别 | 标题 |', '| --- | --- | --- |']
+    for post in posts:
+        row = _table_row(post)
+        if row:
+            lines.append(row)
+    return '\n'.join(lines) + '\n'
+
+
+def getLatest10(categoryObj: Dict[str, List[str]]):
     posts: List[str] = getSortedPost(
-        [i for j in categoryObj.values() for i in j])
-    for post in posts[:10]:
-        strs += generatePost(post)
-    return strs
+        [i for j in categoryObj.values() for i in j])[:10]
+    return _posts_table(posts)
 
 
-def generatePost(post: str):
-    if post.endswith('index.md'):
-        return '- [{name}]({url})\n'.format(
-            name=re.findall('(\d{8}.*?)/index.md', post)[0], url=post)
-    else:
-        return '- [{name}]({url})\n'.format(
-            name=re.findall('(\d{8}.*?).md', post)[0], url=post)
+def _readme_link(path: str) -> str:
+    p = path.replace('\\', '/')
+    if p.startswith('./'):
+        return p
+    return './' + p.lstrip('/')
 
 
-def getCategoryStr(categoryObj: Dict[str, List[int]]):
+def _parse_post_meta(post: str):
+    post_norm = post.replace('\\', '/')
+    m = re.search(
+        r'md/([^/]+)/(\d{8})_(.+?)(?:/index\.md|\.md)$',
+        post_norm,
+    )
+    if not m:
+        return None
+    category, ymd, title = m.group(1), m.group(2), m.group(3)
+    date_fmt = f'{ymd[:4]}-{ymd[4:6]}-{ymd[6:8]}'
+    return date_fmt, category, title, _readme_link(post_norm)
+
+
+def getCategoryStr(categoryObj: Dict[str, List[str]]):
     strs = ''
     for key, values in categoryObj.items():
-        strs += '### ' + key + '\n'
-        for post in getSortedPost(values):
-            strs += generatePost(post)
+        strs += '### ' + key + '\n\n'
+        strs += _posts_table(getSortedPost(values))
     return strs
 
 

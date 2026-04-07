@@ -3,7 +3,10 @@ import fs from 'fs'
 import { getMarkdownList, MarkdownParser } from "./mdParser"
 
 export const getPosts = () => {
-    const markdownPath = path.join(path.resolve(process.cwd()), '../md')
+    const markdownPath = path.join(
+        path.resolve(/* turbopackIgnore: true */ process.cwd()),
+        '../md'
+    )
     const allMarkdownFiles = getMarkdownList(markdownPath, [])
 
     // Desc Sort
@@ -21,7 +24,11 @@ export const getPost = (slug: string[]) => {
         return null
     }
 
-    const sourcePath = path.join(path.resolve(process.cwd()), '../md', slug?.join('/'))
+    const sourcePath = path.join(
+        path.resolve(/* turbopackIgnore: true */ process.cwd()),
+        '../md',
+        slug?.join('/')
+    )
 
     let filePath: string
     if (fs.existsSync(sourcePath + '.md')) {

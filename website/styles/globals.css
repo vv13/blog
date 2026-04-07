@@ -1,9 +1,9 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import url("//at.alicdn.com/t/c/font_438575_bmxcap001co.css");
+@import "tailwindcss";
+@config "../tailwind.config.js";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Iconfont */
-@import url("//at.alicdn.com/t/c/font_438575_bmxcap001co.css");
 
 html,
 body {
@@ -16,8 +16,39 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  color-scheme: light;
+}
+
 html.dark {
   color-scheme: dark;
+}
+
+/* 博文列表卡片：避免 Tailwind v4 任意 shadow 被错误拆进 --tw-shadow-color，hover 在浅色下几乎无感 */
+@layer utilities {
+  .post-list-card {
+    box-shadow:
+      0 2px 15px -3px rgb(0 0 0 / 0.07),
+      0 10px 20px -2px rgb(0 0 0 / 0.04);
+  }
+
+  .post-list-card:hover {
+    box-shadow:
+      0 10px 40px -10px rgb(0 0 0 / 0.12),
+      0 20px 25px -5px rgb(0 0 0 / 0.06);
+  }
+
+  .dark .post-list-card {
+    box-shadow:
+      0 2px 15px -3px rgb(0 0 0 / 0.35),
+      0 10px 20px -2px rgb(0 0 0 / 0.2);
+  }
+
+  .dark .post-list-card:hover {
+    box-shadow:
+      0 10px 40px -10px rgb(0 0 0 / 0.45),
+      0 20px 25px -5px rgb(0 0 0 / 0.25);
+  }
 }
 
 a {

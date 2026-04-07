@@ -42,7 +42,7 @@ const PostsList: React.FC<{ posts: Post[] }> = ({ posts }) => {
           {currentPosts.map((node, index) => (
             <article
               key={node.slug}
-              className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-6 shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-0.5 animate-slide-up"
+              className="group post-list-card bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-6 transition-all duration-300 hover:-translate-y-0.5 animate-slide-up"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <Link href={`/posts${node.slug}`}>
