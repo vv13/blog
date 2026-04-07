@@ -157,7 +157,8 @@ const PostDetail: React.FC<{
                 let src = node?.properties?.src as string || ''
                 const fileName = src.replace('./', '');
                 if (!src.includes('http')) {
-                  src = `/images/${slug}/${fileName}`;
+                  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+                  src = `${base}/images/${slug}/${fileName}`;
                 }
 
                 return (
